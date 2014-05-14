@@ -1,5 +1,5 @@
 <?php
-class AccessLevelController extends Controller {
+class InfoController extends Controller {
 	// Members
 	/**
 	 * Key which has to be in HTTP USERNAME and PASSWORD headers
@@ -23,9 +23,10 @@ class AccessLevelController extends Controller {
     }
 		// Actions
 	public function actionList() {
-		$modelName = 'AccessLevel';	
+		$modelName = 'Info';	
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
+		$conditions = array();
 		
 		if (isset ( $_GET ['offset'] )) {
 			$criteria->offset = $_GET ['offset'];
@@ -41,6 +42,22 @@ class AccessLevelController extends Controller {
 			$criteria->order = $order;
 		}
 		
+		if(isset($_GET['user_id'])) {
+			$conditions[] = 'user_id=:user_id';
+			$criteria->params = array(':userid' => $_GET['user_id']);
+		}
+		
+		if(isset($_GET['info_type_id'])) {
+			$conditions[] = 'info_type_id=:info_type_id';
+			$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET['info_type_id']));
+		}
+		
+		if(isset($_GET['hospital_id'])) {
+			$conditions[] = 'hospital_id=:hospital_id';
+			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET['hospital_id']));
+		}
+		
+		$criteria->conditions=implode(' AND ',$conditions);
 		$models = AccessLevel::model ()->findAll($criteria);
 		
 		// Did we get some results?
