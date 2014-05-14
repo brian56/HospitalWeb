@@ -97,4 +97,10 @@ class AccessLevel extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	public function getList($offset, $limit, $sortBy, $sortType) {
+		if(isset($offset)) {
+			
+		}
+	}
 }

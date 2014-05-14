@@ -20,6 +20,7 @@ return array(
 		'application.models.*',
 		'application.components.*',
 		'application.extensions.*',
+		'application.controllers.api.*',
 	),
 
 	'modules'=>array(
@@ -40,9 +41,7 @@ return array(
 		'logevent',
 		'user',
 		'userlevel',
-		
 	),
-
 	// application components
 	'components'=>array(
 		'user'=>array(
@@ -53,14 +52,25 @@ return array(
 		
 		'urlManager'=>array(
 	        'urlFormat'=>'path',
+	        'caseSensitive'=>false,
 	        'showScriptName'=>false,
-	        'rules'=>array(
-	                '<controller:\w+>/<id:\d+>'=>'<controller>/view',
-	                '<controller:\w+>/<action:\w+>/<id:\d+>'=>'<controller>/<action>',
-	                '<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
-	        	),
-	        
-	        ),
+			'rules' => array(
+				// REST patterns
+				/* array('api/list', 'pattern'=>'api/<model:\w+>', 'verb'=>'GET'),
+				array('api/list', 'pattern'=>'api/<model:\w+>/<offset:\d+>/<limit:\d+>/<sort:\w+>', 'verb'=>'GET'),
+				array('api/list', 'pattern'=>'api/<model:\w+>/<offset:\d+>/<limit:\d+>/<sort:\w+>', 'verb'=>'GET'),
+				
+				
+				array('api/view', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'GET'),
+				array('api/update', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'PUT'),
+				array('api/delete', 'pattern'=>'api/<model:\w+>/<id:\d+>', 'verb'=>'DELETE'),
+				array('api/create', 'pattern'=>'api/<model:\w+>', 'verb'=>'POST'), */
+				// Other controllers
+				'<controller:\w+>/<id:\d+>' => '<controller>/view',
+				'<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+				'<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+			),
+	    ),
 		
 		/* 'db'=>array(
 			'connectionString' => 'sqlite:'.dirname(__FILE__).'/../data/testdrive.db',
@@ -104,5 +114,7 @@ return array(
 	'params'=>array(
 		// this is used in contact page
 		'adminEmail'=>'webmaster@example.com',
+		'RESTusername' => 'admin@restuser',
+		'RESTpassword' => 'admin@Access',
 	),
 );
