@@ -5,6 +5,7 @@
  *
  * The followings are the available columns in table 'user':
  * @property integer $id
+ * @property integer $hospital_id
  * @property integer $user_level_id
  * @property integer $is_actived
  * @property string $name
@@ -16,9 +17,11 @@
  * @property string $token_expired_date
  *
  * The followings are the available model relations:
+ * @property ChangeLog[] $changeLogs
  * @property Info[] $infos
  * @property InfoComment[] $infoComments
  * @property LogEvent[] $logEvents
+ * @property Hospital $hospital
  * @property DeviceOs $deviceOs
  * @property UserLevel $userLevel
  */
@@ -40,12 +43,12 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_level_id, is_actived, device_os_id', 'numerical', 'integerOnly'=>true),
+			array('hospital_id', 'required'),
+			array('hospital_id, user_level_id, is_actived, device_os_id', 'numerical', 'integerOnly'=>true),
 			array('name, contact_phone, register_date, device_id, token, token_expired_date', 'safe'),
-			array('user_level_id, is_actived, device_os_id, name, contact_phone, device_id', 'required'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_level_id, is_actived, name, contact_phone, register_date, device_os_id, device_id, token, token_expired_date', 'safe', 'on'=>'search'),
+			array('id, hospital_id, user_level_id, is_actived, name, contact_phone, register_date, device_os_id, device_id, token, token_expired_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -57,9 +60,11 @@ class User extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'changeLogs' => array(self::HAS_MANY, 'ChangeLog', 'user_id'),
 			'infos' => array(self::HAS_MANY, 'Info', 'user_id'),
 			'infoComments' => array(self::HAS_MANY, 'InfoComment', 'user_id'),
 			'logEvents' => array(self::HAS_MANY, 'LogEvent', 'user_id'),
+			'hospital' => array(self::BELONGS_TO, 'Hospital', 'hospital_id'),
 			'deviceOs' => array(self::BELONGS_TO, 'DeviceOs', 'device_os_id'),
 			'userLevel' => array(self::BELONGS_TO, 'UserLevel', 'user_level_id'),
 		);
@@ -72,6 +77,7 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
+			'hospital_id' => 'Hospital',
 			'user_level_id' => 'User Level',
 			'is_actived' => 'Is Actived',
 			'name' => 'Name',
@@ -103,6 +109,7 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
+		$criteria->compare('hospital_id',$this->hospital_id);
 		$criteria->compare('user_level_id',$this->user_level_id);
 		$criteria->compare('is_actived',$this->is_actived);
 		$criteria->compare('name',$this->name,true);

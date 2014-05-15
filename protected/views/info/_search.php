@@ -27,6 +27,16 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'hospital_id'); ?>
+		<?php echo $form->textField($model,'hospital_id'); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->label($model,'status'); ?>
+		<?php echo $form->textField($model,'status'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'title'); ?>
 		<?php echo $form->textArea($model,'title',array('rows'=>6, 'cols'=>50)); ?>
 	</div>

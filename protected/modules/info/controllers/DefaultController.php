@@ -70,6 +70,7 @@ class DefaultController extends Controller
 		if(isset($_POST['Info']))
 		{
 			$model->attributes=$_POST['Info'];
+			$model->date_create=new CDbExpression('now()');
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}
@@ -94,6 +95,7 @@ class DefaultController extends Controller
 		if(isset($_POST['Info']))
 		{
 			$model->attributes=$_POST['Info'];
+			$model->date_update=new CDbExpression('now()');
 			if($model->save())
 				$this->redirect(array('view','id'=>$model->id));
 		}

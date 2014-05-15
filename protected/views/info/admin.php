@@ -48,10 +48,12 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'id',
 		'info_type_id',
 		'user_id',
+		'hospital_id',
+		'status',
 		'title',
+		/*
 		'content',
 		'date_create',
-		/*
 		'date_update',
 		'access_level_id',
 		*/

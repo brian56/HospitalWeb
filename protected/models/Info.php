@@ -7,6 +7,8 @@
  * @property integer $id
  * @property integer $info_type_id
  * @property integer $user_id
+ * @property integer $hospital_id
+ * @property integer $status
  * @property string $title
  * @property string $content
  * @property string $date_create
@@ -15,6 +17,7 @@
  *
  * The followings are the available model relations:
  * @property AccessLevel $accessLevel
+ * @property Hospital $hospital
  * @property InfoType $infoType
  * @property User $user
  * @property InfoComment[] $infoComments
@@ -37,12 +40,12 @@ class Info extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('info_type_id, user_id, access_level_id', 'numerical', 'integerOnly'=>true),
-			array('date_create, date_update', 'safe'),
-			array('title, content,info_type_id, user_id, access_level_id', 'required'),
+			array('hospital_id, status', 'required'),
+			array('info_type_id, user_id, hospital_id, status, access_level_id', 'numerical', 'integerOnly'=>true),
+			array('title, content, date_create, date_update', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, info_type_id, user_id, title, content, date_create, date_update, access_level_id', 'safe', 'on'=>'search'),
+			array('id, info_type_id, user_id, hospital_id, status, title, content, date_create, date_update, access_level_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -55,6 +58,7 @@ class Info extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'accessLevel' => array(self::BELONGS_TO, 'AccessLevel', 'access_level_id'),
+			'hospital' => array(self::BELONGS_TO, 'Hospital', 'hospital_id'),
 			'infoType' => array(self::BELONGS_TO, 'InfoType', 'info_type_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 			'infoComments' => array(self::HAS_MANY, 'InfoComment', 'info_id'),
@@ -70,6 +74,8 @@ class Info extends CActiveRecord
 			'id' => 'ID',
 			'info_type_id' => 'Info Type',
 			'user_id' => 'User',
+			'hospital_id' => 'Hospital',
+			'status' => 'Status',
 			'title' => 'Title',
 			'content' => 'Content',
 			'date_create' => 'Date Create',
@@ -99,6 +105,8 @@ class Info extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('info_type_id',$this->info_type_id);
 		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('hospital_id',$this->hospital_id);
+		$criteria->compare('status',$this->status);
 		$criteria->compare('title',$this->title,true);
 		$criteria->compare('content',$this->content,true);
 		$criteria->compare('date_create',$this->date_create,true);

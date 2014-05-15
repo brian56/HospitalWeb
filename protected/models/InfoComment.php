@@ -34,8 +34,7 @@ class InfoComment extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('user_id, info_id', 'numerical', 'integerOnly'=>true),
-			array('date_create, date_update', 'safe'),
-			array('content, user_id, info_id', 'required'),
+			array('content, date_create, date_update', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, user_id, info_id, content, date_create, date_update', 'safe', 'on'=>'search'),

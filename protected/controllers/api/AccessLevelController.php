@@ -10,6 +10,7 @@ class AccessLevelController extends Controller {
 	 * either 'json' or 'xml'
 	 */
 	private $format = 'json';
+	private	$modelName = 'AccessLevel';	
 	/**
 	 *
 	 * @return array action filters
@@ -22,8 +23,7 @@ class AccessLevelController extends Controller {
         echo CJSON::encode(array(1, 2, 3));
     }
 		// Actions
-	public function actionList() {
-		$modelName = 'AccessLevel';	
+	public function actionListAll() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
 		
@@ -46,7 +46,7 @@ class AccessLevelController extends Controller {
 		// Did we get some results?
 		if (empty ( $models )) {
 			// No
-			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $modelName) );
+			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
 		} else {
 			// Prepare response
 			$rows = array ();

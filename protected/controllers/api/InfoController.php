@@ -10,6 +10,7 @@ class InfoController extends Controller {
 	 * either 'json' or 'xml'
 	 */
 	private $format = 'json';
+	private	$modelName = 'Info';		
 	/**
 	 *
 	 * @return array action filters
@@ -22,8 +23,7 @@ class InfoController extends Controller {
         echo CJSON::encode(array(1, 2, 3));
     }
 		// Actions
-	public function actionList() {
-		$modelName = 'Info';	
+	public function actionGetAll() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
 		$conditions = array();
@@ -58,26 +58,122 @@ class InfoController extends Controller {
 		}
 		
 		$criteria->conditions=implode(' AND ',$conditions);
-		$models = AccessLevel::model ()->findAll($criteria);
+		$models = Info::model ()->findAll($criteria);
+		
+		// Did we get some results?
+		if (empty ( $models )) {
+			// No
+			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
+		} else {
+				// Send the response
+			$this->_sendResponse ( 200, CJSON::encode ( $models ) );
+		}
+	}
+	
+	public function actionGetByType() {
+		// Get the respective model instance
+		$criteria = new CDbCriteria ();
+		$conditions = array();
+		
+		if (isset ( $_GET ['offset'] )) {
+			$criteria->offset = $_GET ['offset'];
+		}
+		
+		if (isset ( $_GET ['limit'] )) {
+			$limit = $_GET ['limit'];
+			$criteria->limit = $limit;
+		}
+		
+		if (isset ( $_GET ['order'] )) {
+			$orderBy = $_GET ['order'];
+			$criteria->order = $order;
+		}
+
+		if(isset($_GET['info_type_id'])) {
+			$conditions[] = 'info_type_id=:info_type_id';
+			$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET['info_type_id']));
+		}
+		
+		if(isset($_GET['hospital_id'])) {
+			$conditions[] = 'hospital_id=:hospital_id';
+			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET['hospital_id']));
+		}
+		
+		$criteria->conditions=implode(' AND ',$conditions);
+		$models = Info::model ()->findAll($criteria);
+		
+		// Did we get some results?
+		if (empty ( $models )) {
+			// No
+			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
+		} else {
+// 			// Prepare response
+// 			$rows = array ();
+// 			foreach ( $models as $model )
+// 				$rows [] = $model->attributes;
+				// Send the response
+			$this->_sendResponse ( 200, CJSON::encode ( $models ) );
+		}
+	}
+	
+	public function actionGetByUserAndType() {
+		// Get the respective model instance
+		$criteria = new CDbCriteria ();
+		$conditions = array();
+		
+		if (isset ( $_GET ['offset'] )) {
+			$criteria->offset = $_GET ['offset'];
+		}
+		
+		if (isset ( $_GET ['limit'] )) {
+			$limit = $_GET ['limit'];
+			$criteria->limit = $limit;
+		}
+		
+		if (isset ( $_GET ['order'] )) {
+			$orderBy = $_GET ['order'];
+			$criteria->order = $order;
+		}
+
+		if(isset($_GET['hospital_id'])) {
+			$conditions[] = 'hospital_id=:hospital_id';
+			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET['hospital_id']));
+		}
+		
+		if(isset($_GET['user_id'])) {
+			$conditions[] = 'user_id=:user_id';
+			$criteria->params = array(':userid' => $_GET['user_id']);
+		}
+		
+		if(isset($_GET['info_type_id'])) {
+			$conditions[] = 'info_type_id=:info_type_id';
+			$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET['info_type_id']));
+		}
+		
+		$criteria->conditions=implode(' AND ',$conditions);
+		$models = Info::model ()->findAll($criteria);
 		
 		// Did we get some results?
 		if (empty ( $models )) {
 			// No
 			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $modelName) );
 		} else {
-			// Prepare response
-			$rows = array ();
-			foreach ( $models as $model )
-				$rows [] = $model->attributes;
+// 			// Prepare response
+// 			$rows = array ();
+// 			foreach ( $models as $model )
+// 				$rows [] = $model->attributes;
 				// Send the response
-			$this->_sendResponse ( 200, CJSON::encode ( $rows ) );
+			$this->_sendResponse ( 200, CJSON::encode ( $models ) );
 		}
 	}
+	
+	
+	
 	public function actionView() {
 		// Check if id was submitted via GET
 		if(!isset($_GET['id']))
 			$this->_sendResponse(500, 'Error: Parameter <b>id</b> is missing' );
-		$model = AccessLevel::model()->findByPk($_GET['id']);
+		$model = Info::model()->findByPk($_GET['id']);
 		// Did we find the requested model? If not, raise an error
 		if(is_null($model))
 			$this->_sendResponse(404, 'No Item found with id='.$_GET['id']);

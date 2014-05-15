@@ -7,9 +7,11 @@
  * @property integer $id
  * @property integer $user_id
  * @property integer $event_id
+ * @property integer $hospital_id
  * @property string $date_create
  *
  * The followings are the available model relations:
+ * @property Hospital $hospital
  * @property Event $event
  * @property User $user
  */
@@ -31,12 +33,12 @@ class LogEvent extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('user_id, event_id', 'numerical', 'integerOnly'=>true),
+			array('hospital_id', 'required'),
+			array('user_id, event_id, hospital_id', 'numerical', 'integerOnly'=>true),
 			array('date_create', 'safe'),
-			array('user_id, event_id', 'required'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, event_id, date_create', 'safe', 'on'=>'search'),
+			array('id, user_id, event_id, hospital_id, date_create', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -48,6 +50,7 @@ class LogEvent extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
+			'hospital' => array(self::BELONGS_TO, 'Hospital', 'hospital_id'),
 			'event' => array(self::BELONGS_TO, 'Event', 'event_id'),
 			'user' => array(self::BELONGS_TO, 'User', 'user_id'),
 		);
@@ -62,6 +65,7 @@ class LogEvent extends CActiveRecord
 			'id' => 'ID',
 			'user_id' => 'User',
 			'event_id' => 'Event',
+			'hospital_id' => 'Hospital',
 			'date_create' => 'Date Create',
 		);
 	}
@@ -87,6 +91,7 @@ class LogEvent extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('user_id',$this->user_id);
 		$criteria->compare('event_id',$this->event_id);
+		$criteria->compare('hospital_id',$this->hospital_id);
 		$criteria->compare('date_create',$this->date_create,true);
 
 		return new CActiveDataProvider($this, array(

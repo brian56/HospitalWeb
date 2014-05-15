@@ -29,7 +29,7 @@ class UserLevel extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, name_en', 'required'),
+			array('name, name_en', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, name_en', 'safe', 'on'=>'search'),

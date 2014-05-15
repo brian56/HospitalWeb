@@ -17,7 +17,7 @@ $this->menu=array(
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
-	'selectionChanged'=>"function(id){window.location='" . Yii::app()->urlManager->createUrl('infocomment/default/view', array('id'=>'')) . "' + $.fn.yiiGridView.getSelection(id);}"
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'/id/"+$.fn.yiiGridView.getSelection(id);}',
 )); ?>
 
 <?php

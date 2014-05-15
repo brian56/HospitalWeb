@@ -24,6 +24,12 @@
 		<?php echo $form->dropDownList($model, 'info_type_id', CHtml::listData(InfoType::model()->findAll(), 'id', 'name')); ?>
 		<?php echo $form->error($model,'info_type_id'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'hospital_id'); ?>
+		<?php echo $form->dropDownList($model, 'hospital_id', CHtml::listData(Hospital::model()->findAll(), 'id', 'name')); ?>
+		<?php echo $form->error($model,'hospital_id'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'user_id'); ?>
@@ -48,7 +54,11 @@
 		<?php echo $form->dropDownList($model, 'access_level_id', CHtml::listData(AccessLevel::model()->findAll(), 'id', 'name')); ?>
 		<?php echo $form->error($model,'access_level_id'); ?>
 	</div>
-
+	<div class="row">
+		<?php echo $form->labelEx($model,'status'); ?>
+		<?php echo $form->dropDownList($model,'status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Refused')); ?>
+		<?php echo $form->error($model,'status'); ?>
+	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
 	</div>

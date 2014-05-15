@@ -24,6 +24,8 @@ $this->menu=array(
 		'id',
 		'info_type_id',
 		'user_id',
+		'hospital_id',
+		'status',
 		'title',
 		'content',
 		'date_create',

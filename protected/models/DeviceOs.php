@@ -30,7 +30,7 @@ class DeviceOs extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('name, version, device_type', 'required'),
+			array('name, version, device_type', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, name, version, device_type', 'safe', 'on'=>'search'),
@@ -89,27 +89,7 @@ class DeviceOs extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	
-	/**
-	 * Get the OS name and device type (phone/tablet)
-	 * @return string
-	 */
-	public function getNameAndOs()
-	{
-		return $this->name.' - '.$this->device_type;
-	}
-	
-	/**
-	 * Get all the nameOS_deviceType
-	 * @return list DeviceOS's nameOS_deviceType
-	 */
-	public static function getFullDeviceOS()
-	{
-		$Devices = DeviceOs::model()->findAll();
-		$list    = CHtml::listData($Devices , 'id', 'nameandos');
-		return $list;
-	}
-	
+
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
