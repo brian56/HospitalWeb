@@ -56,9 +56,11 @@ class InfoController extends Controller {
 			$conditions[] = 'hospital_id=:hospital_id';
 			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET['hospital_id']));
 		}
-		
-		$criteria->conditions=implode(' AND ',$conditions);
-		$models = Info::model ()->findAll($criteria);
+		if($conditions!=null) {
+			$criteria->conditions=implode(' AND ',$conditions);
+		}
+		$criteria->with = array('user','hospital');
+		$models = Info::model()->findAll($criteria);
 		
 		// Did we get some results?
 		if (empty ( $models )) {

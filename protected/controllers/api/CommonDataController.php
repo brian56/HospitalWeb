@@ -11,6 +11,7 @@ class CommonDataController extends Controller {
 	 * either 'json' or 'xml'
 	 */
 	private $format = 'json';
+	private $reponse_error = array('')
 	/**
 	 *
 	 * @return array action filters
@@ -25,7 +26,7 @@ class CommonDataController extends Controller {
 		// Actions
 	public function actionGetData() {
 		// Get the respective model instance
-//		if(isset($_GET['last_time_update'])) {
+		if(isset($_GET['last_time_update'])) {
 			$criteria = new CDbCriteria ();
 			$data = array();
 			
@@ -33,13 +34,13 @@ class CommonDataController extends Controller {
 			$row = ChangeLog::model()->find($criteria);
 			$date = $row['maxDateCreate'];
 			
-			//if(strtotime($date)>strtotime($_GET['last_time_update'])) {
+			if(strtotime($date)>strtotime($_GET['last_time_update'])) {
 				$data['event'] = Event::model ()->findAll();
 				$data['info_type'] = InfoType::model()->findAll();
 				$data['user_level'] = UserLevel::model()->findAll();
 				$data['device_os'] = DeviceOs::model()->findAll();
 				$data['access_level'] = AccessLevel::model()->findAll();
-			//}
+			}
 			// Did we get some results?
 			if (empty ( $data )) {
 				// No
@@ -48,7 +49,7 @@ class CommonDataController extends Controller {
 				$this->_sendResponse ( 200, CJSON::encode ($data) );
 			}
 		}
-//	}
+	}
 	public function actionGetByHospital() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
