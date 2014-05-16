@@ -120,7 +120,8 @@ class CommonDataController extends Controller {
 		// if it's an array, call getAttributesDeep for each record
 		if (is_array($o)) {
 			$data = array();
-			foreach ($o as $record) {
+			foreach ($o as $key => $record) {
+				//if($key=='data') 
 				array_push($data, $this->getAttributesDeep($record));
 			}
 			echo CJSON::encode($data);
@@ -340,8 +341,15 @@ class CommonDataController extends Controller {
         {
             return;
         }
-    } // }}} 
-    // }}} End Other Methods
+    } // }}}
+		  // }}} End Other Methods
+	public static function sendResponse($status, $message, $data) {
+		$response ['status'] = $status;
+		$response ['message'] = $message;
+		$response ['data'] = $data;
+		$this->renderJsonDeep ( $response );
+		echo  $response;
+	}
 }
 
 ?>
