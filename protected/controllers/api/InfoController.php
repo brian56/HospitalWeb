@@ -11,6 +11,7 @@ class InfoController extends Controller {
 	 */
 	private $format = 'json';
 	private	$modelName = 'Info';		
+	private $with = array();
 	/**
 	 *
 	 * @return array action filters
@@ -45,6 +46,8 @@ class InfoController extends Controller {
 		if(isset($_GET['user_id'])) {
 			$conditions[] = 'user_id=:user_id';
 			$criteria->params = array(':userid' => $_GET['user_id']);
+		} else {
+			$with[] = 'user';
 		}
 		
 		if(isset($_GET['info_type_id'])) {
@@ -55,11 +58,22 @@ class InfoController extends Controller {
 		if(isset($_GET['hospital_id'])) {
 			$conditions[] = 'hospital_id=:hospital_id';
 			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET['hospital_id']));
+		} else {
+			$with[] = 'hospital';
 		}
+		
 		if($conditions!=null) {
 			$criteria->conditions=implode(' AND ',$conditions);
 		}
-		$criteria->with = array('user','hospital');
+
+		$criteria->with = array('user', 'hospital');
+		
+		if(!isset($_GET['user_id']))
+			$criteria->with = array('user');
+		
+		if(!isset($_GET['hospital_id']) )
+			$criteria->with = array('user');
+		
 		$models = Info::model()->findAll($criteria);
 		
 		// Did we get some results?
@@ -68,7 +82,7 @@ class InfoController extends Controller {
 			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
 		} else {
 				// Send the response
-			$this->_sendResponse ( 200, CJSON::encode ( $models ) );
+			$this->_sendResponse ( 200, $this->renderJsonDeep( $models ) );
 		}
 	}
 	
@@ -191,6 +205,45 @@ class InfoController extends Controller {
 	public function actionDelete() {
 		
 	}
+	
+	protected function renderJsonDeep($o) {
+		header('Content-type: application/json');
+		// if it's an array, call getAttributesDeep for each record
+		if (is_array($o)) {
+			$data = array();
+			foreach ($o as $record) {
+				array_push($data, $this->getAttributesDeep($record));
+			}
+			echo CJSON::encode($data);
+		} else {
+			// otherwise just do it on the passed-in object
+			echo CJSON::encode( $this->getAttributesDeep($o) );
+		}
+	
+		// this just prevents any other Yii code from being output
+		foreach (Yii::app()->log->routes as $route) {
+			if($route instanceof CWebLogRoute) {
+				$route->enabled = false; // disable any weblogroutes
+			}
+		}
+		Yii::app()->end();
+	}
+	
+	protected function getAttributesDeep($o) {
+		// get the attributes and relations
+		$data = $o->attributes;
+		$relations = $o->relations();
+		foreach (array_keys($relations) as $r) {
+			// for each relation, if it has the data and it isn't nul/
+			if ($o->hasRelated($r) && $o->getRelated($r) != null) {
+				// add this to the attributes structure, recursively calling
+				// this function to get any of the child's relations
+				$data[$r] = $this->getAttributesDeep($o->getRelated($r));
+			}
+		}
+		return $data;
+	}
+	
 	/**
      * Sends the API response 
      * 

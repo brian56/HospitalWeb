@@ -11,7 +11,7 @@ class CommonDataController extends Controller {
 	 * either 'json' or 'xml'
 	 */
 	private $format = 'json';
-	private $reponse_error = array('')
+	private $reponse_error = array('');
 	/**
 	 *
 	 * @return array action filters
@@ -46,7 +46,7 @@ class CommonDataController extends Controller {
 				// No
 				$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
 			} else {
-				$this->_sendResponse ( 200, CJSON::encode ($data) );
+				$this->_sendResponse ( 200, $this->renderJsonDeep($data) );
 			}
 		}
 	}
@@ -110,6 +110,45 @@ class CommonDataController extends Controller {
 	public function actionDelete() {
 		
 	}
+	
+	protected function renderJsonDeep($o) {
+		header('Content-type: application/json');
+		// if it's an array, call getAttributesDeep for each record
+		if (is_array($o)) {
+			$data = array();
+			foreach ($o as $record) {
+				array_push($data, $this->getAttributesDeep($record));
+			}
+			echo CJSON::encode($data);
+		} else {
+			// otherwise just do it on the passed-in object
+			echo CJSON::encode( $this->getAttributesDeep($o) );
+		}
+	
+		// this just prevents any other Yii code from being output
+		foreach (Yii::app()->log->routes as $route) {
+			if($route instanceof CWebLogRoute) {
+				$route->enabled = false; // disable any weblogroutes
+			}
+		}
+		Yii::app()->end();
+	}
+	
+	protected function getAttributesDeep($o) {
+		// get the attributes and relations
+		$data = $o->attributes;
+		$relations = $o->relations();
+		foreach (array_keys($relations) as $r) {
+			// for each relation, if it has the data and it isn't nul/
+			if ($o->hasRelated($r) && $o->getRelated($r) != null) {
+				// add this to the attributes structure, recursively calling
+				// this function to get any of the child's relations
+				$data[$r] = $this->getAttributesDeep($o->getRelated($r));
+			}
+		}
+		return $data;
+	}
+	
 	/**
      * Sends the API response 
      * 
