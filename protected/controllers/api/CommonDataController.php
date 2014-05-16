@@ -111,6 +111,10 @@ class CommonDataController extends Controller {
 		
 	}
 	
+	/**
+	 * Method to get the related object from active record array and convert to JSON
+	 * @param unknown $o
+	 */
 	protected function renderJsonDeep($o) {
 		header('Content-type: application/json');
 		// if it's an array, call getAttributesDeep for each record
