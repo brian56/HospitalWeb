@@ -57,7 +57,7 @@ class CommonDataController extends Controller {
 			}
 		} else {
 			$response['status'] = Params::status_params_missing;
-			$response['message'] = Params::message_params_missing.Params::param_LastTimeUpdate;
+			$response['message'] = Params::message_params_missing.Params::param_Last_Time_Update;
 			$response['data'] = '';
 			$this->_sendResponse ( 200, CJSON::encode($response) );
 		}
@@ -92,7 +92,7 @@ class CommonDataController extends Controller {
 		
 	}
 	
-	/**
+		/**
 	 * Method to get the related object from active record array and convert to JSON
 	 * @param unknown $o
 	 */
@@ -102,13 +102,12 @@ class CommonDataController extends Controller {
 		if (is_array($o)) {
 			$data = array();
 			foreach ($o as $record) {
-				//if($key=='data') 
 				array_push($data, $this->getAttributesDeep($record));
 			}
-			echo CJSON::encode($data);
+			return CJSON::encode($data);
 		} else {
 			// otherwise just do it on the passed-in object
-			echo CJSON::encode( $this->getAttributesDeep($o) );
+			return CJSON::encode( $this->getAttributesDeep($o) );
 		}
 	
 		// this just prevents any other Yii code from being output
@@ -134,6 +133,7 @@ class CommonDataController extends Controller {
 		}
 		return $data;
 	}
+	
 	
 	/**
      * Sends the API response 
@@ -323,14 +323,6 @@ class CommonDataController extends Controller {
             return;
         }
     } // }}}
-		  // }}} End Other Methods
-	public static function sendResponse($status, $message, $data) {
-		$response ['status'] = $status;
-		$response ['message'] = $message;
-		$response ['data'] = $data;
-		$this->renderJsonDeep ( $response );
-		echo  $response;
-	}
 }
 
 ?>

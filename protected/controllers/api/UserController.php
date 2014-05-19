@@ -11,8 +11,6 @@ class UserController extends Controller {
 	 * either 'json' or 'xml'
 	 */
 	private $format = 'json';
-	private	$modelName = 'User';
-	
 	private $with = array();
 	private $response = array();
 	/**
@@ -43,71 +41,90 @@ class UserController extends Controller {
 			$criteria->order = $_GET[Params::param_Order];
 		}
 		
+		$criteria->with = array('hospital','userLevel', 'deviceOs');
 		$models = User::model ()->findAll($criteria);
 		
 		// Did we get some results?
 		if (empty ( $models )) {
 			// No
-			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
+			$response ['status'] = Params::status_no_record;
+			$response ['message'] = Params::message_no_record . $this->modelName;
+			$response ['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 		} else {
 			// Prepare response
-			$rows = array ();
-			foreach ( $models as $model )
-				$rows [] = $model->attributes;
-				// Send the response
-			$this->_sendResponse ( 200, CJSON::encode ( $rows ) );
+			$response ['status'] = Params::status_success;
+			$response ['message'] = Params::message_success . $this->modelName;
+			$response ['data'] = json_decode ( $this->renderJsonDeep ( $models ) );
+			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 		}
 	}
 	public function actionGetByHospital() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
 		
-		if (isset ( $_GET ['offset'] )) {
-			$criteria->offset = $_GET ['offset'];
+		if (isset ( $_GET [Params::param_Offset] )) {
+			$criteria->offset = $_GET [Params::param_Offset];
 		}
 		
-		if (isset ( $_GET ['limit'] )) {
-			$limit = $_GET ['limit'];
-			$criteria->limit = $limit;
+		if (isset ( $_GET [Params::param_Limit] )) {
+			$criteria->limit = $_GET [Params::param_Limit];
 		}
 		
-		if (isset ( $_GET ['order'] )) {
-			$orderBy = $_GET ['order'];
-			$criteria->order = $order;
+		if (isset ( $_GET [Params::param_Order] )) {
+			$criteria->order =  $_GET [Params::param_Order];
 		}
 		
-		if(isset($_GET['hospital_id'])) {
+		if(isset($_GET[Params::param_Hospital_Id])) {
 			$criteria->condition = 'hospital_id=:hospital_id';
-			$criteria->params = array(':hospital_id' => $_GET['hospital_id']);
+			$criteria->params = array(':hospital_id' => $_GET[Params::param_Hospital_Id]);
 		}
-		
+
+		$criteria->with = array('userLevel', 'deviceOs');
 		$models = User::model ()->findAll($criteria);
 		
 		// Did we get some results?
 		if (empty ( $models )) {
 			// No
-			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
+			$response ['status'] = Params::status_no_record;
+			$response ['message'] = Params::message_no_record . $this->modelName;
+			$response ['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 		} else {
 			// Prepare response
-			$rows = array ();
-			foreach ( $models as $model )
-				$rows [] = $model->attributes;
-				// Send the response
-			$this->_sendResponse ( 200, CJSON::encode ( $rows ) );
+			$response ['status'] = Params::status_success;
+			$response ['message'] = Params::message_success . $this->modelName;
+			$response ['data'] = json_decode ( $this->renderJsonDeep ( $models ) );
+			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 		}
 	}
 	
 	
 	public function actionView() {
 		// Check if id was submitted via GET
-		if(!isset($_GET['id']))
-			$this->_sendResponse(500, 'Error: Parameter <b>id</b> is missing' );
-		$model = User::model()->findByPk($_GET['id']);
-		// Did we find the requested model? If not, raise an error
-		if(is_null($model))
-			$this->_sendResponse(404, 'No Item found with id='.$_GET['id']);
-		else
-			$this->_sendResponse(200, CJSON::encode($model));
+		if(!isset($_GET[Params::param_Id])) {
+			$response ['status'] = Params::status_params_missing;
+			$response ['message'] = Params::message_params_missing.Params::param_Id;
+			$response ['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+		} else {
+			$criteria = new CDbCriteria ();
+			$criteria->with = array('hospital','userLevel', 'deviceOs');
+			$model = User::model()->findByPk($_GET[Params::param_Id], $criteria);
+			// Did we find the requested model? If not, raise an error
+			if(is_null($model)) {
+				$response['status'] = Params::status_no_record;
+				$response['message'] = Params::message_no_record.$this->modelName.'___'.Params::param_Id.':'.$_GET[Params::param_Id];
+				$response['data'] = '';
+				$this->_sendResponse ( 200, CJSON::encode($response) );
+			}
+			else {
+				$response['status'] = Params::status_success;
+				$response['message'] = Params::message_success.$this->modelName;
+				$response['data'] = json_decode($this->renderJsonDeep( $model ));
+				$this->_sendResponse ( 200, CJSON::encode($response ) );
+			}
+		}
 	}
 	public function actionCreate() {
 		
@@ -117,6 +134,44 @@ class UserController extends Controller {
 	}
 	public function actionDelete() {
 		
+	}
+	
+	protected function renderJsonDeep($o) {
+		header('Content-type: application/json');
+		// if it's an array, call getAttributesDeep for each record
+		if (is_array($o)) {
+			$data = array();
+			foreach ($o as $record) {
+				array_push($data, $this->getAttributesDeep($record));
+			}
+			return CJSON::encode($data);
+		} else {
+			// otherwise just do it on the passed-in object
+			return CJSON::encode( $this->getAttributesDeep($o) );
+		}
+	
+		// this just prevents any other Yii code from being output
+		foreach (Yii::app()->log->routes as $route) {
+			if($route instanceof CWebLogRoute) {
+				$route->enabled = false; // disable any weblogroutes
+			}
+		}
+		Yii::app()->end();
+	}
+	
+	protected function getAttributesDeep($o) {
+		// get the attributes and relations
+		$data = $o->attributes;
+		$relations = $o->relations();
+		foreach (array_keys($relations) as $r) {
+			// for each relation, if it has the data and it isn't nul/
+			if ($o->hasRelated($r) && $o->getRelated($r) != null) {
+				// add this to the attributes structure, recursively calling
+				// this function to get any of the child's relations
+				$data[$r] = $this->getAttributesDeep($o->getRelated($r));
+			}
+		}
+		return $data;
 	}
 	/**
      * Sends the API response 

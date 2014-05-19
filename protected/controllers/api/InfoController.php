@@ -12,7 +12,6 @@ class InfoController extends Controller {
 	private $format = 'json';
 	private	$modelName = 'Info';		
 	
-	private $with = array();
 	private $response = array();
 	
 	/**
@@ -44,7 +43,7 @@ class InfoController extends Controller {
 			$criteria->order = $_GET [Params::param_Order];
 		}
 		
-		if(isset($_GET[Params::param_User_Id])) {
+		/* if(isset($_GET[Params::param_User_Id])) {
 			$conditions[] = 'user_id=:user_id';
 			$criteria->params = array(':user_id' => $_GET['user_id']);
 		} else {
@@ -61,17 +60,18 @@ class InfoController extends Controller {
 			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET[Params::param_Hospital_Id]));
 		} else {
 			$with[] = 'hospital';
-		}
+		} */
 		
 		if($conditions!=null) {
 			$criteria->conditions=implode(' AND ',$conditions);
 		}
-		if($with!=null) {
-			$criteria->with = $with;
-		}
+		$with[] = 'user';
+		$with[] = 'hospital';
+		$with[] = 'infoComments';
+		$with[] = 'infoType';
+		$criteria->with = $with;
 		
 		$models = Info::model()->findAll($criteria);
-	
 		//chay vong lap chuyen tu object -> array de tau man cho nhanh hi ook em
 		//may lag nhu cho a =,= huynh bo dong ni vo tron;g vong foreach, buzz
 		
@@ -163,8 +163,10 @@ class InfoController extends Controller {
 		if($conditions!=null) {
 			$criteria->conditions=implode(' AND ',$conditions);
 		}
+		
 		$with[] = 'user';
 		$with[] = 'hospital';
+		$with[] = 'infoComments';
 		$criteria->with = $with;
 		
 		$models = Info::model ()->findAll($criteria);
@@ -220,6 +222,9 @@ class InfoController extends Controller {
 		if($conditions!=null) {
 			$criteria->conditions=implode(' AND ',$conditions);
 		}
+
+		$with[] = 'infoComments';
+		$criteria->with = $with;
 		
 		$models = Info::model ()->findAll($criteria);
 		
@@ -240,7 +245,6 @@ class InfoController extends Controller {
 	}
 	
 	public function actionView() {
-		$criteria = new CDbCriteria ();
 		// Check if id was submitted via GET
 		if(!isset($_GET[Params::param_Id])) {
 			$response['status'] = Params::status_params_missing;
@@ -248,7 +252,11 @@ class InfoController extends Controller {
 			$response['data'] = '';
 			$this->_sendResponse ( 200, CJSON::encode($response) );
 		} else {
-			$criteria->with = array('user', 'hospital');
+			$criteria = new CDbCriteria ();
+			$with[] = 'user';
+			$with[] = 'hospital';
+			$with[] = 'infoComments';
+			$criteria->with = $with;
 			$model = Info::model()->findByPk($_GET[Params::param_Id],$criteria);
 			// Did we find the requested model? If not, raise an error
 			if(is_null($model)) {
@@ -275,10 +283,10 @@ class InfoController extends Controller {
 		
 	}
 	
-	
-	
-	
-	
+	/**
+	 * Method to get the related object from active record array and convert to JSON
+	 * @param unknown $o
+	 */
 	protected function renderJsonDeep($o) {
 		header('Content-type: application/json');
 		// if it's an array, call getAttributesDeep for each record
@@ -304,14 +312,31 @@ class InfoController extends Controller {
 	
 	protected function getAttributesDeep($o) {
 		// get the attributes and relations
-		$data = $o->attributes;
-		$relations = $o->relations();
-		foreach (array_keys($relations) as $r) {
-			// for each relation, if it has the data and it isn't nul/
-			if ($o->hasRelated($r) && $o->getRelated($r) != null) {
-				// add this to the attributes structure, recursively calling
-				// this function to get any of the child's relations
-				$data[$r] = $this->getAttributesDeep($o->getRelated($r));
+		if(!is_array($o)) {
+			$data = $o->attributes;
+			$relations = $o->relations();
+			foreach (array_keys($relations) as $r) {
+				// for each relation, if it has the data and it isn't nul/
+				if ($o->hasRelated($r) && $o->getRelated($r) != null) {
+					// add this to the attributes structure, recursively calling
+					// this function to get any of the child's relations
+					$data[$r] = $this->getAttributesDeep($o->getRelated($r));
+				}
+			}
+		} else {
+			$data = array();
+			foreach ($o as $i) {
+				$data1 = $i->attributes;
+				$relations = $i->relations();
+				foreach (array_keys($relations) as $r) {
+					// for each relation, if it has the data and it isn't nul/
+					if ($i->hasRelated($r) && $i->getRelated($r) != null) {
+						// add this to the attributes structure, recursively calling
+						// this function to get any of the child's relations
+						$data1[$r] = $this->getAttributesDeep($i->getRelated($r));
+					}
+				}
+				$data[] = $data1;
 			}
 		}
 		return $data;
