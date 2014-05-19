@@ -313,18 +313,18 @@ class InfoController extends Controller {
 	protected function getAttributesDeep($o) {
 		// get the attributes and relations
 		if(!is_array($o)) {
-			$data = $o->attributes;
+			$data2 = $o->attributes;
 			$relations = $o->relations();
 			foreach (array_keys($relations) as $r) {
 				// for each relation, if it has the data and it isn't nul/
 				if ($o->hasRelated($r) && $o->getRelated($r) != null) {
 					// add this to the attributes structure, recursively calling
 					// this function to get any of the child's relations
-					$data[$r] = $this->getAttributesDeep($o->getRelated($r));
+					$data2[$r] = $this->getAttributesDeep($o->getRelated($r));
 				}
 			}
 		} else {
-			$data = array();
+			$data2 = array();
 			foreach ($o as $i) {
 				$data1 = $i->attributes;
 				$relations = $i->relations();
@@ -336,10 +336,10 @@ class InfoController extends Controller {
 						$data1[$r] = $this->getAttributesDeep($i->getRelated($r));
 					}
 				}
-				$data[] = $data1;
+				$data2[] = $data1;
 			}
 		}
-		return $data;
+		return $data2;
 	}
 	
 	/**

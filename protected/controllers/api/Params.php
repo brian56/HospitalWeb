@@ -20,17 +20,30 @@ class Params {
 	const param_Limit = 'limit';
 	const param_Order = 'order';
 	
-	const param_Hospital_Id = 'hospital_id';
+	//user params
+	const param_Name = 'name';
+	const param_Contact_Phone = 'contact_phone';
+	const param_Device_Id = 'device_id';
+	const param_Token = 'token';
+	const param_Is_Actived = 'is_actived';
+	
+	//info, info's comment params
+	const param_Status = 'status';
+	const param_Title = 'title';
+	const param_Content = 'content';
+
+	//foreign key params
 	const param_User_Id = 'user_id';
-	const param_User_Level_Id = 'user_level_id';
+	const param_Hospital_Id = 'hospital_id';
 	const param_Access_Level_Id = 'access_level_id';
+	const param_User_Level_Id = 'user_level_id';
 	const param_Info_Type_Id = 'info_type_id';
 	const param_Info_Id = 'info_id';
 	const param_Event_Id = 'event_id';
 	const param_Device_Os_Id = 'device_os_id';
 	
 	const param_Last_Time_Update = 'last_time_update';
-	const param_Token = 'token';
+	
 	
 }
 ?>

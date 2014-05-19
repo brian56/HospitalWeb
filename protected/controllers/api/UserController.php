@@ -78,23 +78,28 @@ class UserController extends Controller {
 		if(isset($_GET[Params::param_Hospital_Id])) {
 			$criteria->condition = 'hospital_id=:hospital_id';
 			$criteria->params = array(':hospital_id' => $_GET[Params::param_Hospital_Id]);
-		}
-
-		$criteria->with = array('userLevel', 'deviceOs');
-		$models = User::model ()->findAll($criteria);
-		
-		// Did we get some results?
-		if (empty ( $models )) {
-			// No
-			$response ['status'] = Params::status_no_record;
-			$response ['message'] = Params::message_no_record . $this->modelName;
-			$response ['data'] = '';
-			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+			$criteria->with = array('userLevel', 'deviceOs');
+			$models = User::model ()->findAll($criteria);
+			
+			// Did we get some results?
+			if (empty ( $models )) {
+				// No
+				$response ['status'] = Params::status_no_record;
+				$response ['message'] = Params::message_no_record . $this->modelName;
+				$response ['data'] = '';
+				$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+			} else {
+				// Prepare response
+				$response ['status'] = Params::status_success;
+				$response ['message'] = Params::message_success . $this->modelName;
+				$response ['data'] = json_decode ( $this->renderJsonDeep ( $models ) );
+				$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+			}
 		} else {
-			// Prepare response
-			$response ['status'] = Params::status_success;
-			$response ['message'] = Params::message_success . $this->modelName;
-			$response ['data'] = json_decode ( $this->renderJsonDeep ( $models ) );
+			// No
+			$response ['status'] = Params::status_params_missing;
+			$response ['message'] = Params::message_params_missing.Params::param_Hospital_Id;
+			$response ['data'] = '';
 			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 		}
 	}
@@ -127,7 +132,45 @@ class UserController extends Controller {
 		}
 	}
 	public function actionCreate() {
-		
+		$missingParams = '';
+		if(!isset($_POST[Params::param_Hospital_Id])) {
+			$missingParams.= Params::param_Hospital_Id;
+		}
+		if(!isset($_POST[Params::param_User_Level_Id])) {
+			$missingParams.= ",".Params::param_User_Level_Id;
+		}
+		if(!isset($_POST[Params::param_Is_Actived])) {
+			$missingParams.= ",".Params::param_Is_Actived;
+		}
+		if(!isset($_POST[Params::param_Name])) {
+			$missingParams.= ",".Params::param_Name;
+		}
+		if(!isset($_POST[Params::param_Contact_Phone])) {
+			$missingParams.= ",".Params::param_Contact_Phone;
+		}
+		if(!isset($_POST[Params::param_Device_Os_Id])) {
+			$missingParams.= ",".Params::param_Device_Os_Id;
+		}
+		if(!isset($_POST[Params::param_Device_Id])) {
+			$missingParams.= ",".Params::param_Device_Id;
+		}
+		if($missingParams!='') { 
+			$response ['status'] = Params::status_params_missing;
+			$response ['message'] = Params::message_params_missing.$missingParams;
+			$response ['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+		} else {
+			$user = new User();
+			$user->hospital_id = $_POST[Params::param_Hospital_Id];
+			$user->user_level_id = $_POST[Params::param_User_Level_Id];
+			$user->is_actived = $_POST[Params::param_Is_Actived];
+			$user->name = $_POST[Params::param_Name];
+			$user->contact_phone = $_POST[Params::param_Contact_Phone];
+			$user->register_date = '';
+			$user->device_os_id = $_POST[Params::param_Device_Os_Id];
+			$user->device_id = $_POST[Params::param_Device_Id];
+			$user->token = $_POST[Params::param_Token];
+		}
 	}
 	public function actionUpdate() {
 		
@@ -136,6 +179,61 @@ class UserController extends Controller {
 		
 	}
 	
+	protected function renderJsonDeep($o) {
+		header('Content-type: application/json');
+		// if it's an array, call getAttributesDeep for each record
+		if (is_array($o)) {
+			$data = array();
+			foreach ($o as $record) {
+				array_push($data, $this->getAttributesDeep($record));
+			}
+			return CJSON::encode($data);
+		} else {
+			// otherwise just do it on the passed-in object
+			return CJSON::encode( $this->getAttributesDeep($o) );
+		}
+	
+		// this just prevents any other Yii code from being output
+		foreach (Yii::app()->log->routes as $route) {
+			if($route instanceof CWebLogRoute) {
+				$route->enabled = false; // disable any weblogroutes
+			}
+		}
+		Yii::app()->end();
+	}
+	
+	protected function getAttributesDeep($o) {
+		// get the attributes and relations
+		if(!is_array($o)) {
+			$data2 = $o->attributes;
+			$relations = $o->relations();
+			foreach (array_keys($relations) as $r) {
+				// for each relation, if it has the data and it isn't nul/
+				if ($o->hasRelated($r) && $o->getRelated($r) != null) {
+					// add this to the attributes structure, recursively calling
+					// this function to get any of the child's relations
+					$data2[$r] = $this->getAttributesDeep($o->getRelated($r));
+				}
+			}
+		} else {
+			$data2 = array();
+			foreach ($o as $i) {
+				$data1 = $i->attributes;
+				$relations = $i->relations();
+				foreach (array_keys($relations) as $r) {
+					// for each relation, if it has the data and it isn't nul/
+					if ($i->hasRelated($r) && $i->getRelated($r) != null) {
+						// add this to the attributes structure, recursively calling
+						// this function to get any of the child's relations
+						$data1[$r] = $this->getAttributesDeep($i->getRelated($r));
+					}
+				}
+				$data2[] = $data1;
+			}
+		}
+		return $data2;
+	}
+	/*
 	protected function renderJsonDeep($o) {
 		header('Content-type: application/json');
 		// if it's an array, call getAttributesDeep for each record
@@ -173,6 +271,8 @@ class UserController extends Controller {
 		}
 		return $data;
 	}
+	
+	*/
 	/**
      * Sends the API response 
      * 
