@@ -11,6 +11,10 @@ class UserController extends Controller {
 	 * either 'json' or 'xml'
 	 */
 	private $format = 'json';
+	private	$modelName = 'User';
+	
+	private $with = array();
+	private $response = array();
 	/**
 	 *
 	 * @return array action filters
@@ -27,18 +31,16 @@ class UserController extends Controller {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
 		
-		if (isset ( $_GET ['offset'] )) {
-			$criteria->offset = $_GET ['offset'];
+		if (isset ( $_GET [Params::param_Offset] )) {
+			$criteria->offset = $_GET [Params::param_Offset];
 		}
 		
-		if (isset ( $_GET ['limit'] )) {
-			$limit = $_GET ['limit'];
-			$criteria->limit = $limit;
+		if (isset ( $_GET [Params::param_Limit] )) {
+			$criteria->limit = $_GET[Params::param_Limit];
 		}
 		
-		if (isset ( $_GET ['order'] )) {
-			$orderBy = $_GET ['order'];
-			$criteria->order = $order;
+		if (isset ( $_GET [Params::param_Order] )) {
+			$criteria->order = $_GET[Params::param_Order];
 		}
 		
 		$models = User::model ()->findAll($criteria);

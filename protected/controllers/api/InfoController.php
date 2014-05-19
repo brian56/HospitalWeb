@@ -11,7 +11,10 @@ class InfoController extends Controller {
 	 */
 	private $format = 'json';
 	private	$modelName = 'Info';		
+	
 	private $with = array();
+	private $response = array();
+	
 	/**
 	 *
 	 * @return array action filters
@@ -19,45 +22,43 @@ class InfoController extends Controller {
 	public function filters() {
 		return array ();
 	}
-	public function actionIndex()
+	/* public function actionIndex()
     {
         echo CJSON::encode(array(1, 2, 3));
-    }
+    } */
 		// Actions
 	public function actionGetAll() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
 		$conditions = array();
 		
-		if (isset ( $_GET ['offset'] )) {
-			$criteria->offset = $_GET ['offset'];
+		if (isset ( $_GET [Params::param_Offset] )) {
+			$criteria->offset = $_GET [Params::param_Offset];
 		}
 		
-		if (isset ( $_GET ['limit'] )) {
-			$limit = $_GET ['limit'];
-			$criteria->limit = $limit;
+		if (isset ( $_GET [Params::param_Limit] )) {
+			$criteria->limit = $_GET [Params::param_Limit];
 		}
 		
-		if (isset ( $_GET ['order'] )) {
-			$orderBy = $_GET ['order'];
-			$criteria->order = $order;
+		if (isset ( $_GET [Params::param_Order] )) {
+			$criteria->order = $_GET [Params::param_Order];
 		}
 		
-		if(isset($_GET['user_id'])) {
+		if(isset($_GET[Params::param_User_Id])) {
 			$conditions[] = 'user_id=:user_id';
-			$criteria->params = array(':userid' => $_GET['user_id']);
+			$criteria->params = array(':user_id' => $_GET['user_id']);
 		} else {
 			$with[] = 'user';
 		}
 		
-		if(isset($_GET['info_type_id'])) {
+		if(isset($_GET[Params::param_Info_Type_Id])) {
 			$conditions[] = 'info_type_id=:info_type_id';
-			$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET['info_type_id']));
+			$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET[Params::param_Info_Type_Id]));
 		}
 		
-		if(isset($_GET['hospital_id'])) {
+		if(isset($_GET[Params::param_Hospital_Id])) {
 			$conditions[] = 'hospital_id=:hospital_id';
-			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET['hospital_id']));
+			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET[Params::param_Hospital_Id]));
 		} else {
 			$with[] = 'hospital';
 		}
@@ -65,24 +66,65 @@ class InfoController extends Controller {
 		if($conditions!=null) {
 			$criteria->conditions=implode(' AND ',$conditions);
 		}
-
-		$criteria->with = array('user', 'hospital');
-		
-		if(!isset($_GET['user_id']))
-			$criteria->with = array('user');
-		
-		if(!isset($_GET['hospital_id']) )
-			$criteria->with = array('user');
+		if($with!=null) {
+			$criteria->with = $with;
+		}
 		
 		$models = Info::model()->findAll($criteria);
+	
+		//chay vong lap chuyen tu object -> array de tau man cho nhanh hi ook em
+		//may lag nhu cho a =,= huynh bo dong ni vo tron;g vong foreach, buzz
+		
+// 		$RESULT = ARRAY();
+		/* $result = array();
+		foreach ($models as $info) {
+			$temp = array();
+			$temp['id'] = $info->id;
+			$temp['info_type_id'] = $info->info_type_id;
+			$temp['user_id'] = $info->user_id;
+			$temp['hospital_id'] = $info->hospital_id;
+			$temp['status'] = $info->status;
+			$temp['title'] = $info->title;
+			$temp['content'] = $info->content;
+			$temp['date_create'] = $info->date_create;
+			$temp['date_update'] = $info->date_update;
+			$temp['access_level_id'] = $info->access_level_id;
+			if($info->hospital !=null) {
+				foreach ($info->hospital as $hospital) {
+					$t = array();
+					$t['id'] = $hospital->id;
+					$t['name'] = $hospital->name;
+					$t['name_en'] = $hospital->name_en;
+					$t['is_actived'] = $hospital->is_actived;
+					//$t['introduction'] = $hospital->introducti;
+					[id] => 1		dm tau chan quai, may moc nhu cut a... =ok.
+					
+					[photos] => photo link goes here...
+					[location] => location goes here... 
+				}
+				$temp['hospital'] = $t;
+			}
+			array_push($result, $temp);				
+		}
+		 */
+		/* echo  "<pre>";
+		print_r($models);
+		echo "</pre>";
+		die(); */
 		
 		// Did we get some results?
 		if (empty ( $models )) {
 			// No
-			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
+			$response['status'] = Params::status_no_record;
+			$response['message'] = Params::message_no_record.$this->modelName;
+			$response['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode($response) );
 		} else {
 				// Send the response
-			$this->_sendResponse ( 200, $this->renderJsonDeep( $models ) );
+				$response['status'] = Params::status_success;
+				$response['message'] = Params::message_success.$this->modelName;
+				$response['data'] = json_decode($this->renderJsonDeep( $models ));
+				$this->_sendResponse ( 200, CJSON::encode($response ) );
 		}
 	}
 	
@@ -90,45 +132,56 @@ class InfoController extends Controller {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
 		$conditions = array();
-		
-		if (isset ( $_GET ['offset'] )) {
-			$criteria->offset = $_GET ['offset'];
+		if (isset ( $_GET [Params::param_Offset] )) {
+			$criteria->offset = $_GET [Params::param_Offset];
 		}
 		
-		if (isset ( $_GET ['limit'] )) {
-			$limit = $_GET ['limit'];
-			$criteria->limit = $limit;
+		if (isset ( $_GET [Params::param_Limit] )) {
+			$criteria->limit = $_GET [Params::param_Limit];
 		}
 		
-		if (isset ( $_GET ['order'] )) {
-			$orderBy = $_GET ['order'];
-			$criteria->order = $order;
+		if (isset ( $_GET [Params::param_Order] )) {
+			$criteria->order = $_GET [Params::param_Order];
 		}
 
-		if(isset($_GET['info_type_id'])) {
+		if(isset($_GET[Params::param_Info_Type_Id])) {
 			$conditions[] = 'info_type_id=:info_type_id';
-			$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET['info_type_id']));
-		}
+			$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET[Params::param_Info_Type_Id]));
+		} 
+		/* else {
+			$response['status'] = Params::status_params_missing;
+			$response['message'] = Params::message_params_missing.Params::param_Info_Type_Id;
+			$response['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode($response) );
+		} */
 		
-		if(isset($_GET['hospital_id'])) {
+		if(isset($_GET[Params::param_Hospital_Id])) {
 			$conditions[] = 'hospital_id=:hospital_id';
-			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET['hospital_id']));
+			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET[Params::param_Hospital_Id]));
 		}
 		
-		$criteria->conditions=implode(' AND ',$conditions);
+		if($conditions!=null) {
+			$criteria->conditions=implode(' AND ',$conditions);
+		}
+		$with[] = 'user';
+		$with[] = 'hospital';
+		$criteria->with = $with;
+		
 		$models = Info::model ()->findAll($criteria);
 		
 		// Did we get some results?
 		if (empty ( $models )) {
 			// No
-			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
+			$response['status'] = Params::status_no_record;
+			$response['message'] = Params::message_no_record.$this->modelName;
+			$response['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode($response) );
 		} else {
 // 			// Prepare response
-// 			$rows = array ();
-// 			foreach ( $models as $model )
-// 				$rows [] = $model->attributes;
-				// Send the response
-			$this->_sendResponse ( 200, CJSON::encode ( $models ) );
+ 			$response['status'] = Params::status_success;
+			$response['message'] = Params::message_success.$this->modelName;
+			$response['data'] = json_decode($this->renderJsonDeep( $models ));
+			$this->_sendResponse ( 200, CJSON::encode($response ) );
 		}
 	}
 	
@@ -137,64 +190,80 @@ class InfoController extends Controller {
 		$criteria = new CDbCriteria ();
 		$conditions = array();
 		
-		if (isset ( $_GET ['offset'] )) {
-			$criteria->offset = $_GET ['offset'];
+		if (isset ( $_GET [Params::param_Offset] )) {
+			$criteria->offset = $_GET [Params::param_Offset];
 		}
 		
-		if (isset ( $_GET ['limit'] )) {
-			$limit = $_GET ['limit'];
-			$criteria->limit = $limit;
+		if (isset ( $_GET [Params::param_Limit] )) {
+			$criteria->limit = $_GET [Params::param_Limit];
 		}
 		
-		if (isset ( $_GET ['order'] )) {
-			$orderBy = $_GET ['order'];
-			$criteria->order = $order;
+		if (isset ( $_GET [Params::param_Order] )) {
+			$criteria->order = $_GET [Params::param_Order];
 		}
 
-		if(isset($_GET['hospital_id'])) {
+		if(isset($_GET[Params::param_Hospital_Id])) {
 			$conditions[] = 'hospital_id=:hospital_id';
-			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET['hospital_id']));
+			$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET[Params::param_Hospital_Id]));
 		}
 		
-		if(isset($_GET['user_id'])) {
+		if(isset($_GET[Params::param_User_Id])) {
 			$conditions[] = 'user_id=:user_id';
-			$criteria->params = array(':userid' => $_GET['user_id']);
+			$criteria->params = array(':user_id' => $_GET[Params::param_User_Id]);
 		}
 		
-		if(isset($_GET['info_type_id'])) {
+		if(isset($_GET[Params::param_Info_Type_Id])) {
 			$conditions[] = 'info_type_id=:info_type_id';
-			$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET['info_type_id']));
+			$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET[Params::param_Info_Type_Id]));
 		}
 		
-		$criteria->conditions=implode(' AND ',$conditions);
+		if($conditions!=null) {
+			$criteria->conditions=implode(' AND ',$conditions);
+		}
+		
 		$models = Info::model ()->findAll($criteria);
 		
 		// Did we get some results?
 		if (empty ( $models )) {
 			// No
-			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $modelName) );
+			$response['status'] = Params::status_no_record;
+			$response['message'] = Params::message_no_record.$this->modelName;
+			$response['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode($response) );
 		} else {
 // 			// Prepare response
-// 			$rows = array ();
-// 			foreach ( $models as $model )
-// 				$rows [] = $model->attributes;
-				// Send the response
-			$this->_sendResponse ( 200, CJSON::encode ( $models ) );
+			$response['status'] = Params::status_success;
+			$response['message'] = Params::message_success.$this->modelName;
+			$response['data'] = json_decode($this->renderJsonDeep( $models ));
+			$this->_sendResponse ( 200, CJSON::encode($response ) );
 		}
 	}
 	
-	
-	
 	public function actionView() {
+		$criteria = new CDbCriteria ();
 		// Check if id was submitted via GET
-		if(!isset($_GET['id']))
-			$this->_sendResponse(500, 'Error: Parameter <b>id</b> is missing' );
-		$model = Info::model()->findByPk($_GET['id']);
-		// Did we find the requested model? If not, raise an error
-		if(is_null($model))
-			$this->_sendResponse(404, 'No Item found with id='.$_GET['id']);
-		else
-			$this->_sendResponse(200, CJSON::encode($model));
+		if(!isset($_GET[Params::param_Id])) {
+			$response['status'] = Params::status_params_missing;
+			$response['message'] = Params::message_params_missing.Params::param_Id;
+			$response['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode($response) );
+		} else {
+			$criteria->with = array('user', 'hospital');
+			$model = Info::model()->findByPk($_GET[Params::param_Id],$criteria);
+			// Did we find the requested model? If not, raise an error
+			if(is_null($model)) {
+				$response['status'] = Params::status_no_record;
+				$response['message'] = Params::message_no_record.$this->modelName.'___'.Params::param_Id.':'.$_GET[Params::param_Id];
+				$response['data'] = '';
+				$this->_sendResponse ( 200, CJSON::encode($response) );
+			}
+			else {
+				$response['status'] = Params::status_success;
+				$response['message'] = Params::message_success.$this->modelName;
+				$response['data'] = json_decode($this->renderJsonDeep( $model ));
+				$this->_sendResponse ( 200, CJSON::encode($response ) );
+			}
+		}
 	}
 	public function actionCreate() {
 		
@@ -206,6 +275,10 @@ class InfoController extends Controller {
 		
 	}
 	
+	
+	
+	
+	
 	protected function renderJsonDeep($o) {
 		header('Content-type: application/json');
 		// if it's an array, call getAttributesDeep for each record
@@ -214,10 +287,10 @@ class InfoController extends Controller {
 			foreach ($o as $record) {
 				array_push($data, $this->getAttributesDeep($record));
 			}
-			echo CJSON::encode($data);
+			return CJSON::encode($data);
 		} else {
 			// otherwise just do it on the passed-in object
-			echo CJSON::encode( $this->getAttributesDeep($o) );
+			return CJSON::encode( $this->getAttributesDeep($o) );
 		}
 	
 		// this just prevents any other Yii code from being output

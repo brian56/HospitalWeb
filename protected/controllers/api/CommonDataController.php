@@ -5,13 +5,15 @@ class CommonDataController extends Controller {
 	 * Key which has to be in HTTP USERNAME and PASSWORD headers
 	 */
 	Const APPLICATION_ID = 'ASCCPE';
-	private $modelName = 'User';
+	private $modelName = 'CommonData';
 	/**
 	 * Default response format
 	 * either 'json' or 'xml'
 	 */
 	private $format = 'json';
-	private $reponse_error = array('');
+	private $with = array();
+	private $response = array();
+	
 	/**
 	 *
 	 * @return array action filters
@@ -26,7 +28,7 @@ class CommonDataController extends Controller {
 		// Actions
 	public function actionGetData() {
 		// Get the respective model instance
-		if(isset($_GET['last_time_update'])) {
+		if(isset($_GET[Params::param_Last_Time_Update])) {
 			$criteria = new CDbCriteria ();
 			$data = array();
 			
@@ -34,7 +36,7 @@ class CommonDataController extends Controller {
 			$row = ChangeLog::model()->find($criteria);
 			$date = $row['maxDateCreate'];
 			
-			if(strtotime($date)>strtotime($_GET['last_time_update'])) {
+			if(strtotime($date)>strtotime($_GET[Params::param_Last_Time_Update])) {
 				$data['event'] = Event::model ()->findAll();
 				$data['info_type'] = InfoType::model()->findAll();
 				$data['user_level'] = UserLevel::model()->findAll();
@@ -43,61 +45,40 @@ class CommonDataController extends Controller {
 			}
 			// Did we get some results?
 			if (empty ( $data )) {
-				// No
-				$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
+				$response['status'] = Params::status_no_record;
+				$response['message'] = Params::message_no_record.$this->modelName;
+				$response['data'] = '';
+				$this->_sendResponse ( 200, CJSON::encode($response) );
 			} else {
-				$this->_sendResponse ( 200, $this->renderJsonDeep($data) );
+				$response['status'] = Params::status_success;
+				$response['message'] = Params::message_success.$this->modelName;
+				$response['data'] = $data;
+				$this->_sendResponse ( 200, CJSON::encode($response) );
 			}
+		} else {
+			$response['status'] = Params::status_params_missing;
+			$response['message'] = Params::message_params_missing.Params::param_LastTimeUpdate;
+			$response['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode($response) );
 		}
 	}
 	public function actionGetByHospital() {
-		// Get the respective model instance
-		$criteria = new CDbCriteria ();
 		
-		if (isset ( $_GET ['offset'] )) {
-			$criteria->offset = $_GET ['offset'];
-		}
-		
-		if (isset ( $_GET ['limit'] )) {
-			$limit = $_GET ['limit'];
-			$criteria->limit = $limit;
-		}
-		
-		if (isset ( $_GET ['order'] )) {
-			$orderBy = $_GET ['order'];
-			$criteria->order = $order;
-		}
-		
-		if(isset($_GET['hospital_id'])) {
-			$criteria->condition = 'hospital_id=:hospital_id';
-			$criteria->params = array(':hospital_id' => $_GET['hospital_id']);
-		}
-		
-		$models = User::model ()->findAll($criteria);
-		
-		// Did we get some results?
-		if (empty ( $models )) {
-			// No
-			$this->_sendResponse ( 200, sprintf ( 'No items were found for model <b>%s</b>', $this->modelName) );
-		} else {
-			// Prepare response
-			$rows = array ();
-			foreach ( $models as $model )
-				$rows [] = $model->attributes;
-				// Send the response
-			$this->_sendResponse ( 200, CJSON::encode ( $rows ) );
-		}
 	}
 	
 	
 	public function actionView() {
 		// Check if id was submitted via GET
-		if(!isset($_GET['id']))
-			$this->_sendResponse(500, 'Error: Parameter <b>id</b> is missing' );
-		$model = User::model()->findByPk($_GET['id']);
+		if(!isset($_GET[Params::param_Id])) {
+			$response['status'] = Params::status_params_missing;
+			$response['message'] = Params::message_params_missing.Params::param_Id;
+			$response['data'] = '';
+			$this->_sendResponse ( 200, CJSON::encode($response) );
+		}
+		$model = User::model()->findByPk($_GET[Params::param_Id]);
 		// Did we find the requested model? If not, raise an error
 		if(is_null($model))
-			$this->_sendResponse(404, 'No Item found with id='.$_GET['id']);
+			$this->_sendResponse(404, 'No Item found with id='.$_GET[Params::param_Id]);
 		else
 			$this->_sendResponse(200, CJSON::encode($model));
 	}
@@ -120,7 +101,7 @@ class CommonDataController extends Controller {
 		// if it's an array, call getAttributesDeep for each record
 		if (is_array($o)) {
 			$data = array();
-			foreach ($o as $key => $record) {
+			foreach ($o as $record) {
 				//if($key=='data') 
 				array_push($data, $this->getAttributesDeep($record));
 			}
