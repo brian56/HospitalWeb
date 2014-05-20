@@ -166,10 +166,10 @@ class UserController extends Controller {
 			$user->is_actived = $_POST[Params::param_Is_Actived];
 			$user->name = $_POST[Params::param_Name];
 			$user->contact_phone = $_POST[Params::param_Contact_Phone];
-			$user->register_date = '';
 			$user->device_os_id = $_POST[Params::param_Device_Os_Id];
 			$user->device_id = $_POST[Params::param_Device_Id];
 			$user->token = $_POST[Params::param_Token];
+			$user->insert();
 		}
 	}
 	public function actionUpdate() {

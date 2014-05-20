@@ -43,6 +43,9 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
+			array('register_date','default',
+						'value'=>new CDbExpression('NOW()'),//automatically add the current date in register_date
+					'setOnEmpty'=>false,'on'=>'insert'),
 			array('hospital_id', 'required'),
 			array('hospital_id, user_level_id, is_actived, device_os_id', 'numerical', 'integerOnly'=>true),
 			array('name, contact_phone, register_date, device_id, token, token_expired_date', 'safe'),
