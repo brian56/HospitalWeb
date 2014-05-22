@@ -8,9 +8,10 @@
  * @property integer $info_type_id
  * @property integer $user_id
  * @property integer $hospital_id
- * @property integer $status
+ * @property integer $appointment_status
  * @property string $title
  * @property string $content
+ * @property string $appointment_date
  * @property string $date_create
  * @property string $date_update
  * @property integer $access_level_id
@@ -58,7 +59,7 @@ class Info extends CActiveRecord {
 						'required' 
 				),
 				array (
-						'info_type_id, user_id, hospital_id, status, access_level_id',
+						'info_type_id, user_id, hospital_id, appointment_status, access_level_id',
 						'numerical',
 						'integerOnly' => true 
 				),
@@ -69,7 +70,7 @@ class Info extends CActiveRecord {
 				// The following rule is used by search().
 				// @todo Please remove those attributes that should not be searched.
 				array (
-						'id, info_type_id, user_id, hospital_id, status, title, content, date_create, date_update, access_level_id',
+						'id, info_type_id, user_id, hospital_id, appointment_status, title, content, appointment_date, date_create, date_update, access_level_id',
 						'safe',
 						'on' => 'search' 
 				) 
@@ -122,9 +123,10 @@ class Info extends CActiveRecord {
 				'info_type_id' => 'Info Type',
 				'user_id' => 'User',
 				'hospital_id' => 'Hospital',
-				'status' => 'Status',
+				'appointment_status' => 'Appointment Status',
 				'title' => 'Title',
 				'content' => 'Content',
+				'appointment_date' => 'Appointment Date Meeting',
 				'date_create' => 'Date Create',
 				'date_update' => 'Date Update',
 				'access_level_id' => 'Access Level' 
@@ -151,9 +153,10 @@ class Info extends CActiveRecord {
 		$criteria->compare ( 'info_type_id', $this->info_type_id );
 		$criteria->compare ( 'user_id', $this->user_id );
 		$criteria->compare ( 'hospital_id', $this->hospital_id );
-		$criteria->compare ( 'status', $this->status );
+		$criteria->compare ( 'appointment_status', $this->appointment_status );
 		$criteria->compare ( 'title', $this->title, true );
 		$criteria->compare ( 'content', $this->content, true );
+		$criteria->compare ( 'appointment_date', $this->appointment_date, true );
 		$criteria->compare ( 'date_create', $this->date_create, true );
 		$criteria->compare ( 'date_update', $this->date_update, true );
 		$criteria->compare ( 'access_level_id', $this->access_level_id );

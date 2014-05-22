@@ -17,12 +17,25 @@
 	<?php echo CHtml::encode($data->user_id); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('hospital_id')); ?>:</b>
+	<?php echo CHtml::encode($data->hospital_id); ?>
+	<br />
+
+	<b><?php echo CHtml::encode($data->getAttributeLabel('appointment_status')); ?>:</b>
+	<?php echo CHtml::encode($data->appointment_status); ?>
+	<br />
+
 	<b><?php echo CHtml::encode($data->getAttributeLabel('title')); ?>:</b>
 	<?php echo CHtml::encode($data->title); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('content')); ?>:</b>
 	<?php echo CHtml::encode($data->content); ?>
+	<br />
+
+	<?php /*
+	<b><?php echo CHtml::encode($data->getAttributeLabel('appointment_date')); ?>:</b>
+	<?php echo CHtml::encode($data->appointment_date); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('date_create')); ?>:</b>
@@ -33,7 +46,6 @@
 	<?php echo CHtml::encode($data->date_update); ?>
 	<br />
 
-	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('access_level_id')); ?>:</b>
 	<?php echo CHtml::encode($data->access_level_id); ?>
 	<br />

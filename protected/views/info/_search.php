@@ -47,6 +47,11 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'date_meeting'); ?>
+		<?php echo $form->textField($model,'date_meeting'); ?>
+	</div>
+
+	<div class="row">
 		<?php echo $form->label($model,'date_create'); ?>
 		<?php echo $form->textField($model,'date_create'); ?>
 	</div>

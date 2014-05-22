@@ -91,6 +91,25 @@ class DeviceOs extends CActiveRecord
 	}
 
 	/**
+	 * Get the OS name and device type (phone/tablet)
+	 * @return string
+	 */
+	public function getNameAndOs()
+	{
+		return $this->name.' - '.$this->device_type;
+	}
+	
+	/**
+	 * Get all the nameOS_deviceType
+	 * @return list DeviceOS's nameOS_deviceType
+	 */
+	public static function getFullDeviceOS()
+	{
+		$Devices = DeviceOs::model()->findAll();
+		$list    = CHtml::listData($Devices , 'id', 'nameandos');
+		return $list;
+	}
+	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.

@@ -27,7 +27,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'info_id'); ?>
-		<?php echo $form->dropDownList($model, 'info_id', CHtml::listData(Info::model()->findAll(), 'id', 'title'), array('empty'=>'-- Select an info type --')); ?>
+		<?php echo $form->dropDownList($model, 'info_id', CHtml::listData(Info::model()->findAll(), 'id', 'title'), array('empty'=>'-- Select an info --')); ?>
 		<?php echo $form->error($model,'info_id'); ?>
 	</div>
 

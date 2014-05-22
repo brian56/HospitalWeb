@@ -28,6 +28,7 @@ $this->menu=array(
 		'status',
 		'title',
 		'content',
+		'date_meeting',
 		'date_create',
 		'date_update',
 		'access_level_id',

@@ -53,6 +53,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'title',
 		/*
 		'content',
+		'date_meeting',
 		'date_create',
 		'date_update',
 		'access_level_id',
