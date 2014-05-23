@@ -32,6 +32,11 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'appointment_date'); ?>
+		<?php echo $form->textField($model,'appointment_date'); ?>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->label($model,'appointment_status'); ?>
 		<?php echo $form->textField($model,'appointment_status'); ?>
 	</div>
@@ -44,11 +49,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'content'); ?>
 		<?php echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'appointment_date'); ?>
-		<?php echo $form->textField($model,'appointment_date'); ?>
 	</div>
 
 	<div class="row">

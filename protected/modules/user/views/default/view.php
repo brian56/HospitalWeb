@@ -24,6 +24,8 @@ $this->menu=array(
 		'id',
 		'user_level_id',
 		'is_actived',
+		'email',
+		'password',
 		'name',
 		'contact_phone',
 		'register_date',

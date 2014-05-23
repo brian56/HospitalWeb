@@ -27,13 +27,23 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'email'); ?>
+		<?php echo $form->textField($model,'email'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'password'); ?>
+		<?php echo $form->textField($model,'password'); ?>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'contact_phone'); ?>
-		<?php echo $form->textArea($model,'contact_phone',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'contact_phone'); ?>
 	</div>
 
 	<div class="row">
@@ -48,12 +58,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'device_id'); ?>
-		<?php echo $form->textArea($model,'device_id',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'device_id'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'token'); ?>
-		<?php echo $form->textArea($model,'token',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'token'); ?>
 	</div>
 
 	<div class="row">

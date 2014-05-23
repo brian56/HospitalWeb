@@ -25,30 +25,48 @@
 	<div id="header">
 		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
 	</div><!-- header -->
-	<div id="flatmainmenu">
+	<div id="mainMbMenu">
 
 	<?php 
-		$this->widget('application.extensions.eflatmenu.EFlatMenu', array(
+		/* $this->widget('application.extensions.eflatmenu.EFlatMenu', array(
 		'items' => array(
 				array('label' => 'Home', 'url' => array('/site/index'), 'active' => true, 'icon-class'=>'fa-home'),
 				//array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
 				//array('label' => 'Contact', 'url' => array('/site/contact')),
 				array('label'=>'Manager', 'url'=>'#', 'items' => array(
-						array('label' => 'Hospital', 'url' => array('hospital/')),
-						array('label' => 'User', 'url' => array('user/')),
-						array('label' => 'Info', 'url' => array('info/')),
-						array('label' => 'User Level', 'url' => array('userlevel/')),
-						array('label' => 'Info type', 'url' => array('infotype/')),
+						array('label' => 'Hospital', 'url' => array('hospital')),
+						array('label' => 'User', 'url' => array('user')),
+						array('label' => 'Info', 'url' => array('info')),
+						array('label' => 'User Level', 'url' => array('userlevel')),
+						array('label' => 'Info type', 'url' => array('infotype')),
 						/* array('label' => 'Level 3 Menu', 'url' => '#', 'items' => array(
 								array('label' => 'Sub-Menu 1', 'url' => '#', 'icon-class'=>'fa-home'),
 								array('label' => 'Sub-Menu 2', 'url' => '#'),
-						)), */
-				),'visible' => !Yii::app()->user->isGuest),
+						)), 
+				),'visible' => !Yii::app()->user->isGuest, 'active'=>isItemActive($this->route,'hospital')),
 				array('label' => 'Login', 'url' => array('site/login'), 'visible' => Yii::app()->user->isGuest),
 				array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
 			)
 		));
-
+ */
+	$this->widget('application.extensions.mbmenu.MbMenu',array(
+		'items'=>array(
+				array('label'=>'Home', 'url'=>array('/site/index')),
+				array('label'=>'Manager', 'url'=>array('#'), 'items' => array(
+					array('label' => 'Hospital', 'url' => array('hospital/'),'active'=>Yii::app()->controller->module=='hospital'),
+					array('label' => 'User', 'url' => array('user/')),
+					array('label' => 'Info', 'url' => array('info/')),
+					array('label' => 'User Level', 'url' => array('userlevel/')),
+					array('label' => 'Info type', 'url' => array('infotype/')),
+					/* array('label' => 'Level 3 Menu', 'url' => '#', 'items' => array(
+					array('label' => 'Sub-Menu 1', 'url' => '#', 'icon-class'=>'fa-home'),
+					array('label' => 'Sub-Menu 2', 'url' => '#'), 
+					)), */
+				),'visible' => !Yii::app()->user->isGuest),
+			array('label' => 'Login', 'url' => array('site/login'), 'visible' => Yii::app()->user->isGuest),
+			array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+		),
+    )); 
 	?>
 	
 	<?php

@@ -7,6 +7,7 @@
  */
 class UserIdentity extends CUserIdentity
 {
+	private $ERROR_DONT_HAVE_PERMISSION = "You don't have permission to access this page.";
 	/**
 	 * Authenticates a user.
 	 * The example implementation makes sure if the username and password
@@ -17,7 +18,7 @@ class UserIdentity extends CUserIdentity
 	 */
 	public function authenticate()
 	{
-		$users=array(
+		/* $users=array(
 			// username => password
 			'demo'=>'demo',
 			'admin'=>'admin',
@@ -28,6 +29,27 @@ class UserIdentity extends CUserIdentity
 			$this->errorCode=self::ERROR_PASSWORD_INVALID;
 		else
 			$this->errorCode=self::ERROR_NONE;
+		return !$this->errorCode; */
+		$record = User::model()->findByAttributes(array("email"=>$this->username));
+		if($record === null)
+		{
+			$this->errorCode=self::ERROR_USERNAME_INVALID;
+		}
+		elseif ($record->password !== $this->password)
+		{
+			$this->errorCode=self::ERROR_PASSWORD_INVALID;
+		}
+		elseif ($record->user_level_id <2)
+		{
+			$this->errorCode= $this->ERROR_DONT_HAVE_PERMISSION;
+		} else
+		{
+			$this->id=$record->id;
+			$this->name=$record->email;
+// 			$this->setState('userId',$record->id);
+// 			$this->setState('name', $record->email);
+			$this->errorCode=self::ERROR_NONE;
+		}
 		return !$this->errorCode;
 	}
 }

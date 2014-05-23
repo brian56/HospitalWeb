@@ -24,7 +24,7 @@ class RightsModule extends CWebModule
 	/**
 	* @property string the name of the role with superuser privileges.
 	*/
-	public $superuserName = 'Admin';
+	public $superuserName = 'admin';
 	/**
 	* @property string the name of the guest role.
 	*/
@@ -40,7 +40,7 @@ class RightsModule extends CWebModule
 	/**
 	* @property string the name of the username column in the user table.
 	*/
-	public $userNameColumn = 'username';
+	public $userNameColumn = 'email';
 	/**
 	* @property boolean whether to enable business rules.
 	*/

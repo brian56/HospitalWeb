@@ -50,6 +50,12 @@
 	</div>
 	
 	<div class="row">
+		<?php echo $form->labelEx($model,'appointment_status'); ?>
+		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Refused')); ?>
+		<?php echo $form->error($model,'status'); ?>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->labelEx($model,'appointment_date'); ?>
 		<?php echo $form->textField($model,'date_meeting'); ?>
 		<?php echo $form->error($model,'date_meeting'); ?>
@@ -59,11 +65,6 @@
 		<?php echo $form->labelEx($model,'access_level_id'); ?>
 		<?php echo $form->dropDownList($model, 'access_level_id', CHtml::listData(AccessLevel::model()->findAll(), 'id', 'name')); ?>
 		<?php echo $form->error($model,'access_level_id'); ?>
-	</div>
-	<div class="row">
-		<?php echo $form->labelEx($model,'appointment_status'); ?>
-		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Refused')); ?>
-		<?php echo $form->error($model,'status'); ?>
 	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

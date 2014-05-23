@@ -21,6 +21,8 @@ return array(
 		'application.components.*',
 		'application.extensions.*',
 		'application.controllers.api.*',
+			'application.modules.rights.*',
+			'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(
@@ -41,12 +43,18 @@ return array(
 		'logevent',
 		'user',
 		'userlevel',
+		'rights' => array(
+		    'superuserName'=>'admin',
+            'install' => true,
+        ),
 	),
 	// application components
 	'components'=>array(
 		'user'=>array(
 			// enable cookie-based authentication
 			'allowAutoLogin'=>true,
+			'class' => 'RWebUser',
+			//'loginUrl' => array('members/default/login') Save ko 
 		),
 		// uncomment the following to enable URLs in path-format
 		
@@ -106,6 +114,9 @@ return array(
 		),
 		'bootstrap' => array(
 				'class' => 'ext.yiibootster.components.Bootstrap',
+		),
+		'authManager'=>array(
+				'class'=>'RDbAuthManager',
 		),
 	),
 

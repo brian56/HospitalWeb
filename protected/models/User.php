@@ -8,6 +8,8 @@
  * @property integer $hospital_id
  * @property integer $user_level_id
  * @property integer $is_actived
+ * @property string $email
+ * @property string $password
  * @property string $name
  * @property string $contact_phone
  * @property string $register_date
@@ -48,10 +50,10 @@ class User extends CActiveRecord
 					'setOnEmpty'=>false,'on'=>'insert'),
 			array('hospital_id', 'required'),
 			array('hospital_id, user_level_id, is_actived, device_os_id', 'numerical', 'integerOnly'=>true),
-			array('name, contact_phone, register_date, device_id, token, token_expired_date', 'safe'),
+			array('email, password, name, contact_phone, register_date, device_id, token, token_expired_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hospital_id, user_level_id, is_actived, name, contact_phone, register_date, device_os_id, device_id, token, token_expired_date', 'safe', 'on'=>'search'),
+			array('id, hospital_id, user_level_id, is_actived, email, password, name, contact_phone, register_date, device_os_id, device_id, token, token_expired_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -83,6 +85,8 @@ class User extends CActiveRecord
 			'hospital_id' => 'Hospital',
 			'user_level_id' => 'User Level',
 			'is_actived' => 'Is Actived',
+			'email' => 'Email',
+			'password' => 'Password',
 			'name' => 'Name',
 			'contact_phone' => 'Contact Phone',
 			'register_date' => 'Register Date',
@@ -115,6 +119,8 @@ class User extends CActiveRecord
 		$criteria->compare('hospital_id',$this->hospital_id);
 		$criteria->compare('user_level_id',$this->user_level_id);
 		$criteria->compare('is_actived',$this->is_actived);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('password',$this->password,true);
 		$criteria->compare('name',$this->name,true);
 		$criteria->compare('contact_phone',$this->contact_phone,true);
 		$criteria->compare('register_date',$this->register_date,true);
