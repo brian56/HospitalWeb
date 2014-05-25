@@ -21,8 +21,6 @@ return array(
 		'application.components.*',
 		'application.extensions.*',
 		'application.controllers.api.*',
-			'application.modules.rights.*',
-			'application.modules.rights.components.*',
 	),
 
 	'modules'=>array(
@@ -43,19 +41,38 @@ return array(
 		'logevent',
 		'user',
 		'userlevel',
-		'rights' => array(
-		    'superuserName'=>'admin',
-            'install' => true,
-        ),
+		'manager'=>array(
+			'modules'=>array(				
+				'info',
+				'infocomment',
+				'logevent',
+				'user',
+			),
+		),
+		'admin'=>array(
+			'modules'=>array(				
+				'accesslevel',
+				'changelog',
+				'deviceos',
+				'event',	
+				'hospital',	
+				'info',
+				'infotype',
+				'infocomment',
+				'logevent',
+				'user',
+				'userlevel',
+			),
+		),
 	),
 	// application components
 	'components'=>array(
 		'user'=>array(
-			// enable cookie-based authentication
-			'allowAutoLogin'=>true,
-			'class' => 'RWebUser',
-			//'loginUrl' => array('members/default/login') Save ko 
-		),
+            // There you go, use our 'extended' version
+            'class'=>'application.components.EWebUser',
+            // enable cookie-based authentication
+            'allowAutoLogin'=>true,
+        ),
 		// uncomment the following to enable URLs in path-format
 		
 		'urlManager'=>array(
@@ -114,9 +131,6 @@ return array(
 		),
 		'bootstrap' => array(
 				'class' => 'ext.yiibootster.components.Bootstrap',
-		),
-		'authManager'=>array(
-				'class'=>'RDbAuthManager',
 		),
 	),
 
