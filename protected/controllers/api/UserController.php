@@ -24,7 +24,7 @@ class UserController extends Controller {
     {
         echo CJSON::encode(array(1, 2, 3));
     }
-		// Actions
+	// Actions
 	public function actionGetAll() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();

@@ -126,6 +126,27 @@ return array(
         'bootstrap' => array(
             'class' => 'ext.yiibootster.components.Bootstrap',
         ),
+        'apns' => array(
+        		'class' => 'ext.apns-gcm.YiiApns',
+        		'environment' => 'sandbox',
+        		'pemFile' => dirname(__FILE__).'/apnssert/apns-dev.pem',
+        		'dryRun' => false, // setting true will just do nothing when sending push notification
+        		// 'retryTimes' => 3,
+        		'options' => array(
+        				'sendRetryTimes' => 5
+        		),
+        ),
+        'gcm' => array(
+        		'class' => 'ext.apns-gcm.YiiGcm',
+        		'apiKey' => 'AIzaSyCmvUK69cXXj8AdfhCw6QvqXazPQ2eKkZA'
+        ),
+        // using both gcm and apns, make sure you have 'gcm' and 'apns' in your component
+        'apnsGcm' => array(
+        		'class' => 'ext.apns-gcm.YiiApnsGcm',
+        		// custom name for the component, by default we will use 'gcm' and 'apns'
+        		//'gcm' => 'gcm',
+        		//'apns' => 'apns',
+        ),
     ),
     // application-level parameters that can be accessed
     // using Yii::app()->params['paramName']
