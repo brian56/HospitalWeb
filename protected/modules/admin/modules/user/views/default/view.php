@@ -26,7 +26,7 @@ $this->menu=array(
 		'is_actived',
 		'email',
 		'password',
-		'name',
+		'user_name',
 		'contact_phone',
 		'register_date',
 		'device_os_id',

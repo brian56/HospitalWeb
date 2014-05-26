@@ -50,7 +50,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'is_actived',
 		'email',
 		'password',
-		'name',
+		'user_name',
 		'contact_phone',
 		'register_date',
 		/*

@@ -1,9 +1,17 @@
 <?php
 
-class DefaultController extends Controller
+class DefaultController extends RController
 {
+	public function filters()
+	{
+		return array(
+				'rights',
+		);
+	}
+	
 	public function actionIndex()
 	{
 		$this->render('index');
 	}
+	
 }

@@ -25,7 +25,7 @@
 	<?php echo CHtml::encode($data->password); ?>
 	<br />
 	
-	<b><?php echo CHtml::encode($data->getAttributeLabel('name')); ?>:</b>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('user_name')); ?>:</b>
 	<?php echo CHtml::encode($data->name); ?>
 	<br />
 

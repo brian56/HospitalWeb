@@ -52,8 +52,9 @@
 	$this->widget('application.extensions.mbmenu.MbMenu',array(
 		'items'=>array(
 				array('label'=>'Home', 'url'=>array('/site/index')),
-				array('label'=>'Manager Hospital', 'url'=>array('manager'), 'items' => array(
-					/* array('label' => 'Hospital', 'url' => array('hospital/'),'active'=>Yii::app()->controller->module=='hospital'),
+				/*array('label'=>'Manager Hospital', 'url'=>array('/manager')
+					//, 'items' => array(
+					 array('label' => 'Hospital', 'url' => array('hospital/'),'active'=>Yii::app()->controller->module=='hospital'),
 					array('label' => 'User', 'url' => array('user/')),
 					array('label' => 'Info', 'url' => array('info/')),
 					array('label' => 'User Level', 'url' => array('userlevel/')),
@@ -61,9 +62,11 @@
 					array('label' => 'Level 3 Menu', 'url' => '#', 'items' => array(
 						array('label' => 'Sub-Menu 1', 'url' => '#', 'icon-class'=>'fa-home'),
 						array('label' => 'Sub-Menu 2', 'url' => '#'), 
-						)), */
-				),'visible' => (Yii::app()->user->isManager())),
-				array('label'=>'Administrator', 'url'=>array('/admin'), 'visible' => Yii::app()->user->isAdmin()),
+						)), 
+				,'visible' => !Yii::app()->user->isGuest,'active'=>(isset($this->module->id) && $this->module->id=='manager')), */
+				array('label'=>'Manager', 'url'=>array('/manager'), 'visible' => !Yii::app()->user->isGuest, 'active'=>(isset($this->module->id) && $this->module->id=='manager')),
+				array('label'=>'Administrator', 'url'=>array('/admin'), 'visible' => !Yii::app()->user->isGuest, 'active'=>(isset($this->module->id) && $this->module->id=='admin')),
+				array('label'=>'Rights', 'url'=>array('/rights'), 'visible' => !Yii::app()->user->isGuest, 'active'=>(isset($this->module->id) && $this->module->id=='rights')),
 			array('label' => 'Login', 'url' => array('site/login'), 'visible' => Yii::app()->user->isGuest),
 			array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
 		),

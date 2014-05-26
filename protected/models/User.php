@@ -10,7 +10,7 @@
  * @property integer $is_actived
  * @property string $email
  * @property string $password
- * @property string $name
+ * @property string $user_name
  * @property string $contact_phone
  * @property string $register_date
  * @property integer $device_os_id
@@ -50,10 +50,10 @@ class User extends CActiveRecord
 					'setOnEmpty'=>false,'on'=>'insert'),
 			array('hospital_id', 'required'),
 			array('hospital_id, user_level_id, is_actived, device_os_id', 'numerical', 'integerOnly'=>true),
-			array('email, password, name, contact_phone, register_date, device_id, token, token_expired_date', 'safe'),
+			array('email, password, user_name, contact_phone, register_date, device_id, token, token_expired_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hospital_id, user_level_id, is_actived, email, password, name, contact_phone, register_date, device_os_id, device_id, token, token_expired_date', 'safe', 'on'=>'search'),
+			array('id, hospital_id, user_level_id, is_actived, email, password, user_name, contact_phone, register_date, device_os_id, device_id, token, token_expired_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,7 +87,7 @@ class User extends CActiveRecord
 			'is_actived' => 'Is Actived',
 			'email' => 'Email',
 			'password' => 'Password',
-			'name' => 'Name',
+			'user_name' => 'Name',
 			'contact_phone' => 'Contact Phone',
 			'register_date' => 'Register Date',
 			'device_os_id' => 'Device Os',
@@ -121,7 +121,7 @@ class User extends CActiveRecord
 		$criteria->compare('is_actived',$this->is_actived);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('password',$this->password,true);
-		$criteria->compare('name',$this->name,true);
+		$criteria->compare('user_name',$this->user_name,true);
 		$criteria->compare('contact_phone',$this->contact_phone,true);
 		$criteria->compare('register_date',$this->register_date,true);
 		$criteria->compare('device_os_id',$this->device_os_id);

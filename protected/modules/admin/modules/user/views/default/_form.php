@@ -20,15 +20,9 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'user_level_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_level_id', CHtml::listData(UserLevel::model()->findAll(), 'id', 'name'), array('empty'=>'-- Select an user level --')); ?>
-		<?php echo $form->error($model,'user_level_id'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'is_actived'); ?>
-		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
-		<?php echo $form->error($model,'is_actived'); ?>
+		<?php echo $form->labelEx($model,'hospital_id'); ?>
+		<?php echo $form->dropDownList($model, 'hospital_id', CHtml::listData(Hospital::model()->findAll(), 'id', 'name_en'), array('empty'=>'-- Select a hospital --')); ?>
+		<?php echo $form->error($model,'hospital_id'); ?>
 	</div>
 
 	<div class="row">
@@ -44,9 +38,9 @@
 	</div>
 	
 	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name'); ?>
-		<?php echo $form->error($model,'name'); ?>
+		<?php echo $form->labelEx($model,'user_name'); ?>
+		<?php echo $form->textField($model,'user_name'); ?>
+		<?php echo $form->error($model,'user_name'); ?>
 	</div>
 
 	<div class="row">

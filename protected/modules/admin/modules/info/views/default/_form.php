@@ -57,8 +57,8 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'appointment_date'); ?>
-		<?php echo $form->textField($model,'date_meeting'); ?>
-		<?php echo $form->error($model,'date_meeting'); ?>
+		<?php echo $form->textField($model,'appointment_date'); ?>
+		<?php echo $form->error($model,'appointment_date'); ?>
 	</div>
 	
 	<div class="row">
