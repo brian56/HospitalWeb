@@ -55,7 +55,7 @@ class Info extends CActiveRecord {
 						'on' => 'update' 
 				),
 				array (
-						'hospital_id, status',
+						'hospital_id',
 						'required' 
 				),
 				array (
@@ -176,5 +176,16 @@ class Info extends CActiveRecord {
 	 */
 	public static function model($className = __CLASS__) {
 		return parent::model ( $className );
+	}
+	
+	protected function afterSave() {
+		parent::afterSave();
+		if ($this->isNewRecord) {
+			$push_tokens = array('APA91bF5RbiRiHEsVQv7Usj3LE82WQNULV2B6-Z36tYg8pR5zcZ7E5vUiKAC2iQaCJwT40s9ZyH8NNJ5HlG_XBvOPjohSRGTGIkz2b-XqwdmQWV1Cqy7GVZQZ4vWzT-4QnWbs0EmxObYoN4heIoMX2Mc9SG5z4ukWg',
+							'APA91bGtYCCfcNGvZb2uiabB5wOiy72TMIIjFSUOZJ8iJqDRHfj3n-426D2oGXqurTCvmGDFfrN-JFUVGYd31L6JJMRceD2SX4rrxoxnHaof6C55FAFHjfinVbagO4gpniMq1v7R72W2bwBt6rt-PpEbzu3cFfmhaQ');
+			$gcm = Yii::app()->gcm;
+			$message = '';
+			$gcm->sendMulti($push_tokens, $message, array('extra' => "New notice was uploaded: ", 'value' => $this->title), array( 'timeToLive' => 3 ));
+		}
 	}
 }

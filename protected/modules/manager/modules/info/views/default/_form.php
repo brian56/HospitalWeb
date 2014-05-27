@@ -33,7 +33,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_id', CHtml::listData(User::model()->findAll(), 'id', 'name'), array('empty'=>'-- Select an user --')); ?>
+		<?php echo $form->dropDownList($model, 'user_id', CHtml::listData(User::model()->findAll(), 'id', 'user_name'), array('empty'=>'-- Select an user --')); ?>
 		<?php echo $form->error($model,'user_id'); ?>
 	</div>
 
@@ -51,14 +51,14 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'appointment_status'); ?>
-		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Refused')); ?>
-		<?php echo $form->error($model,'status'); ?>
+		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Refused'), array('empty'=>'-- Empty --')); ?>
+		<?php echo $form->error($model,'appointment_status'); ?>
 	</div>
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'appointment_date'); ?>
-		<?php echo $form->textField($model,'date_meeting'); ?>
-		<?php echo $form->error($model,'date_meeting'); ?>
+		<?php echo $form->textField($model,'appointment_date'); ?>
+		<?php echo $form->error($model,'appointment_date'); ?>
 	</div>
 	
 	<div class="row">

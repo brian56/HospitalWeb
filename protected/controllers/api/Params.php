@@ -10,6 +10,8 @@ class Params {
 	const message_params_missing = 'Missing params:';
 	const status_params_error = - 2;
 	const message_params_error = 'Params format error:';
+	const status_failed = - 3;
+	const message_failed = 'Can not excute request.';
 	
 	// param's name define
 	const param_Id = 'id';
@@ -18,14 +20,16 @@ class Params {
 	const param_Order = 'order';
 	
 	// user params
-	const param_Name = 'name';
+	const param_Email = 'email';
+	const param_Password = 'password';
+	const param_User_Name = 'user_name';
 	const param_Contact_Phone = 'contact_phone';
 	const param_Device_Id = 'device_id';
 	const param_Token = 'token';
 	const param_Is_Actived = 'is_actived';
 	
 	// info, info's comment params
-	const param_Status = 'status';
+	const param_Status = 'appointment_status';
 	const param_Title = 'title';
 	const param_Content = 'content';
 	
@@ -38,6 +42,7 @@ class Params {
 	const param_Info_Id = 'info_id';
 	const param_Event_Id = 'event_id';
 	const param_Device_Os_Id = 'device_os_id';
+	
 	const param_Last_Time_Update = 'last_time_update';
 }
 ?>

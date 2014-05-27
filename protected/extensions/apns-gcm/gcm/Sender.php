@@ -110,15 +110,24 @@ class Sender {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // Disabling SSL Certificate support temporarly
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
         $response = curl_exec($ch);
+        if ($response === FALSE) {
+        	die('Curl failed: ' . curl_error($ch));
+        }
+        echo "<pre>";
+        print_r($response);
+        echo "</pre>";
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
         if($status == 503)
             return null;
-        if($status != 200)
+        if($status != 200) {
             throw new InvalidRequestException($status);
+        }
         if($response == '')
             throw new \Exception('Received empty response from GCM service.');
 
@@ -263,6 +272,8 @@ class Sender {
         curl_setopt($ch, CURLOPT_POST, true);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // Disabling SSL Certificate support temporarly
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, $request);
         $response = curl_exec($ch);
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);

@@ -76,7 +76,7 @@ class YiiApnsGcm extends CApplicationComponent
 
             $this->success = $client->success;
         }
-
+		var_dump($this->success);
         return $result;
     }
 

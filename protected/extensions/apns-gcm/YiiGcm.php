@@ -65,11 +65,11 @@ class YiiGCM extends YiiApnsGcmBase
         foreach($payloadData as $key=>$value){
             $message->addData($key,$value);
         }
-
         try {
             // send a message
             $result = $this->getClient()->send($message, $token, $this->retryTimes);
             $this->success = $result ? true : false;
+            var_dump($this->success);
         } catch (InvalidArgumentException $e) {
             $this->errors[] = $e->getMessage();
             // $deviceRegistrationId was null
@@ -80,7 +80,6 @@ class YiiGCM extends YiiApnsGcmBase
             $this->errors[] = $e->getMessage();
             // message could not be sent
         }
-
         return $message;
     }
 
@@ -134,7 +133,8 @@ class YiiGCM extends YiiApnsGcmBase
             // send a message
             $result = $this->getClient()->sendMulti($message, $tokens, $this->retryTimes);
 
-            $this->success = $result->getSuccess();;
+            $this->success = $result->getSuccess();
+            var_dump($result);
         } catch (InvalidArgumentException $e) {
             $this->errors[] = $e->getMessage();
             // $deviceRegistrationId was null
