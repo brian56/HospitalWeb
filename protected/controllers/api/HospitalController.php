@@ -25,6 +25,30 @@ class HospitalController extends Controller {
 				3 
 		) );
 	}
+	public function responseMissingParam($param) {
+		$response ['status'] = Params::status_params_missing;
+		$response ['message'] = Params::message_params_missing.$param;
+		$response ['data'] = '';
+		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+	}
+	public function responseSuccess($model, $data) {
+		$response ['status'] = Params::status_success;
+		$response ['message'] = Params::message_success . $model;
+		$response ['data'] = json_decode ( $this->renderJsonDeep ( $data ) );
+		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+	}
+	public function responseFailed() {
+		$response ['status'] = Params::status_failed;
+		$response ['message'] = Params::message_failed;
+		$response ['data'] = '';
+		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+	}
+	public function responseParamError($param) {
+		$response ['status'] = Params::status_params_error;
+		$response ['message'] = Params::message_params_error.$param;
+		$response ['data'] = '';
+		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+	}
 	// Actions
 	public function actionGetAll() {
 		// Get the respective model instance

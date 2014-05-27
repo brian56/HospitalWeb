@@ -20,9 +20,35 @@ class UserController extends Controller {
 	public function filters() {
 		return array ();
 	}
-	public function actionIndex()
-    {
-        echo CJSON::encode(array(1, 2, 3));
+	public function responseMissingParam($param) {
+    	$response ['status'] = Params::status_params_missing;
+    	$response ['message'] = Params::message_params_missing.$param;
+    	$response ['data'] = '';
+    	$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+    }
+    public function responseSuccess($model, $data) {
+    	$response ['status'] = Params::status_success;
+		$response ['message'] = Params::message_success . $model;
+		$response ['data'] = json_decode ( $this->renderJsonDeep ( $data ) );
+		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+    }
+    public function responseSuccess($model) {
+    	$response ['status'] = Params::status_success;
+		$response ['message'] = Params::message_success . $model;
+		$response ['data'] = '';
+		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+    }
+    public function responseFailed($message) {
+    	$response ['status'] = Params::status_failed;
+    	$response ['message'] = Params::message_failed.' '.$message;
+    	$response ['data'] = '';
+    	$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+    }
+    public function responseParamError($param) {
+    	$response ['status'] = Params::status_params_error;
+    	$response ['message'] = Params::message_params_error.$param;
+    	$response ['data'] = '';
+    	$this->_sendResponse ( 200, CJSON::encode ( $response ) );
     }
 	// Actions
 	public function actionGetAll() {
@@ -136,14 +162,11 @@ class UserController extends Controller {
 		if(!isset($_POST[Params::param_Hospital_Id])) {
 			$missingParams.= Params::param_Hospital_Id;
 		}
-		if(!isset($_POST[Params::param_User_Level_Id])) {
-			$missingParams.= ",".Params::param_User_Level_Id;
+		if(!isset($_POST[Params::param_Email])) {
+			$missingParams.= ",".Params::param_Email;
 		}
-		if(!isset($_POST[Params::param_Is_Actived])) {
-			$missingParams.= ",".Params::param_Is_Actived;
-		}
-		if(!isset($_POST[Params::param_Name])) {
-			$missingParams.= ",".Params::param_Name;
+		if(!isset($_POST[Params::param_User_Name])) {
+			$missingParams.= ",".Params::param_User_Name;
 		}
 		if(!isset($_POST[Params::param_Contact_Phone])) {
 			$missingParams.= ",".Params::param_Contact_Phone;
@@ -154,29 +177,93 @@ class UserController extends Controller {
 		if(!isset($_POST[Params::param_Device_Id])) {
 			$missingParams.= ",".Params::param_Device_Id;
 		}
-		if($missingParams!='') { 
-			$response ['status'] = Params::status_params_missing;
-			$response ['message'] = Params::message_params_missing.$missingParams;
-			$response ['data'] = '';
-			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+		
+		if($missingParams ==='') { 
+			$this->responseMissingParam($missingParams);
 		} else {
 			$user = new User();
 			$user->hospital_id = $_POST[Params::param_Hospital_Id];
-			$user->user_level_id = $_POST[Params::param_User_Level_Id];
-			$user->is_actived = $_POST[Params::param_Is_Actived];
-			$user->name = $_POST[Params::param_Name];
+			$user->user_level_id = 1;
+			$user->is_actived = 1;
+			$user->email = $_POST[Params::param_Email];
+			$user->user_name = $_POST[Params::param_User_Name];
 			$user->contact_phone = $_POST[Params::param_Contact_Phone];
 			$user->device_os_id = $_POST[Params::param_Device_Os_Id];
 			$user->device_id = $_POST[Params::param_Device_Id];
-			$user->token = $_POST[Params::param_Token];
-			$user->insert();
+			$user->token = $this->generateToken($_POST[Params::param_Email], $_POST[Params::param_Device_Id]);
+			if($user->insert()) {
+				$this->responseSuccess($this->modelName);
+			} else {
+				$message = 'Register Failed.';
+				$this->responseFailed($message);
+			}
+		}
+	}
+	
+	public function actionLogin() {
+		$missingParams = '';
+		if(!isset($_POST[Params::param_Hospital_Id])) {
+			$missingParams.= Params::param_Hospital_Id;
+		}
+		if(!isset($_POST[Params::param_Email])) {
+			$missingParams.= ",".Params::param_Email;
+		}
+		
+		if($missingParams==='') {	
+			//missing params, response
+			$this->responseMissingParam($missingParams);
+		} else {	
+			//check email and hospital id existed
+			$email = $_POST[Params::param_Email];
+			$hospital_id = $_POST[Params::param_Hospital_Id];
+			$device_id = '';
+			if(isset($_POST[Params::param_Device_Id])) {
+				$device_id = $_POST[Params::param_Device_Id];
+			}
+			$user = $this->checkEmailExisted($email, $hospital_id);
+			if($user!==NUll && $user->is_actived===1) {
+				//email existed, check device id
+				if(!$this->checkDeviceIdExisted($email, $hospital_id, $device_id)) {
+					//new device id, replace current device id in database
+					User::model()->updateByPk($user->id, array(
+					'device_id' => $device_id,
+					));
+				} 
+			} else { 
+				$message = 'Login failed, email not found or your account have been deactived by administrator.';
+				$this->responseFailed($message);
+			}
 		}
 	}
 	public function actionUpdate() {
 		
 	}
+	
 	public function actionDelete() {
 		
+	}
+	
+	public function generateToken($email, $deviceId) {
+		return md5(uniqid($email.$deviceId, true));
+	}
+	
+	public function checkEmailExisted($email, $hospital_id) {
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'email=:email AND hospital_id=:hospital_id';
+		$criteria->params = array(':email' => $email, ':hospital_id' => $hospital_id);
+		$result = User::model()->find($criteria);
+		return $result;
+	}
+	
+	public function checkDeviceIdExisted($email, $hospital_id, $device_id){
+		$criteria = new CDbCriteria();
+		$criteria->condition = 'email=:email AND hospital_id=:hospital_id AND device_id=:device_id';
+		$criteria->params = array(':email' => $email, ':hospital_id' => $hospital_id, ':device_id' => $device_id);
+		$result = User::model()->find($criteria);
+		if($result===NULL) {
+			return FALSE;
+		} else
+			return TRUE;
 	}
 	
 	protected function renderJsonDeep($o) {

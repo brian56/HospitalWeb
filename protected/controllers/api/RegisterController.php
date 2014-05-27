@@ -33,9 +33,9 @@ class RegisterController extends Controller {
     }
     public function responseSuccess($model, $data) {
     	$response ['status'] = Params::status_success;
-			$response ['message'] = Params::message_success . $model;
-			$response ['data'] = json_decode ( $this->renderJsonDeep ( $data ) );
-			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+		$response ['message'] = Params::message_success . $model;
+		$response ['data'] = json_decode ( $this->renderJsonDeep ( $data ) );
+		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
     }
     public function responseFailed() {
     	$response ['status'] = Params::status_failed;
@@ -97,123 +97,8 @@ class RegisterController extends Controller {
 			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 		}
 	}
-	public function actionGetByHospital() {
-		// Get the respective model instance
-		$criteria = new CDbCriteria ();
-		
-		if (isset ( $_GET [Params::param_Offset] )) {
-			$criteria->offset = $_GET [Params::param_Offset];
-		}
-		
-		if (isset ( $_GET [Params::param_Limit] )) {
-			$criteria->limit = $_GET [Params::param_Limit];
-		}
-		
-		if (isset ( $_GET [Params::param_Order] )) {
-			$criteria->order =  $_GET [Params::param_Order];
-		}
-		
-		if(isset($_GET[Params::param_Hospital_Id])) {
-			$criteria->condition = 'hospital_id=:hospital_id';
-			$criteria->params = array(':hospital_id' => $_GET[Params::param_Hospital_Id]);
-			$criteria->with = array('userLevel', 'deviceOs');
-			$models = User::model ()->findAll($criteria);
-			
-			// Did we get some results?
-			if (empty ( $models )) {
-				// No
-				$response ['status'] = Params::status_no_record;
-				$response ['message'] = Params::message_no_record . $this->modelName;
-				$response ['data'] = '';
-				$this->_sendResponse ( 200, CJSON::encode ( $response ) );
-			} else {
-				// Prepare response
-				$response ['status'] = Params::status_success;
-				$response ['message'] = Params::message_success . $this->modelName;
-				$response ['data'] = json_decode ( $this->renderJsonDeep ( $models ) );
-				$this->_sendResponse ( 200, CJSON::encode ( $response ) );
-			}
-		} else {
-			// No
-			$response ['status'] = Params::status_params_missing;
-			$response ['message'] = Params::message_params_missing.Params::param_Hospital_Id;
-			$response ['data'] = '';
-			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
-		}
-	}
 	
-	
-	public function actionView() {
-		// Check if id was submitted via GET
-		if(!isset($_GET[Params::param_Id])) {
-			$response ['status'] = Params::status_params_missing;
-			$response ['message'] = Params::message_params_missing.Params::param_Id;
-			$response ['data'] = '';
-			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
-		} else {
-			$criteria = new CDbCriteria ();
-			$criteria->with = array('hospital','userLevel', 'deviceOs');
-			$model = User::model()->findByPk($_GET[Params::param_Id], $criteria);
-			// Did we find the requested model? If not, raise an error
-			if(is_null($model)) {
-				$response['status'] = Params::status_no_record;
-				$response['message'] = Params::message_no_record.$this->modelName.'___'.Params::param_Id.':'.$_GET[Params::param_Id];
-				$response['data'] = '';
-				$this->_sendResponse ( 200, CJSON::encode($response) );
-			}
-			else {
-				$response['status'] = Params::status_success;
-				$response['message'] = Params::message_success.$this->modelName;
-				$response['data'] = json_decode($this->renderJsonDeep( $model ));
-				$this->_sendResponse ( 200, CJSON::encode($response ) );
-			}
-		}
-	}
-	public function actionCreate() {
-		$missingParams = '';
-		if(!isset($_POST[Params::param_Hospital_Id])) {
-			$missingParams.= Params::param_Hospital_Id;
-		}
-		if(!isset($_POST[Params::param_User_Level_Id])) {
-			$missingParams.= ",".Params::param_User_Level_Id;
-		}
-		if(!isset($_POST[Params::param_Is_Actived])) {
-			$missingParams.= ",".Params::param_Is_Actived;
-		}
-		if(!isset($_POST[Params::param_Name])) {
-			$missingParams.= ",".Params::param_Name;
-		}
-		if(!isset($_POST[Params::param_Contact_Phone])) {
-			$missingParams.= ",".Params::param_Contact_Phone;
-		}
-		if(!isset($_POST[Params::param_Device_Os_Id])) {
-			$missingParams.= ",".Params::param_Device_Os_Id;
-		}
-		if(!isset($_POST[Params::param_Device_Id])) {
-			$missingParams.= ",".Params::param_Device_Id;
-		}
-		if($missingParams!='') { 
-			$response ['status'] = Params::status_params_missing;
-			$response ['message'] = Params::message_params_missing.$missingParams;
-			$response ['data'] = '';
-			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
-		} else {
-			$user = new User();
-			$user->hospital_id = $_POST[Params::param_Hospital_Id];
-			$user->user_level_id = $_POST[Params::param_User_Level_Id];
-			$user->is_actived = $_POST[Params::param_Is_Actived];
-			$user->name = $_POST[Params::param_Name];
-			$user->contact_phone = $_POST[Params::param_Contact_Phone];
-			$user->device_os_id = $_POST[Params::param_Device_Os_Id];
-			$user->device_id = $_POST[Params::param_Device_Id];
-			$user->token = $_POST[Params::param_Token];
-			$user->insert();
-		}
-	}
-	public function actionUpdate() {
-		
-	}
-	public function actionDelete() {
+	public function checkEmail($email) {
 		
 	}
 	
