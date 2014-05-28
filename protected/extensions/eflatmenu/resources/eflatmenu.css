@@ -31,7 +31,7 @@ nav {
     transition: all 0.2s ease-in-out 0s;
 }
 
-.eflat-menu li.active a {
+.eflat-menu li.active > a {
     color:#ffffff;
     background:#9CA3DA;
 }

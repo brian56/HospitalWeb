@@ -50,6 +50,12 @@ class UserController extends Controller {
     	$response ['data'] = '';
     	$this->_sendResponse ( 200, CJSON::encode ( $response ) );
     }
+    public function responseNoRecord($model) {
+    	$response ['status'] = Params::status_no_record;
+		$response ['message'] = Params::message_no_record . $model;
+		$response ['data'] = '';
+		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+    }
 	// Actions
 	public function actionGetAll() {
 		// Get the respective model instance
@@ -79,10 +85,7 @@ class UserController extends Controller {
 			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 		} else {
 			// Prepare response
-			$response ['status'] = Params::status_success;
-			$response ['message'] = Params::message_success . $this->modelName;
-			$response ['data'] = json_decode ( $this->renderJsonDeep ( $models ) );
-			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+			$this->responseSuccess($this->modelName, $models);
 		}
 	}
 	public function actionGetByHospital() {
@@ -110,23 +113,14 @@ class UserController extends Controller {
 			// Did we get some results?
 			if (empty ( $models )) {
 				// No
-				$response ['status'] = Params::status_no_record;
-				$response ['message'] = Params::message_no_record . $this->modelName;
-				$response ['data'] = '';
-				$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+				$this->responseNoRecord($this->modelName);
 			} else {
 				// Prepare response
-				$response ['status'] = Params::status_success;
-				$response ['message'] = Params::message_success . $this->modelName;
-				$response ['data'] = json_decode ( $this->renderJsonDeep ( $models ) );
-				$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+				$this->responseSuccess($this->modelName, $models);
 			}
 		} else {
 			// No
-			$response ['status'] = Params::status_params_missing;
-			$response ['message'] = Params::message_params_missing.Params::param_Hospital_Id;
-			$response ['data'] = '';
-			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+			$this->responseMissingParam(Params::param_Hospital_Id);
 		}
 	}
 	
@@ -134,26 +128,17 @@ class UserController extends Controller {
 	public function actionView() {
 		// Check if id was submitted via GET
 		if(!isset($_GET[Params::param_Id])) {
-			$response ['status'] = Params::status_params_missing;
-			$response ['message'] = Params::message_params_missing.Params::param_Id;
-			$response ['data'] = '';
-			$this->_sendResponse ( 200, CJSON::encode ( $response ) );
+			$this->responseMissingParam(Params::param_Id);
 		} else {
 			$criteria = new CDbCriteria ();
 			$criteria->with = array('hospital','userLevel', 'deviceOs');
 			$model = User::model()->findByPk($_GET[Params::param_Id], $criteria);
 			// Did we find the requested model? If not, raise an error
 			if(is_null($model)) {
-				$response['status'] = Params::status_no_record;
-				$response['message'] = Params::message_no_record.$this->modelName.'___'.Params::param_Id.':'.$_GET[Params::param_Id];
-				$response['data'] = '';
-				$this->_sendResponse ( 200, CJSON::encode($response) );
+				$this->responseNoRecord($this->modelName);
 			}
 			else {
-				$response['status'] = Params::status_success;
-				$response['message'] = Params::message_success.$this->modelName;
-				$response['data'] = json_decode($this->renderJsonDeep( $model ));
-				$this->_sendResponse ( 200, CJSON::encode($response ) );
+				$this->responseSuccess($this->modelName, $model);
 			}
 		}
 	}
@@ -192,9 +177,12 @@ class UserController extends Controller {
 			$user->device_id = $_POST[Params::param_Device_Id];
 			$user->token = $this->generateToken($_POST[Params::param_Email], $_POST[Params::param_Device_Id]);
 			if($user->insert()) {
-				$this->responseSuccess($this->modelName);
+				$response ['status'] = Params::status_success;
+				$response ['message'] = Params::message_success . $this->modelName;
+				$response ['data'] = array('token' => $user->token);
+				$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 			} else {
-				$message = 'Register Failed.';
+				$message = 'Register failed.';
 				$this->responseFailed($message);
 			}
 		}
@@ -222,13 +210,21 @@ class UserController extends Controller {
 			}
 			$user = $this->checkEmailExisted($email, $hospital_id);
 			if($user!==NUll && $user->is_actived===1) {
-				//email existed, check device id
+				//email existed, check device id existed
 				if(!$this->checkDeviceIdExisted($email, $hospital_id, $device_id)) {
 					//new device id, replace current device id in database
 					User::model()->updateByPk($user->id, array(
 					'device_id' => $device_id,
 					));
-				} 
+				}
+				$token = $this->generateAndUpdateToken($user->email, $user->device_id);
+				User::model()->updateByPk($user->id, array(
+				'token' => $token,
+				));
+				$response ['status'] = Params::status_success;
+				$response ['message'] = Params::message_success . $this->modelName;
+				$response ['data'] = array('token' => $user->token);
+				$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 			} else { 
 				$message = 'Login failed, email not found or your account have been deactived by administrator.';
 				$this->responseFailed($message);
@@ -243,8 +239,8 @@ class UserController extends Controller {
 		
 	}
 	
-	public function generateToken($email, $deviceId) {
-		return md5(uniqid($email.$deviceId, true));
+	public function generateAndUpdateToken($email, $device_id) {
+		return md5(uniqid($email.$device_id, true));
 	}
 	
 	public function checkEmailExisted($email, $hospital_id) {

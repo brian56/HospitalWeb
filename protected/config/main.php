@@ -9,8 +9,8 @@ return array(
     'name' => 'Hospital Application',
     // preloading 'log' component
     'preload' => array(
-        'log',
         'bootstrap',
+        'log',
     ),
     // autoloading model and component classes
     'import' => array(
@@ -124,7 +124,7 @@ return array(
             ),
         ),
         'bootstrap' => array(
-            'class' => 'ext.yiibootster.components.Bootstrap',
+            'class' => 'ext.yiibooster-4.components.Booster',
         ),
         'apns' => array(
         		'class' => 'ext.apns-gcm.YiiApns',
