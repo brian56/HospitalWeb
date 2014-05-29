@@ -68,6 +68,12 @@
 		<?php echo $form->textField($model,'device_id'); ?>
 		<?php echo $form->error($model,'device_id'); ?>
 	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($model,'notify'); ?>
+		<?php echo $form->dropDownList($model, 'notify', array('1'=>'Yes', '0'=>'No')); ?>
+		<?php echo $form->error($model,'notify'); ?>
+	</div>
 	
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

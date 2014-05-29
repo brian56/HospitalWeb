@@ -53,6 +53,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 		'user_name',
 		'contact_phone',
 		'register_date',
+		'notify',
 		/*
 		'device_os_id',
 		'device_id',

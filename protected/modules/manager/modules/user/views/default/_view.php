@@ -41,6 +41,10 @@
 	<?php echo CHtml::encode($data->device_os_id); ?>
 	<br />
 
+	<b><?php echo CHtml::encode($data->getAttributeLabel('notify')); ?>:</b>
+	<?php echo CHtml::encode($data->notify); ?>
+	<br />
+	
 	<?php /*
 	<b><?php echo CHtml::encode($data->getAttributeLabel('device_id')); ?>:</b>
 	<?php echo CHtml::encode($data->device_id); ?>

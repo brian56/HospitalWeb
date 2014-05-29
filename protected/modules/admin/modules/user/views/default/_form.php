@@ -24,7 +24,13 @@
 		<?php echo $form->dropDownList($model, 'hospital_id', CHtml::listData(Hospital::model()->findAll(), 'id', 'name_en'), array('empty'=>'-- Select a hospital --')); ?>
 		<?php echo $form->error($model,'hospital_id'); ?>
 	</div>
-
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'is_actived'); ?>
+		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
+		<?php echo $form->error($model,'is_actived'); ?>
+	</div>
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email'); ?>
@@ -50,9 +56,6 @@
 	</div>
 
 	<div class="row">
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'device_os_id'); ?>
 		<?php echo $form->dropDownList($model, 'device_os_id', DeviceOS::getFullDeviceOS(), array('empty'=>'-- Select a device OS --')); ?>
 		<?php echo $form->error($model,'device_os_id'); ?>
@@ -61,6 +64,12 @@
 		<?php echo $form->labelEx($model,'device_id'); ?>
 		<?php echo $form->textField($model,'device_id'); ?>
 		<?php echo $form->error($model,'device_id'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'notify'); ?>
+		<?php echo $form->dropDownList($model, 'notify', array('1'=>'Yes', '0'=>'No')); ?>
+		<?php echo $form->error($model,'notify'); ?>
 	</div>
 	
 	<div class="row buttons">

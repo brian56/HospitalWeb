@@ -60,6 +60,11 @@
 		<?php echo $form->label($model,'device_id'); ?>
 		<?php echo $form->textField($model,'device_id'); ?>
 	</div>
+	
+	<div class="row">
+		<?php echo $form->label($model,'notify'); ?>
+		<?php echo $form->textField($model,'notify'); ?>
+	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'token'); ?>

@@ -32,7 +32,7 @@ class UserController extends Controller {
 		$response ['data'] = json_decode ( $this->renderJsonDeep ( $data ) );
 		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
     }
-    public function responseSuccess($model) {
+    public function responseSuccessNoData($model) {
     	$response ['status'] = Params::status_success;
 		$response ['message'] = Params::message_success . $model;
 		$response ['data'] = '';
@@ -56,7 +56,11 @@ class UserController extends Controller {
 		$response ['data'] = '';
 		$this->_sendResponse ( 200, CJSON::encode ( $response ) );
     }
-	// Actions
+    
+    
+	/**
+	 * get all User from database
+	 */
 	public function actionGetAll() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
@@ -88,6 +92,11 @@ class UserController extends Controller {
 			$this->responseSuccess($this->modelName, $models);
 		}
 	}
+	
+	/**
+	 * get all user belong to any individual hospital
+	 * param: hospital_id
+	 */
 	public function actionGetByHospital() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
@@ -124,7 +133,10 @@ class UserController extends Controller {
 		}
 	}
 	
-	
+	/**
+	 * view user's info detail
+	 * param: id
+	 */
 	public function actionView() {
 		// Check if id was submitted via GET
 		if(!isset($_GET[Params::param_Id])) {
@@ -142,6 +154,11 @@ class UserController extends Controller {
 			}
 		}
 	}
+	
+	/**
+	 * create an user and save on db
+	 * params: ...
+	 */
 	public function actionCreate() {
 		$missingParams = '';
 		if(!isset($_POST[Params::param_Hospital_Id])) {
@@ -169,7 +186,6 @@ class UserController extends Controller {
 			$user = new User();
 			$user->hospital_id = $_POST[Params::param_Hospital_Id];
 			$user->user_level_id = 1;
-			$user->is_actived = 1;
 			$user->email = $_POST[Params::param_Email];
 			$user->user_name = $_POST[Params::param_User_Name];
 			$user->contact_phone = $_POST[Params::param_Contact_Phone];
@@ -188,6 +204,10 @@ class UserController extends Controller {
 		}
 	}
 	
+	/*
+	 * login user to server, maybe update device token id
+	 * return a token to user for authenticating
+	 */
 	public function actionLogin() {
 		$missingParams = '';
 		if(!isset($_POST[Params::param_Hospital_Id])) {
@@ -210,20 +230,21 @@ class UserController extends Controller {
 			}
 			$user = $this->checkEmailExisted($email, $hospital_id);
 			if($user!==NUll && $user->is_actived===1) {
-				//email existed, check device id existed
+				//email existed, login successfully
+				//check if device id is not existed, replace with the new 
 				if(!$this->checkDeviceIdExisted($email, $hospital_id, $device_id)) {
 					//new device id, replace current device id in database
 					User::model()->updateByPk($user->id, array(
 					'device_id' => $device_id,
 					));
 				}
-				$token = $this->generateAndUpdateToken($user->email, $user->device_id);
+				$token = $this->generateToken($user->email, $user->device_id);
 				User::model()->updateByPk($user->id, array(
 				'token' => $token,
 				));
 				$response ['status'] = Params::status_success;
 				$response ['message'] = Params::message_success . $this->modelName;
-				$response ['data'] = array('token' => $user->token);
+				$response ['data'] = $token;
 				$this->_sendResponse ( 200, CJSON::encode ( $response ) );
 			} else { 
 				$message = 'Login failed, email not found or your account have been deactived by administrator.';
@@ -239,10 +260,16 @@ class UserController extends Controller {
 		
 	}
 	
-	public function generateAndUpdateToken($email, $device_id) {
+	/*
+	 * generate a token for authenticating between server and user
+	 */
+	public function generateToken($email, $device_id) {
 		return md5(uniqid($email.$device_id, true));
 	}
 	
+	/*
+	 * check if email existed or not
+	 */
 	public function checkEmailExisted($email, $hospital_id) {
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'email=:email AND hospital_id=:hospital_id';
@@ -251,6 +278,10 @@ class UserController extends Controller {
 		return $result;
 	}
 	
+	/*
+	 * check if device id is existed or not
+	 * if not existed or different, update to new device id
+	 */
 	public function checkDeviceIdExisted($email, $hospital_id, $device_id){
 		$criteria = new CDbCriteria();
 		$criteria->condition = 'email=:email AND hospital_id=:hospital_id AND device_id=:device_id';

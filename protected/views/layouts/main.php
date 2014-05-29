@@ -30,14 +30,36 @@
 	<?php 
 		$this->widget('application.extensions.eflatmenu.EFlatMenu', array(
 			'items' => array(
-				array('label'=>'Home', 'url'=>array('/site'),'visible' => TRUE, 'active'=>(Yii::app()->controller->action->id=='index' && Yii::app()->controller->id=='site')),
-				array('label'=>'Manager', 'url'=>array('/manager'), 'visible' => !Yii::app()->user->isGuest, 
+				array(
+					'label'=>'Home', 
+					'url'=>array('/site'),
+					'visible' => TRUE, 
+					'active'=>(Yii::app()->controller->action->id=='index' && Yii::app()->controller->id=='site')),
+				array(
+					'label'=>'Manager', 
+					'url'=>array('/manager'), 
+					'visible' => !Yii::app()->user->isGuest, 
 					'active'=>(isset(Yii::app()->controller->module->id) && (Yii::app()->controller->module->id=='manager')),
 				),
-				array('label'=>'Administrator', 'url'=>array('/admin'), 'visible' => !Yii::app()->user->isGuest, 'active'=>(isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id=='admin')),
-				array('label'=>'Rights', 'url'=>array('/rights'), 'visible' => !Yii::app()->user->isGuest, 'active'=>(isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id=='rights')),
-				array('label' => 'Login', 'url' => array('site/login'), 'visible' => Yii::app()->user->isGuest, 'active'=>(Yii::app()->controller->id=='site' && Yii::app()->controller->action->id=='login')),
-				array('label' => 'Logout (' . Yii::app()->user->name . ')', 'url' => array('/site/logout'), 'visible' => !Yii::app()->user->isGuest)
+				array(
+					'label'=>'Administrator', 
+					'url'=>array('/admin'), 
+					'visible' => !Yii::app()->user->isGuest, 
+					'active'=>(isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id=='admin')),
+				array(
+					'label'=>'Rights', 
+					'url'=>array('/rights'), 
+					'visible' => !Yii::app()->user->isGuest, 
+					'active'=>(isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id=='rights')),
+				array(
+					'label' => 'Login', 
+					'url' => array('site/login'), 
+					'visible' => Yii::app()->user->isGuest, 
+					'active'=>(Yii::app()->controller->id=='site' && Yii::app()->controller->action->id=='login')),
+				array(
+					'label' => 'Logout (' . Yii::app()->user->name . ')', 
+					'url' => array('/site/logout'), 
+					'visible' => !Yii::app()->user->isGuest)
 			)
 		));
 	?>

@@ -15,6 +15,7 @@
  * @property string $register_date
  * @property integer $device_os_id
  * @property string $device_id
+ * @property integer $notify
  * @property string $token
  * @property string $token_expired_date
  *
@@ -49,11 +50,11 @@ class User extends CActiveRecord
 						'value'=>new CDbExpression('NOW()'),//automatically add the current date in register_date
 					'setOnEmpty'=>false,'on'=>'insert'),
 			array('hospital_id', 'required'),
-			array('hospital_id, user_level_id, is_actived, device_os_id', 'numerical', 'integerOnly'=>true),
-			array('email, password, user_name, contact_phone, register_date, device_id, token, token_expired_date', 'safe'),
+			array('hospital_id, user_level_id, is_actived, device_os_id', 'numerical', 'notify', 'integerOnly'=>true),
+			array('email, password, user_name, contact_phone, register_date, device_id, notify, token, token_expired_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, hospital_id, user_level_id, is_actived, email, password, user_name, contact_phone, register_date, device_os_id, device_id, token, token_expired_date', 'safe', 'on'=>'search'),
+			array('id, hospital_id, user_level_id, is_actived, email, password, user_name, contact_phone, register_date, device_os_id, device_id, notify, token, token_expired_date', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -92,6 +93,7 @@ class User extends CActiveRecord
 			'register_date' => 'Register Date',
 			'device_os_id' => 'Device Os',
 			'device_id' => 'Device Token Id',
+			'notify' => 'Notify',
 			'token' => 'Token',
 			'token_expired_date' => 'Token Expired Date',
 		);
@@ -126,6 +128,7 @@ class User extends CActiveRecord
 		$criteria->compare('register_date',$this->register_date,true);
 		$criteria->compare('device_os_id',$this->device_os_id);
 		$criteria->compare('device_id',$this->device_id,true);
+		$criteria->compare('notify',$this->notify,true);
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('token_expired_date',$this->token_expired_date,true);
 

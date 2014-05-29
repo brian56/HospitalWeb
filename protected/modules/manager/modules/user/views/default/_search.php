@@ -62,6 +62,11 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->label($model,'notify'); ?>
+		<?php echo $form->textField($model,'notify'); ?>
+	</div>
+	
+	<div class="row">
 		<?php echo $form->label($model,'token'); ?>
 		<?php echo $form->textField($model,'token'); ?>
 	</div>
