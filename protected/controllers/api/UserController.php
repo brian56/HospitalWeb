@@ -73,28 +73,26 @@ class UserController extends Controller {
 			$criteria->order = $_GET [Params::param_Order];
 		}
 		
-		if (isset ( $_GET [Params::param_Hospital_Id] )) {
-			$criteria->condition = 'hospital_id=:hospital_id';
-			$criteria->params = array (
-					':hospital_id' => $_GET [Params::param_Hospital_Id] 
-			);
-			$criteria->with = array (
-					'userLevel',
-					'deviceOs' 
-			);
-			$models = User::model ()->findAll ( $criteria );
-			
-			// Did we get some results?
-			if (empty ( $models )) {
-				// No
-				Response::NoRecord( $this->modelName );
-			} else {
-				// Prepare response
-				Response::Success($this->modelName, $models);
-			}
-		} else {
-			// No
+		if (!isset ( $_GET [Params::param_Hospital_Id] )) {
 			Response::MissingParam(Params::param_Hospital_Id);
+		}
+		$criteria->condition = 'hospital_id=:hospital_id';
+		$criteria->params = array (
+				':hospital_id' => $_GET [Params::param_Hospital_Id]
+		);
+		$criteria->with = array (
+				'userLevel',
+				'deviceOs'
+		);
+		$models = User::model ()->findAll ( $criteria );
+			
+		// Did we get some results?
+		if (empty ( $models )) {
+			// No
+			Response::NoRecord( $this->modelName );
+		} else {
+			// Prepare response
+			Response::Success($this->modelName, $models);
 		}
 	}
 	
@@ -128,7 +126,7 @@ class UserController extends Controller {
 	 * params: .
 	 * ..
 	 */
-	public function actionCreate() {
+	public function actionRegister() {
 		if (! isset ( $_POST [Params::param_Hospital_Id] )) {
 			Response::MissingParam(Params::param_Hospital_Id);
 		}
@@ -146,6 +144,12 @@ class UserController extends Controller {
 		}
 		if (! isset ( $_POST [Params::param_Device_Id] )) {
 			Response::MissingParam(Params::param_Device_Id);
+		}
+		
+		//if email existed, let user chose another email or login with current email
+		if(!is_null($this->checkEmailExisted($_POST [Params::param_Email], $_POST [Params::param_Hospital_Id]))) {
+			$message = "Email existed. Please use another email or login with current email.";
+			Response::Failed($message);
 		}
 		$user = new User ();
 		$user->hospital_id = $_POST [Params::param_Hospital_Id];
@@ -185,10 +189,10 @@ class UserController extends Controller {
 			$device_id = $_POST [Params::param_Device_Id];
 		}
 		$user = $this->checkEmailExisted ( $email, $hospital_id );
-		if ($user !== NUll && $user->is_actived === 1) {
+		if (!is_null($user) && $user->is_actived === 1) {
 			// email existed, login successfully
 			// check if device id is not existed, replace with the new
-			if (! $this->checkDeviceIdExisted ( $email, $hospital_id, $device_id )) {
+			if ($device_id!=='' && ! $this->checkDeviceIdExisted ( $email, $hospital_id, $device_id )) {
 				// new device id, replace current device id in database
 				User::model ()->updateByPk ( $user->id, array (
 						'device_id' => $device_id 
@@ -255,7 +259,7 @@ class UserController extends Controller {
 				':device_id' => $device_id 
 		);
 		$result = User::model ()->find ( $criteria );
-		if ($result === NULL) {
+		if (is_null($result)) {
 			return FALSE;
 		} else
 			return TRUE;

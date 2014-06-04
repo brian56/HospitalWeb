@@ -29,9 +29,10 @@ class Params {
 	const param_Is_Actived = 'is_actived';
 	
 	// info, info's comment params
-	const param_Status = 'appointment_status';
+	const param_Appointment_Status = 'appointment_status';
 	const param_Title = 'title';
 	const param_Content = 'content';
+	const param_Appointment_Date = 'appointment_date';
 	
 	// foreign key params
 	const param_User_Id = 'user_id';
