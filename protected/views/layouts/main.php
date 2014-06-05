@@ -38,18 +38,18 @@
 				array(
 					'label'=>'Manager', 
 					'url'=>array('/manager'), 
-					'visible' => !Yii::app()->user->isGuest, 
+					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isManager")), 
 					'active'=>(isset(Yii::app()->controller->module->id) && (Yii::app()->controller->module->id=='manager')),
 				),
 				array(
 					'label'=>'Administrator', 
 					'url'=>array('/admin'), 
-					'visible' => !Yii::app()->user->isGuest, 
+					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isAdmin")) , 
 					'active'=>(isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id=='admin')),
 				array(
 					'label'=>'Rights', 
 					'url'=>array('/rights'), 
-					'visible' => !Yii::app()->user->isGuest, 
+					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isAdmin")), 
 					'active'=>(isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id=='rights')),
 				array(
 					'label' => 'Login', 

@@ -140,4 +140,29 @@ class InfoComment extends CActiveRecord {
 	public static function model($className = __CLASS__) {
 		return parent::model ( $className );
 	}
+	public function beforeSave()
+	{
+		if($this->isNewRecord)
+		{
+			$this->date_create= date('Y-m-d H:i:s');
+		}else{
+			$this->date_update = date('Y-m-d H:i:s');
+		}
+		return parent::beforeSave();
+	}
+	
+	public function afterSave(){
+		//send notification to author only
+		$userDeviceId = User::model()->findByAttributes(array('id'=>$this->info->user_id, 'is_actived'=>1), 'device_id');
+		$criteria = new CDbCriteria();
+		$criteria->select = array('device_id');
+		$criteria->condition = 't.id=:id AND t.is_actived=1';
+		$criteria->params = array(':id'=>$this->info->user_id);
+		$user = User::model()->find($criteria);
+		if(!is_null($user) && $user->device_id!=null && $user->device_id!='') {
+			$userDeviceId = $user->device_id;
+			$message = "You have new reply.";
+			SendNotification::actionPushOneDevice($userDeviceId, $message);
+		}
+	}
 }

@@ -11,6 +11,21 @@ class Response {
 	private static $format = 'json';
 	private $response = array();
 	
+	public static function getUserIdFromToken($token='') {
+		$criteria = new CDbCriteria();
+		$criteria->select = array('id', 'token_expired_date');
+		$criteria->condition = 'token=:token AND is_actived=:is_actived';
+		$criteria->params = array(':token'=>$token, ':is_actived'=>1);
+		$user = User::model()->find($criteria);
+		if(!is_null($user)) {
+			$now = date('Y-m-d H:i:s');
+			if(strtotime($now) < strtotime($user->token_expired_date)) {
+				return $user->id;
+			} else 
+				return null;
+		} else return null;
+	}
+	
 	/**
 	 * Response to user that a param is missed
 	 * @param string $param param's name
@@ -27,19 +42,31 @@ class Response {
      * @param string $model model's name
      * @param array $data data to return to user
      */
-    public static function Success($model='', $data = array()) {
+    public static function Success($modelName='', $data = array()) {
     	$response ['status'] = Params::status_success;
-		$response ['message'] = Params::message_success . $model;
+		$response ['message'] = Params::message_success . $modelName;
 		$response ['data'] = json_decode ( self::renderJsonDeep ( $data ) );
+		self::_sendResponse ( 200, CJSON::encode ( $response ) );
+    }
+    
+    /**
+     * Response to user that request was successful, and data was a simple array
+     * @param string $model model's name
+     * @param array $data data to return to user
+     */
+    public static function SuccessWithSimpleArray($modelName='', $data = array()) {
+    	$response ['status'] = Params::status_success;
+		$response ['message'] = Params::message_success . $modelName;
+		$response ['data'] = $data;
 		self::_sendResponse ( 200, CJSON::encode ( $response ) );
     }
     /**
      * Response to user that request is successful, but no data to return
      * @param string $model model's name
      */
-    public static function SuccessNoData($model='') {
+    public static function SuccessNoData($modelName='') {
     	$response ['status'] = Params::status_success;
-		$response ['message'] = Params::message_success . $model;
+		$response ['message'] = Params::message_success . $modelName;
 		$response ['data'] = '';
 		self::_sendResponse ( 200, CJSON::encode ( $response ) );
     }

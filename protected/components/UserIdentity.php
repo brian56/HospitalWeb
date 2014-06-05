@@ -9,6 +9,7 @@ class UserIdentity extends CUserIdentity {
 
     private $_id;
     private $hospital_id;
+    private $level;
 
     /**
      * Authenticates a user.
@@ -34,7 +35,7 @@ class UserIdentity extends CUserIdentity {
         $record = User::model()->findByAttributes(array("email" => $this->username));
         if ($record === null) {
             $this->errorCode = self::ERROR_USERNAME_INVALID;
-        } elseif ($record->password !== $this->password) {
+        } elseif ($record->password !== md5($this->password)) {
             $this->errorCode = self::ERROR_PASSWORD_INVALID;
         } elseif ($record->user_level_id < 2) {
         	$this->errorCode = self::ERROR_USERNAME_INVALID;
@@ -43,6 +44,12 @@ class UserIdentity extends CUserIdentity {
             $this->hospital_id = $record->hospital_id;
             $this->username = $record->email;
             $this->errorCode = self::ERROR_NONE;
+			if ($record->user_level_id == 3) {
+				Yii::app ()->user->setState ( "isAdmin", true );
+				Yii::app ()->user->setState ( "isManager", true );
+			} else if ($record->user_level_id == 2) {
+				Yii::app ()->user->setState ( "isManager", true );
+			}
         }
         return !$this->errorCode;
     }
@@ -53,7 +60,10 @@ class UserIdentity extends CUserIdentity {
     public function getHospitalId() {
         return $this->hospital_id;
     }
-
+    public function getLevel() {
+    	return $this->level;
+    }
+    
 //	public function authenticate()
 //	{
 //			$users=array(

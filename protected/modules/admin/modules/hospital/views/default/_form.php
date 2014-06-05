@@ -27,31 +27,31 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'name'); ?>
 		<?php echo $form->error($model,'name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'name_en'); ?>
-		<?php echo $form->textArea($model,'name_en',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'name_en'); ?>
 		<?php echo $form->error($model,'name_en'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'introduction'); ?>
-		<?php echo $form->textArea($model,'introduction',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'introduction',array('rows'=>3, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'introduction'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'photos'); ?>
-		<?php echo $form->textArea($model,'photos',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'photos',array('rows'=>3, 'cols'=>50)); ?>
 		<?php echo $form->error($model,'photos'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'location'); ?>
-		<?php echo $form->textArea($model,'location',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'location'); ?>
 		<?php echo $form->error($model,'location'); ?>
 	</div>
 

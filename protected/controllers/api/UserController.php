@@ -24,15 +24,13 @@ class UserController extends Controller {
 	public function actionGetAll() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
-		
+	
 		if (isset ( $_GET [Params::param_Offset] )) {
 			$criteria->offset = $_GET [Params::param_Offset];
 		}
-		
 		if (isset ( $_GET [Params::param_Limit] )) {
 			$criteria->limit = $_GET [Params::param_Limit];
 		}
-		
 		if (isset ( $_GET [Params::param_Order] )) {
 			$criteria->order = $_GET [Params::param_Order];
 		}
@@ -60,23 +58,21 @@ class UserController extends Controller {
 	public function actionGetByHospital() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
+
+		if (!isset ( $_GET [Params::param_Hospital_Id] )) {
+			Response::MissingParam(Params::param_Hospital_Id);
+		}
 		
 		if (isset ( $_GET [Params::param_Offset] )) {
 			$criteria->offset = $_GET [Params::param_Offset];
 		}
-		
 		if (isset ( $_GET [Params::param_Limit] )) {
 			$criteria->limit = $_GET [Params::param_Limit];
 		}
-		
 		if (isset ( $_GET [Params::param_Order] )) {
 			$criteria->order = $_GET [Params::param_Order];
 		}
-		
-		if (!isset ( $_GET [Params::param_Hospital_Id] )) {
-			Response::MissingParam(Params::param_Hospital_Id);
-		}
-		$criteria->condition = 'hospital_id=:hospital_id';
+		$criteria->condition = 't.hospital_id=:hospital_id';
 		$criteria->params = array (
 				':hospital_id' => $_GET [Params::param_Hospital_Id]
 		);
@@ -103,7 +99,7 @@ class UserController extends Controller {
 	public function actionView() {
 		// Check if id was submitted via GET
 		if (! isset ( $_GET [Params::param_Id] )) {
-			$this->responseMissingParam ( Params::param_Id );
+			Response::MissingParam( Params::param_Id );
 		} else {
 			$criteria = new CDbCriteria ();
 			$criteria->with = array (
@@ -133,6 +129,9 @@ class UserController extends Controller {
 		if (! isset ( $_POST [Params::param_Email] )) {
 			Response::MissingParam(Params::param_Email);
 		}
+		if (! isset ( $_POST [Params::param_Password] )) {
+			Response::MissingParam(Params::param_Password);
+		}
 		if (! isset ( $_POST [Params::param_User_Name] )) {
 			Response::MissingParam(Params::param_User_Name);
 		}
@@ -147,7 +146,7 @@ class UserController extends Controller {
 		}
 		
 		//if email existed, let user chose another email or login with current email
-		if(!is_null($this->checkEmailExisted($_POST [Params::param_Email], $_POST [Params::param_Hospital_Id]))) {
+		if(!is_null($this->checkEmailExisted($_POST [Params::param_Email], $_POST [Params::param_Company_Id]))) {
 			$message = "Email existed. Please use another email or login with current email.";
 			Response::Failed($message);
 		}
@@ -155,14 +154,19 @@ class UserController extends Controller {
 		$user->hospital_id = $_POST [Params::param_Hospital_Id];
 		$user->user_level_id = 1;
 		$user->email = $_POST [Params::param_Email];
+		$user->password = md5($_POST [Params::param_Password]);
 		$user->user_name = $_POST [Params::param_User_Name];
 		$user->contact_phone = $_POST [Params::param_Contact_Phone];
 		$user->device_os_id = $_POST [Params::param_Device_Os_Id];
 		$user->device_id = $_POST [Params::param_Device_Id];
 		$user->token = $this->generateToken ( $_POST [Params::param_Email], $_POST [Params::param_Device_Id] );
+		
+		$now = date('Y-m-d H:i:s');
+		$tomorrow = strtotime("+1 day", strtotime($now));
+		$user->token_expired_date = date('Y-m-d H:i:s', $tomorrow);
 		if ($user->insert ()) {
 			$data = array('token' => $user->token );
-			Response::Success($this->modelName, $data);
+			Response::SuccessWithSimpleArray($this->modelName, $data);
 		} else {
 			$message = 'Register failed.';
 			Response::Failed($message);
@@ -180,7 +184,12 @@ class UserController extends Controller {
 		if (! isset ( $_POST [Params::param_Email] )) {
 			Response::MissingParam(Params::param_Email);
 		}
-	
+		if (! isset ( $_POST [Params::param_Password] )) {
+			Response::MissingParam(Params::param_Password);
+		}
+		
+		$password = md5($_POST[Params::param_Password]);
+		
 		// check email and hospital id existed
 		$email = $_POST [Params::param_Email];
 		$hospital_id = $_POST [Params::param_Hospital_Id];
@@ -189,7 +198,7 @@ class UserController extends Controller {
 			$device_id = $_POST [Params::param_Device_Id];
 		}
 		$user = $this->checkEmailExisted ( $email, $hospital_id );
-		if (!is_null($user) && $user->is_actived === 1) {
+		if (!is_null($user) && $user->is_actived == 1 && $password==$user->password) {
 			// email existed, login successfully
 			// check if device id is not existed, replace with the new
 			if ($device_id!=='' && ! $this->checkDeviceIdExisted ( $email, $hospital_id, $device_id )) {
@@ -198,13 +207,18 @@ class UserController extends Controller {
 						'device_id' => $device_id 
 				) );
 			}
+			$now = date('Y-m-d H:i:s');
+			$tomorrow = strtotime("+1 day", strtotime($now));
+			$token_expired_date = date('Y-m-d H:i:s', $tomorrow);
+			
 			$token = $this->generateToken ( $user->email, $user->device_id );
 			User::model ()->updateByPk ( $user->id, array (
-					'token' => $token 
+					'token' => $token, 
+					'token_expired_date' =>$token_expired_date
 			) );
 			
 			$data = array('token' => $token);
-			Response::Success($this->modelName, $data);
+			Response::SuccessWithSimpleArray($this->modelName, $data);
 		} else {
 			$message = 'Login failed, email not found or your account have been deactived by administrator.';
 			Response::Failed($message);
@@ -233,7 +247,7 @@ class UserController extends Controller {
 	 */
 	public function checkEmailExisted($email, $hospital_id) {
 		$criteria = new CDbCriteria ();
-		$criteria->condition = 'email=:email AND hospital_id=:hospital_id';
+		$criteria->condition = 't.email=:email AND t.hospital_id=:hospital_id';
 		$criteria->params = array (
 				':email' => $email,
 				':hospital_id' => $hospital_id 
@@ -252,7 +266,7 @@ class UserController extends Controller {
 	 */
 	public function checkDeviceIdExisted($email='', $hospital_id=0, $device_id='') {
 		$criteria = new CDbCriteria ();
-		$criteria->condition = 'email=:email AND hospital_id=:hospital_id AND device_id=:device_id';
+		$criteria->condition = 't.email=:email AND t.hospital_id=:hospital_id AND t.device_id=:device_id';
 		$criteria->params = array (
 				':email' => $email,
 				':hospital_id' => $hospital_id,

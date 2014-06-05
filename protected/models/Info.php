@@ -178,14 +178,33 @@ class Info extends CActiveRecord {
 		return parent::model ( $className );
 	}
 	
-	protected function afterSave() {
-		parent::afterSave();
-		if ($this->isNewRecord) {
-			$push_tokens = array('APA91bF5RbiRiHEsVQv7Usj3LE82WQNULV2B6-Z36tYg8pR5zcZ7E5vUiKAC2iQaCJwT40s9ZyH8NNJ5HlG_XBvOPjohSRGTGIkz2b-XqwdmQWV1Cqy7GVZQZ4vWzT-4QnWbs0EmxObYoN4heIoMX2Mc9SG5z4ukWg',
-							'APA91bGtYCCfcNGvZb2uiabB5wOiy72TMIIjFSUOZJ8iJqDRHfj3n-426D2oGXqurTCvmGDFfrN-JFUVGYd31L6JJMRceD2SX4rrxoxnHaof6C55FAFHjfinVbagO4gpniMq1v7R72W2bwBt6rt-PpEbzu3cFfmhaQ');
-			$gcm = Yii::app()->gcm;
-			$message = '';
-			$gcm->sendMulti($push_tokens, $message, array('extra' => "New notice was uploaded: ", 'value' => $this->title), array( 'timeToLive' => 3 ));
+	public function beforeSave()
+	{
+		if($this->isNewRecord)
+		{
+			$this->date_create= date('Y-m-d H:i:s');
+		}else{
+			$this->date_update = date('Y-m-d H:i:s');
+		}
+		return parent::beforeSave();
+	}
+	
+	public function afterSave(){
+		//send notification to all user in company
+		if($this->infoType->name_en=='Notice' && $this->accessLevel->name_en!='Admin only') {
+			$criteria = new CDbCriteria();
+			$criteria->select = array('device_id');
+			$criteria->condition = 't.hospital_id=:hospital_id AND t.is_actived=:is_actived';
+			$criteria->params = array(':company_id'=>$this->company_id, ':is_actived'=>1);
+			$users = User::model()->findAll($criteria);
+			if(!is_null($users)) {
+				$userDeviceIds = array();
+				foreach ($users as $user) {
+					if(!is_null($user->device_id) && $user->device_id!='')
+						$userDeviceIds[] = $user->device_id;
+				}
+				SendNotification::actionPushMultiDevice($userDeviceIds, $this->title);
+			}
 		}
 	}
 }

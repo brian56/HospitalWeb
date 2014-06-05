@@ -30,11 +30,9 @@ class InfoController extends Controller {
 		if (isset ( $_GET [Params::param_Offset] )) {
 			$criteria->offset = $_GET [Params::param_Offset];
 		}
-		
 		if (isset ( $_GET [Params::param_Limit] )) {
 			$criteria->limit = $_GET [Params::param_Limit];
 		}
-		
 		if (isset ( $_GET [Params::param_Order] )) {
 			$criteria->order = $_GET [Params::param_Order];
 		}
@@ -74,13 +72,13 @@ class InfoController extends Controller {
 			$criteria->order = $_GET [Params::param_Order];
 		}
 		
-		$conditions[] = 'info_type_id=:info_type_id';
+		$conditions[] = 't.info_type_id=:info_type_id';
 		$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET[Params::param_Info_Type_Id]));
-		$conditions[] = 'hospital_id=:hospital_id';
+		$conditions[] = 't.hospital_id=:hospital_id';
 		$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET[Params::param_Hospital_Id]));
 		
 		if($conditions!=null) {
-			$criteria->conditions=implode(' AND ',$conditions);
+			$criteria->condition=implode(' AND ',$conditions);
 		}
 		
 		$criteria->with = array('user', 'hospital', 'infoComments');
@@ -122,17 +120,17 @@ class InfoController extends Controller {
 			$criteria->order = $_GET [Params::param_Order];
 		}
 
-		$conditions[] = 'hospital_id=:hospital_id';
+		$conditions[] = 't.hospital_id=:hospital_id';
 		$criteria->params = array_merge($criteria->params, array(':hospital_id' => $_GET[Params::param_Hospital_Id]));
 
-		$conditions[] = 'user_id=:user_id';
+		$conditions[] = 't.user_id=:user_id';
 		$criteria->params = array(':user_id' => $_GET[Params::param_User_Id]);
 		
-		$conditions[] = 'info_type_id=:info_type_id';
+		$conditions[] = 't.info_type_id=:info_type_id';
 		$criteria->params = array_merge($criteria->params, array(':info_type_id' => $_GET[Params::param_Info_Type_Id]));
 		
 		if($conditions!=null) {
-			$criteria->conditions=implode(' AND ',$conditions);
+			$criteria->condition=implode(' AND ',$conditions);
 		}
 
 		$criteria->with = array('infoComments');
