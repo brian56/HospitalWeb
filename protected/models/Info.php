@@ -41,20 +41,6 @@ class Info extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
-						'date_create,date_update',
-						'default',
-						'value' => new CDbExpression ( 'NOW()' ), // automatically add the current date in register_date
-						'setOnEmpty' => false,
-						'on' => 'insert' 
-				),
-				array (
-						'date_update',
-						'default',
-						'value' => new CDbExpression ( 'NOW()' ), // automatically add the current date in register_date
-						'setOnEmpty' => false,
-						'on' => 'update' 
-				),
-				array (
 						'hospital_id',
 						'required' 
 				),
@@ -190,12 +176,12 @@ class Info extends CActiveRecord {
 	}
 	
 	public function afterSave(){
-		//send notification to all user in company
+		//send notification to all user in hospital
 		if($this->infoType->name_en=='Notice' && $this->accessLevel->name_en!='Admin only') {
 			$criteria = new CDbCriteria();
 			$criteria->select = array('device_id');
 			$criteria->condition = 't.hospital_id=:hospital_id AND t.is_actived=:is_actived';
-			$criteria->params = array(':company_id'=>$this->company_id, ':is_actived'=>1);
+			$criteria->params = array(':hospital_id'=>$this->hospital_id, ':is_actived'=>1);
 			$users = User::model()->findAll($criteria);
 			if(!is_null($users)) {
 				$userDeviceIds = array();

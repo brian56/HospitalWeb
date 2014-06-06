@@ -12,6 +12,7 @@ return array(
         'bootstrap',
         'log',
     ),
+	'timeZone' => 'Asia/Ho_Chi_Minh',
     // autoloading model and component classes
     'import' => array(
         'application.models.*',

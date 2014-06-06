@@ -36,7 +36,7 @@ class UserController extends Controller {
 		}
 		
 		$criteria->with = array (
-				'hospital',
+				'hospital'=>array('select'=>'id, name'),
 				'userLevel',
 				'deviceOs' 
 		);
@@ -117,12 +117,49 @@ class UserController extends Controller {
 		}
 	}
 	
+	public function actionRegisterDevice() {
+		if (! isset ( $_POST [Params::param_Hospital_Id] )) {
+			Response::MissingParam(Params::param_Hospital_Id);
+		}
+		if (! isset ( $_POST [Params::param_Device_Id] )) {
+			Response::MissingParam(Params::param_Device_Id);
+		}
+		if (! isset ( $_POST [Params::param_Device_Os_Id] )) {
+			Response::MissingParam(Params::param_Device_Os_Id);
+		}
+		$hospital_id = $_POST [Params::param_Hospital_Id];
+		$device_id = $_POST [Params::param_Device_Id];
+		$user = $this->checkDeviceId($hospital_id, $device_id);
+		if (is_null($user)) {
+			$user = new User ();
+			$user->hospital = $hospital_id;
+			$user->user_level_id = 1;
+			$user->is_actived = 1;
+			$user->notify = 1;
+			$user->email = '';
+			$user->password = '';
+			$user->user_name = '';
+			$user->contact_phone = '';
+			$user->device_os_id = $_POST [Params::param_Device_Os_Id];
+			$user->device_id = $device_id;
+			$user->token = '';
+			$user->token_expired_date = '';
+			if ($user->insert ()) {
+				$message = 'Register device successfully';
+				Response::SuccessWithMessage($this->modelName, $message);
+			} else {
+				$message = 'Register device failed.';
+				Response::Failed($message);
+			}
+		}
+	}
+	
 	/**
 	 * create an user and save on db
 	 * params: .
 	 * ..
 	 */
-	public function actionRegister() {
+	public function actionRegisterUser() {
 		if (! isset ( $_POST [Params::param_Hospital_Id] )) {
 			Response::MissingParam(Params::param_Hospital_Id);
 		}
@@ -146,30 +183,54 @@ class UserController extends Controller {
 		}
 		
 		//if email existed, let user chose another email or login with current email
-		if(!is_null($this->checkEmailExisted($_POST [Params::param_Email], $_POST [Params::param_Company_Id]))) {
+		if(!is_null($this->checkEmailExisted($_POST [Params::param_Email], $_POST [Params::param_Hospital_Id]))) {
 			$message = "Email existed. Please use another email or login with current email.";
 			Response::Failed($message);
 		}
-		$user = new User ();
-		$user->hospital_id = $_POST [Params::param_Hospital_Id];
-		$user->user_level_id = 1;
-		$user->email = $_POST [Params::param_Email];
-		$user->password = md5($_POST [Params::param_Password]);
-		$user->user_name = $_POST [Params::param_User_Name];
-		$user->contact_phone = $_POST [Params::param_Contact_Phone];
-		$user->device_os_id = $_POST [Params::param_Device_Os_Id];
-		$user->device_id = $_POST [Params::param_Device_Id];
-		$user->token = $this->generateToken ( $_POST [Params::param_Email], $_POST [Params::param_Device_Id] );
-		
-		$now = date('Y-m-d H:i:s');
-		$tomorrow = strtotime("+1 day", strtotime($now));
-		$user->token_expired_date = date('Y-m-d H:i:s', $tomorrow);
-		if ($user->insert ()) {
-			$data = array('token' => $user->token );
-			Response::SuccessWithSimpleArray($this->modelName, $data);
+		$checking_user = new User();
+		$checking_user = $this->checkRegisterDevice($_POST[Params::param_Hospital_Id], $_POST [Params::param_Device_Id]);
+		if(is_null($checking_user)) {
+			$user = new User ();
+			$user->hospital_id = $_POST [Params::param_Hospital_Id];
+			$user->user_level_id = 1;
+			$user->email = $_POST [Params::param_Email];
+			$user->password = md5($_POST [Params::param_Password]);
+			$user->user_name = $_POST [Params::param_User_Name];
+			$user->contact_phone = $_POST [Params::param_Contact_Phone];
+			$user->device_os_id = $_POST [Params::param_Device_Os_Id];
+			$user->device_id = $_POST [Params::param_Device_Id];
+			$user->token = $this->generateToken ( $_POST [Params::param_Email], $_POST [Params::param_Device_Id] );
+			
+			$now = date('Y-m-d H:i:s');
+			$tomorrow = strtotime("+1 day", strtotime($now));
+			$user->token_expired_date = date('Y-m-d H:i:s', $tomorrow);
+			if ($user->insert ()) {
+				$data = array('token' => $user->token );
+				Response::SuccessWithSimpleArray($this->modelName, $data);
+			} else {
+				$message = 'Register failed.';
+				Response::Failed($message);
+			}
 		} else {
-			$message = 'Register failed.';
-			Response::Failed($message);
+			$token = $this->generateToken ( $_POST [Params::param_Email], $_POST [Params::param_Device_Id] );
+			$now = date('Y-m-d H:i:s');
+			$tomorrow = strtotime("+1 day", strtotime($now));
+			$update = User::model ()->updateByPk ( $checking_user->id, array (
+					'email' => $_POST[Params::param_Email],
+					'password' => md5($_POST[Params::param_Password]),
+					'user_name' => $_POST [Params::param_User_Name],
+					'contact_phone' => $_POST [Params::param_Contact_Phone],
+					'device_os_id' => $_POST [Params::param_Device_Os_Id],
+					'token' => $token,
+					'token_expired_date' => date('Y-m-d H:i:s', $tomorrow)
+			) );
+			if($update>0) {
+				$data = array('token' => $token );
+				Response::SuccessWithSimpleArray($this->modelName, $data);
+			} else {
+				$message = 'Register failed.';
+				Response::Failed($message);
+			}
 		}
 	}
 	
@@ -201,7 +262,7 @@ class UserController extends Controller {
 		if (!is_null($user) && $user->is_actived == 1 && $password==$user->password) {
 			// email existed, login successfully
 			// check if device id is not existed, replace with the new
-			if ($device_id!=='' && ! $this->checkDeviceIdExisted ( $email, $hospital_id, $device_id )) {
+			if ($device_id!=='' && ! $this->checkDeviceIdAndEmail( $email, $hospital_id, $device_id )) {
 				// new device id, replace current device id in database
 				User::model ()->updateByPk ( $user->id, array (
 						'device_id' => $device_id 
@@ -224,6 +285,75 @@ class UserController extends Controller {
 			Response::Failed($message);
 		}
 	}
+	
+	public function actionUpdateSetting() {
+		if (! isset ( $_POST [Params::param_Device_Id] )) {
+			Response::MissingParam(Params::param_Device_Id);
+		}
+		if (! isset ( $_POST [Params::param_Hospital_Id] )) {
+			Response::MissingParam(Params::param_Hospital_Id);
+		}
+		if (! isset ( $_POST [Params::param_Notify] )) {
+			Response::MissingParam(Params::param_Notify);
+		}
+	
+		// check email and hospital id existed
+		$device_id = $_POST [Params::param_Device_Id];
+		$hospital_id = $_POST [Params::param_Hospital_Id];
+		$notify = $_POST [Params::param_Notify];
+		$user = new User();
+		$user = $this->checkDeviceIdOnly($hospital_id, $device_id);
+		if(!is_null($user) && $user->is_actived == 1 && $user->notify==$notify) {
+			//current notify is the same with new
+			$message = 'Save setting successfully. Notify='.$notify;
+			Response::SuccessWithMessage($this->modelName, $message);
+		}
+		if (!is_null($user) && $user->is_actived == 1) {
+			$update = User::model ()->updateByPk ( $user->id, array (
+					'notify' => $notify
+			) );
+			if($update>0) {
+				$message = 'Save setting successfully: Notify='.$notify;
+				Response::SuccessWithMessage($this->modelName, $message);
+			} else {
+				$message = 'Error occured while saving setting: Notify='.$notify;
+				Response::Failed($message);
+			}
+		} else {
+			$message = 'Incorrect device id or your device had been deactived by administrator.';
+			Response::Failed($message);
+		}
+	}
+	
+	/**
+	 * get user's setting
+	 */
+	public function actionGetSetting() {
+		// Check if id was submitted via GET
+		if (! isset ( $_GET [Params::param_Device_Id] )) {
+			Response::MissingParam(Params::param_Device_Id);
+		}
+		if (! isset ( $_GET [Params::param_Hospital_Id] )) {
+			Response::MissingParam(Params::param_Hospital_Id);
+		}
+		$criteria = new CDbCriteria ();
+		$criteria->condition = 't.device_id=:device_id AND t.hospital_id=:hospital_id';
+		$criteria->select = 'notify';
+		$criteria->params = array (
+				':device_id' => $_GET [Params::param_Device_Id],
+				':hospital_id' => $_GET [Params::param_Hospital_Id]
+		);
+		$user = User::model ()->find ( $criteria );
+		// Did we find the requested model? If not, raise an error
+		if (is_null ( $user )) {
+			$message = 'Incorrect device id or hospital id.';
+			Response::Failed($message);
+		} else {
+			$notify = array('notify'=> $user->notify);
+			Response::SuccessWithSimpleArray( $this->modelName, $notify );
+		}
+	}
+	
 	public function actionUpdate() {
 	}
 	public function actionDelete() {
@@ -257,14 +387,14 @@ class UserController extends Controller {
 	}
 	
 	/**
-	 * Check if device id is existed or not 
+	 * Check if device id and email is existed or not 
 	 * if not existed or different, update current to new device id
 	 * @param string $email user's email
 	 * @param number $hospital_id user's hospital id
 	 * @param string $device_id user's device id
 	 * @return boolean TRUE if device id existed, otherwise FALSE
 	 */
-	public function checkDeviceIdExisted($email='', $hospital_id=0, $device_id='') {
+	public function checkDeviceIdAndEmail($email='', $hospital_id=0, $device_id='') {
 		$criteria = new CDbCriteria ();
 		$criteria->condition = 't.email=:email AND t.hospital_id=:hospital_id AND t.device_id=:device_id';
 		$criteria->params = array (
@@ -277,6 +407,40 @@ class UserController extends Controller {
 			return FALSE;
 		} else
 			return TRUE;
+	}
+	
+	/**
+	 * Check if device id existed or not
+	 * @param string $device_id device id
+	 * @param int $hospital_id hospital id
+	 * @return ActiveRecord an user object if existed, null if didn't existed
+	 */
+	public function checkRegisterDevice($hospital_id =0, $device_id='') {
+		$criteria = new CDbCriteria ();
+		$criteria->condition = 't.device_id=:device_id AND t.hospital_id=:hospital_id AND t.email=:email';
+		$criteria->params = array (
+				':device_id' => $device_id,
+				':hospital_id' => $hospital_id,
+				':email' => ''
+		);
+		$result = User::model ()->find ( $criteria );
+		return $result;
+	}
+	/**
+	 * Check if device id existed or not
+	 * @param string $device_id device id
+	 * @param int $hospital_id hospital id
+	 * @return ActiveRecord an user object if existed, null if didn't existed
+	 */
+	public function checkDeviceIdOnly($hospital_id =0, $device_id='') {
+		$criteria = new CDbCriteria ();
+		$criteria->condition = 't.device_id=:device_id AND t.hospital_id=:hospital_id';
+		$criteria->params = array (
+				':device_id' => $device_id,
+				':hospital_id' => $hospital_id,
+		);
+		$result = User::model ()->find ( $criteria );
+		return $result;
 	}
 }
 

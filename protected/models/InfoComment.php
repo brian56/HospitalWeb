@@ -33,20 +33,6 @@ class InfoComment extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
-						'date_create,date_update',
-						'default',
-						'value' => new CDbExpression ( 'NOW()' ), // automatically add the current date in register_date
-						'setOnEmpty' => false,
-						'on' => 'insert' 
-				),
-				array (
-						'date_update',
-						'default',
-						'value' => new CDbExpression ( 'NOW()' ), // automatically add the current date in register_date
-						'setOnEmpty' => false,
-						'on' => 'update' 
-				),
-				array (
 						'user_id, info_id',
 						'numerical',
 						'integerOnly' => true 

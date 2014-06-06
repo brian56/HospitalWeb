@@ -46,9 +46,6 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('register_date','default',
-						'value'=>new CDbExpression('NOW()'),//automatically add the current date in register_date
-					'setOnEmpty'=>false,'on'=>'insert'),
 			array('hospital_id', 'required'),
 			array('hospital_id, user_level_id, is_actived, device_os_id', 'numerical', 'notify', 'integerOnly'=>true),
 			array('email, password, user_name, contact_phone, register_date, device_id, notify, token, token_expired_date', 'safe'),
@@ -147,4 +144,14 @@ class User extends CActiveRecord
 	{
 		return parent::model($className);
 	}
+	
+	public function beforeSave()
+	{
+		if($this->isNewRecord)
+		{
+			$this->register_date= date('Y-m-d H:i:s');
+		}
+		return parent::beforeSave();
+	}
+	
 }

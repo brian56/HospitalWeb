@@ -50,6 +50,18 @@ class Response {
     }
     
     /**
+     * Response to user that request was successful
+     * @param string $model model's name
+     * @param string $message the message
+     */
+    public static function SuccessWithMessage($modelName='', $message='') {
+    	$response ['status'] = Params::status_success;
+    	$response ['message'] = Params::message_success . $modelName.". ". $message;
+    	$response ['data'] = '';
+    	self::_sendResponse ( 200, CJSON::encode ( $response ) );
+    }
+    
+    /**
      * Response to user that request was successful, and data was a simple array
      * @param string $model model's name
      * @param array $data data to return to user
