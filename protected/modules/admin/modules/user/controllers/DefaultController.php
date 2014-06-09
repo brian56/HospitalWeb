@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends RController
+class DefaultController extends Controller
 {
 /**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,7 +14,7 @@ class DefaultController extends RController
 	public function filters()
 	{
 		return array(
-				'rights',
+				'accessControl',
 		);
 	}
 
@@ -28,7 +28,7 @@ class DefaultController extends RController
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
 				'actions'=>array('index','view'),
-				'users'=>array('*'),
+				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
 				'actions'=>array('create','update'),
@@ -36,7 +36,7 @@ class DefaultController extends RController
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -62,7 +62,9 @@ class DefaultController extends RController
 	public function actionCreate()
 	{
 	
-		$model=new User;
+		$model =  new User;
+// 		var_dump($model);
+// 		die();
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);

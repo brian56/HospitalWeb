@@ -24,7 +24,6 @@ $this->menu=array(
 		'id',
 		'info_type_id',
 		'user_id',
-		'hospital_id',
 		'appointment_status',
 		'appointment_date',
 		'title',

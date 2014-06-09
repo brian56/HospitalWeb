@@ -129,10 +129,10 @@ class UserController extends Controller {
 		}
 		$hospital_id = $_POST [Params::param_Hospital_Id];
 		$device_id = $_POST [Params::param_Device_Id];
-		$user = $this->checkDeviceId($hospital_id, $device_id);
+		$user = $this->checkDeviceIdOnly($hospital_id, $device_id);
 		if (is_null($user)) {
 			$user = new User ();
-			$user->hospital = $hospital_id;
+			$user->hospital_id =  $_POST [Params::param_Hospital_Id];
 			$user->user_level_id = 1;
 			$user->is_actived = 1;
 			$user->notify = 1;
@@ -148,9 +148,11 @@ class UserController extends Controller {
 				$message = 'Register device successfully';
 				Response::SuccessWithMessage($this->modelName, $message);
 			} else {
-				$message = 'Register device failed.';
+				$message = 'Register Failed.';
 				Response::Failed($message);
 			}
+		} else {
+			Response::DeviceRegistered();
 		}
 	}
 	

@@ -1,11 +1,24 @@
 <?php
 /* @var $this SiteController */
-$this->pageTitle = Yii::app ()->name;
+if (Yii::app ()->user->getState ( 'isManager' ))
+	$this->pageTitle = Yii::app ()->user->getState ( 'hospitalName' );
+else 
+	$this->pageTitle = Yii::app ()->name;
+
 
 ?>
 <center>
 	<h3>
-		Welcome to <i><?php echo CHtml::encode(Yii::app()->name); ?></i>
+		Welcome to <i>
+		<?php 
+			if (Yii::app()->user->getState('isManager')) {
+				echo CHtml::encode(Yii::app()->user->getState('hospitalName'));
+			}
+			else {
+				echo CHtml::encode(Yii::app ()->name);
+			}
+		?>
+		</i>
 	</h3>
 
 	<p>This page is for managing hospital's data.</p>

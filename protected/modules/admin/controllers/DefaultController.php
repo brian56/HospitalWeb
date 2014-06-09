@@ -1,8 +1,8 @@
 <?php
 
-class DefaultController extends RController
+class DefaultController extends Controller
 {
-	/* public function beforeControllerAction(CAction $action)
+	public function beforeControllerAction(CAction $action)
 	{
 		if (Yii::app()->user->isGuest && ! ($action->controller->id == 'site' && $action->id == 'login')) {
 			$this->redirect ( array (
@@ -10,21 +10,14 @@ class DefaultController extends RController
 			) );
 		}
 		return true;
-	} */
-	public function filters()
-	{
-		return array(
-				'rights',
-		);
 	}
-	
 	public function actionIndex()
 	{
-		/* if (Yii::app()->user->isGuest || !Yii::app()->user->isAdmin()) {
+		if (Yii::app()->user->isGuest || !Yii::app()->user->getState('isAdmin')) {
 			$this->redirect ( array (
 					'/site/login'
 			) );
-		} else  */
+		} else 
 			$this->render('index');
 	}
 	

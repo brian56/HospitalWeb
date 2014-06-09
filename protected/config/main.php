@@ -19,8 +19,6 @@ return array(
         'application.components.*',
         'application.extensions.*',
         'application.controllers.api.*',
-        'application.modules.rights.*',
-        'application.modules.rights.components.*',
     ),
     'modules' => array(
         // uncomment the following to enable the Gii tool
@@ -54,10 +52,6 @@ return array(
                 'userlevel',
             ),
         ),
-        'rights' => array(
-        	'userNameColumn'=>'email',
-            'install' => false,
-        ),
     ),
     // application components
     'components' => array(
@@ -65,12 +59,9 @@ return array(
             // There you go, use our 'extended' version
             //'class'=>'application.components.EWebUser',
             // enable cookie-based authentication
-            'class' => 'RWebUser',
+            'class' => 'CWebUser',
             'allowAutoLogin' => true,
             'loginUrl' => array('site/login'),
-        ),
-        'authManager' => array(
-            'class' => 'RDbAuthManager',
         ),
         // uncomment the following to enable URLs in path-format
         'urlManager' => array(

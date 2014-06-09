@@ -14,7 +14,7 @@ $this->menu=array(
 
 <h1>Hospitals</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
+<?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
 	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'/id/"+$.fn.yiiGridView.getSelection(id);}',

@@ -20,12 +20,6 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'user_level_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_level_id', CHtml::listData(UserLevel::model()->findAll(), 'id', 'name'), array('empty'=>'-- Select an user level --')); ?>
-		<?php echo $form->error($model,'user_level_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->labelEx($model,'is_actived'); ?>
 		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
 		<?php echo $form->error($model,'is_actived'); ?>

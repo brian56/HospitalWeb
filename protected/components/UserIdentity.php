@@ -46,9 +46,10 @@ class UserIdentity extends CUserIdentity {
             $this->errorCode = self::ERROR_NONE;
 			if ($record->user_level_id == 3) {
 				Yii::app ()->user->setState ( "isAdmin", true );
-				Yii::app ()->user->setState ( "isManager", true );
 			} else if ($record->user_level_id == 2) {
 				Yii::app ()->user->setState ( "isManager", true );
+            	Yii::app()->user->setState("hospitalName", $record->hospital->name);
+            	Yii::app()->user->setState("hospitalId", $record->hospital->id);
 			}
         }
         return !$this->errorCode;

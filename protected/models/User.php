@@ -24,8 +24,8 @@
  * @property Info[] $infos
  * @property InfoComment[] $infoComments
  * @property LogEvent[] $logEvents
- * @property Hospital $hospital
  * @property DeviceOs $deviceOs
+ * @property Hospital $hospital
  * @property UserLevel $userLevel
  */
 class User extends CActiveRecord
@@ -46,9 +46,9 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('hospital_id', 'required'),
-			array('hospital_id, user_level_id, is_actived, device_os_id', 'numerical', 'notify', 'integerOnly'=>true),
-			array('email, password, user_name, contact_phone, register_date, device_id, notify, token, token_expired_date', 'safe'),
+			array('hospital_id, email, password', 'required'),
+			array('hospital_id, user_level_id, is_actived, device_os_id, notify', 'numerical', 'integerOnly'=>true),
+			array('user_name, contact_phone, register_date, device_id, token, token_expired_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('id, hospital_id, user_level_id, is_actived, email, password, user_name, contact_phone, register_date, device_os_id, device_id, notify, token, token_expired_date', 'safe', 'on'=>'search'),
@@ -67,8 +67,8 @@ class User extends CActiveRecord
 			'infos' => array(self::HAS_MANY, 'Info', 'user_id'),
 			'infoComments' => array(self::HAS_MANY, 'InfoComment', 'user_id'),
 			'logEvents' => array(self::HAS_MANY, 'LogEvent', 'user_id'),
-			'hospital' => array(self::BELONGS_TO, 'Hospital', 'hospital_id'),
 			'deviceOs' => array(self::BELONGS_TO, 'DeviceOs', 'device_os_id'),
+			'hospital' => array(self::BELONGS_TO, 'Hospital', 'hospital_id'),
 			'userLevel' => array(self::BELONGS_TO, 'UserLevel', 'user_level_id'),
 		);
 	}
@@ -85,11 +85,11 @@ class User extends CActiveRecord
 			'is_actived' => 'Is Actived',
 			'email' => 'Email',
 			'password' => 'Password',
-			'user_name' => 'Name',
+			'user_name' => 'User Name',
 			'contact_phone' => 'Contact Phone',
 			'register_date' => 'Register Date',
 			'device_os_id' => 'Device Os',
-			'device_id' => 'Device Token Id',
+			'device_id' => 'Device',
 			'notify' => 'Notify',
 			'token' => 'Token',
 			'token_expired_date' => 'Token Expired Date',
@@ -125,7 +125,7 @@ class User extends CActiveRecord
 		$criteria->compare('register_date',$this->register_date,true);
 		$criteria->compare('device_os_id',$this->device_os_id);
 		$criteria->compare('device_id',$this->device_id,true);
-		$criteria->compare('notify',$this->notify,true);
+		$criteria->compare('notify',$this->notify);
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('token_expired_date',$this->token_expired_date,true);
 
@@ -144,7 +144,6 @@ class User extends CActiveRecord
 	{
 		return parent::model($className);
 	}
-	
 	public function beforeSave()
 	{
 		if($this->isNewRecord)
@@ -153,5 +152,4 @@ class User extends CActiveRecord
 		}
 		return parent::beforeSave();
 	}
-	
 }

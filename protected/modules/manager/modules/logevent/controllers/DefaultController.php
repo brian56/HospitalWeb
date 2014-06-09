@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends RController
+class DefaultController extends Controller
 {
 /**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -14,7 +14,7 @@ class DefaultController extends RController
 	public function filters()
 	{
 		return array(
-				'rights',
+				'accessControl',
 		);
 	}
 
@@ -36,7 +36,7 @@ class DefaultController extends RController
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('admin','delete'),
-				'users'=>array('admin'),
+				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
@@ -121,7 +121,10 @@ class DefaultController extends RController
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('LogEvent');
+		$criteria = new CDbCriteria();
+		$criteria->condition = 't.hospital_id=:hospital_id';
+		$criteria->params = array(':hospital_id'=>Yii::app()->user->getState('hospitalId'));
+		$dataProvider=new CActiveDataProvider('LogEvent', array('criteria'=>$criteria));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

@@ -47,11 +47,6 @@
 					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isAdmin")) , 
 					'active'=>(isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id=='admin')),
 				array(
-					'label'=>'Rights', 
-					'url'=>array('/rights'), 
-					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isAdmin")), 
-					'active'=>(isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id=='rights')),
-				array(
 					'label' => 'Login', 
 					'url' => array('site/login'), 
 					'visible' => Yii::app()->user->isGuest, 

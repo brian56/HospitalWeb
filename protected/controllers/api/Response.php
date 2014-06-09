@@ -30,6 +30,16 @@ class Response {
 	 * Response to user that a param is missed
 	 * @param string $param param's name
 	 */
+	public static function DeviceRegistered() {
+    	$response ['status'] = Params::status_no_record;
+    	$response ['message'] = "Device had been registered.";
+    	$response ['data'] = '';
+    	self::_sendResponse ( 200, CJSON::encode ( $response ) );
+    }
+	/**
+	 * Response to user that a param is missed
+	 * @param string $param param's name
+	 */
 	public static function MissingParam($param='') {
     	$response ['status'] = Params::status_params_missing;
     	$response ['message'] = Params::message_params_missing.$param;

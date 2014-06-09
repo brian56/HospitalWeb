@@ -17,10 +17,6 @@
 	<?php echo CHtml::encode($data->user_id); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('hospital_id')); ?>:</b>
-	<?php echo CHtml::encode($data->hospital_id); ?>
-	<br />
-
 	<b><?php echo CHtml::encode($data->getAttributeLabel('appointment_status')); ?>:</b>
 	<?php echo CHtml::encode($data->appointment_status); ?>
 	<br />

@@ -2,9 +2,9 @@
 class Params {
 	
 	// status and message define
-	const status_success = 1;
+	const status_success = 0;
 	const message_success = 'Success. Object:';
-	const status_no_record = 0;
+	const status_no_record = 1;
 	const message_no_record = 'No records were found. Object:';
 	const status_params_missing = - 1;
 	const message_params_missing = 'Missing params:';

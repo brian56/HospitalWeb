@@ -1,6 +1,6 @@
 <?php
 
-class DefaultController extends RController 
+class DefaultController extends Controller 
 {
 	/**
 	 * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -15,7 +15,7 @@ class DefaultController extends RController
 	public function filters()
 	{
 		return array(
-				'rights',
+				'accessControl',
 		);
 	}
 

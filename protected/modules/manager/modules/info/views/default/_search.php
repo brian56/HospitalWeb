@@ -27,11 +27,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'hospital_id'); ?>
-		<?php echo $form->textField($model,'hospital_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'appointment_date'); ?>
 		<?php echo $form->textField($model,'appointment_date'); ?>
 	</div>

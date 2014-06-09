@@ -17,11 +17,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'user_level_id'); ?>
-		<?php echo $form->textField($model,'user_level_id'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'is_actived'); ?>
 		<?php echo $form->textField($model,'is_actived'); ?>
 	</div>
@@ -47,11 +42,6 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'register_date'); ?>
-		<?php echo $form->textField($model,'register_date'); ?>
-	</div>
-
-	<div class="row">
 		<?php echo $form->label($model,'device_os_id'); ?>
 		<?php echo $form->textField($model,'device_os_id'); ?>
 	</div>
@@ -69,11 +59,6 @@
 	<div class="row">
 		<?php echo $form->label($model,'token'); ?>
 		<?php echo $form->textField($model,'token'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'token_expired_date'); ?>
-		<?php echo $form->textField($model,'token_expired_date'); ?>
 	</div>
 
 	<div class="row buttons">

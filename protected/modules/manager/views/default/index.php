@@ -5,13 +5,12 @@ $this->breadcrumbs=array(
 	$this->module->id,
 );
 ?>
-<h1><?php echo $this->uniqueId . '/' . $this->action->id; ?></h1>
 
-<p>
-This is the view content for action "<?php echo $this->action->id; ?>".
-The action belongs to the controller "<?php echo get_class($this); ?>"
-in the "<?php echo $this->module->id; ?>" module.
-</p>
-<p>
-You may customize this page by editing <tt><?php echo __FILE__; ?></tt>
-</p>
+<h3> Manage page for managing hospital's information</h3>
+<?php 
+		echo CHtml::link("Manager infos",Yii::app()->baseUrl."/manager/info",array("style"=>"color: darkblue;"));
+		echo "<p></p>";
+		echo CHtml::link("Manager users",Yii::app()->baseUrl."/manager/user",array("style"=>"color: darkblue;"));
+		echo "<p></p>";
+		echo CHtml::link("Log events",Yii::app()->baseUrl."/manager/logevent",array("style"=>"color: darkblue;"));
+?>
