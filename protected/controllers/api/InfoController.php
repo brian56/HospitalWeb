@@ -175,8 +175,8 @@ class InfoController extends Controller {
 		if(!isset($_POST[Params::param_Hospital_Id])) {
 			Response::MissingParam(Params::param_Hospital_Id);
 		}		
-		if(!isset($_POST[Params::param_User_Id])) {
-			Response::MissingParam(Params::param_User_Id);
+		if(!isset($_POST[Params::param_Token])) {
+			Response::MissingParam(Params::param_Token);
 		}		
 		if(!isset($_POST[Params::param_Title])) {
 			Response::MissingParam(Params::param_Content);
@@ -188,12 +188,19 @@ class InfoController extends Controller {
 		$info = new Info();
 		$info->info_type_id = $_POST[Params::param_Info_Type_Id];
 		$info->hospital_id = $_POST[Params::param_Hospital_Id];
-		$info->user_id = $_POST[Params::param_User_Id];
+		$user_id = Response::getUserIdFromToken($_POST[Params::param_Token]);
+		if(!is_null($user_id)) {
+			$info->user_id = $user_id;
+		} else {
+			$message = "Authenticate failed. Token had been expired.";
+			Response::Failed($message);
+		}
 		$info->title = $_POST[Params::param_Title];
+		$info->access_level_id = $_POST[Params::param_Access_Level_Id];
 		$info->content = $_POST[Params::param_Content];
 		if(isset($_POST[Params::param_Appointment_Date])) {
 			$info->appointment_date = $_POST[Params::param_Appointment_Date];	
-			$info->appointment_status = 0;		//appointment's pending
+			$info->appointment_status = 0;		//appointment is pending
 		}		
 		if ($info->insert ()) {
 			Response::SuccessNoData($this->modelName);

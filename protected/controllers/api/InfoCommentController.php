@@ -158,6 +158,33 @@ class InfoCommentController extends Controller {
 			Response::Success($this->modelName, $model);
 	}
 	public function actionCreate() {
+		if(!isset($_POST[Params::param_Info_Id])) {
+			Response::MissingParam(Params::param_Info_Id);
+		}
+		if(!isset($_POST[Params::param_Token])) {
+			Response::MissingParam(Params::param_Token);
+		}
+		if(!isset($_POST[Params::param_Content])) {
+			Response::MissingParam(Params::param_Content);
+		}
+		
+		$infoComment = new InfoComment();
+		$infoComment->info_id = $_POST[Params::param_Info_Id];
+		
+		$user_id = Response::getUserIdFromToken($_POST[Params::param_Token]);
+		if(!is_null($user_id)) {
+			$infoComment->user_id = $user_id;
+		} else {
+			$message = "Authenticate failed. Token had been expired.";
+			Response::Failed($message);
+		}
+		$infoComment->content = $_POST[Params::param_Content];
+		if ($infoComment->insert ()) {
+			Response::SuccessNoData($this->modelName);
+		} else {
+			$message = 'Insert failed.';
+			Response::Failed($message);
+		}
 	}
 	public function actionUpdate() {
 	}
