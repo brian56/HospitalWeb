@@ -35,7 +35,7 @@ class DefaultController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete'),
+				'actions'=>array('admin','delete', 'AjaxIndex'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -173,6 +173,14 @@ class DefaultController extends Controller
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
 		}
+	}
+	public function actionAjaxIndex()
+	{
+		$model =new Info();
+		$model->unsetAttributes();  // clear any default values
+	
+		//print_r($model);
+		$this->renderPartial('_ajaxIndex', array('model'=>$model));
 	}
 }
 	

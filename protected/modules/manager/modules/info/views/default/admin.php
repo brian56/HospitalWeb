@@ -27,7 +27,19 @@ $('.search-form form').submit(function(){
 ?>
 
 <h1>Manage Infos</h1>
-
+<script type="text/javascript">
+    timeout = 1000;
+    function refresh() {       
+        <?php
+        echo CHtml::ajax(array(
+                'url'=> Yii::app()->baseUrl."/manager/info/default/AjaxIndex",
+                'type'=>'post',
+                'update'=> '#info-grid',
+        ))
+        ?>
+    }
+    window.setInterval("refresh()", timeout);
+</script>
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
@@ -43,20 +55,31 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'info-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'info_type_id',
-		'user_id',
-		'hospital_id',
-		'appointment_status',
+		array(
+			'name' => 'info_type_id',
+			'value' => '$data->infoType->name',
+		),
+		array(
+			'name' => 'user_id',
+			'value' => '$data->user->email',
+		),
+		array(
+			'name' => 'hospital_id',
+			'value' => '$data->hospital->name',
+		),
 		'title',
+		array(
+				'name' => 'access_level_id',
+				'value' => '$data->accessLevel->name',
+		),
 		/*
 		'content',
 		'appointment_date',
 		'date_create',
 		'date_update',
-		'access_level_id',
 		*/
 		array(
 			'class'=>'CButtonColumn',
