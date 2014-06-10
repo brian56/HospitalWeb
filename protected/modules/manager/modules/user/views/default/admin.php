@@ -26,7 +26,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<h1>Manage Users</h1>
+<h4>Manage Users</h4>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -43,18 +43,26 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'user-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'user_level_id',
-		'is_actived',
+		array(
+			'name' => 'user_level_id',
+			'value' => '$data->userLevelName',
+		),
+		array(
+			'name' => 'is_actived',
+			'value' => '$data->isActived',
+		),
+		array(
+			'name' => 'notify',
+			'value' => '$data->notifyName',
+		),
 		'email',
 		'password',
 		'user_name',
-		'contact_phone',
+		/*'contact_phone',
 		'register_date',
-		'notify',
-		/*
 		'device_os_id',
 		'device_id',
 		'token',
@@ -64,4 +72,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'class'=>'CButtonColumn',
 		),
 	),
+	'htmlOptions'=>array('style'=>'cursor: pointer;'),
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'/id/"+$.fn.yiiGridView.getSelection(id);}',
 )); ?>

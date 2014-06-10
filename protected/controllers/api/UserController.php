@@ -171,12 +171,12 @@ class UserController extends Controller {
 		if (! isset ( $_POST [Params::param_Password] )) {
 			Response::MissingParam(Params::param_Password);
 		}
-		if (! isset ( $_POST [Params::param_User_Name] )) {
+		/* if (! isset ( $_POST [Params::param_User_Name] )) {
 			Response::MissingParam(Params::param_User_Name);
 		}
 		if (! isset ( $_POST [Params::param_Contact_Phone] )) {
 			Response::MissingParam(Params::param_Contact_Phone);
-		}
+		} */
 		if (! isset ( $_POST [Params::param_Device_Os_Id] )) {
 			Response::MissingParam(Params::param_Device_Os_Id);
 		}

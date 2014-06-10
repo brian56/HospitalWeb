@@ -2,16 +2,6 @@
 /* @var $this InfoController */
 /* @var $model Info */
 
-$this->breadcrumbs=array(
-	'Infos'=>array('index'),
-	'Manage',
-);
-
-$this->menu=array(
-	array('label'=>'List Info', 'url'=>array('index')),
-	array('label'=>'Create Info', 'url'=>array('create')),
-);
-
 Yii::app()->clientScript->registerScript('search', "
 $('.search-button').click(function(){
 	$('.search-form').toggle();
@@ -26,13 +16,13 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<center><h4>Manage Infos</h4></center>
+<center><h4>Manage questions</h4></center>
 <script type="text/javascript">
     timeout = 3000;
     function refresh() {       
         <?php
         echo CHtml::ajax(array(
-                'url'=> Yii::app()->baseUrl."/manager/info/default/AjaxIndex",
+                'url'=> Yii::app()->baseUrl."/manager/info/default/AjaxQuestion",
                 'type'=>'post',
                 'update'=> '#info-grid',
         ))
@@ -52,17 +42,13 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 )); ?>
 </div><!-- search-form -->
 
-<?php
+<?php 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'info-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->searchQuestion(),
 	//'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array(
-			'name' => 'info_type_id',
-			'value' => '$data->infoTypeName',
-		),
 		array(
 			'name' => 'user_id',
 			'value' => '$data->userName',

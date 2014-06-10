@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update LogEvent <?php echo $model->id; ?></h1>
+<h4>Update LogEvent <?php echo $model->id; ?></h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

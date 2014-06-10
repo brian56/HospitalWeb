@@ -1,13 +1,10 @@
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php 
+$this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'info-grid',
-	'dataProvider'=>$model->search(),
+	'dataProvider'=>$model->searchQuestion(),
 	//'filter'=>$model,
 	'columns'=>array(
 		'id',
-		array(
-			'name' => 'info_type_id',
-			'value' => '$data->infoTypeName',
-		),
 		array(
 			'name' => 'user_id',
 			'value' => '$data->userName',

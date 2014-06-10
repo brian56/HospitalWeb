@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Create LogEvent</h1>
+<h4>Create LogEvent</h4>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

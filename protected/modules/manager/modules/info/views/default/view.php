@@ -16,20 +16,58 @@ $this->menu=array(
 );
 ?>
 
-<h1>View Info #<?php echo $model->id; ?></h1>
+<center><h4>View Info #<?php echo $model->id; ?></h4></center>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'info_type_id',
-		'user_id',
+		array(
+				'name' => 'info_type_id',
+				'value' => $model->getInfoTypeName(),
+		),
+		array(
+				'name' => 'user_id',
+				'value' => $model->getUserName(),
+		),
 		'appointment_status',
 		'appointment_date',
 		'title',
 		'content',
 		'date_create',
 		'date_update',
-		'access_level_id',
+		array(
+				'name' => 'access_level_id',
+				'value' => $model->getAccessLevelName(),
+		),
 	),
 )); ?>
+
+<?php 
+if($model->info_type_id==3) {
+	echo "<center><h5>Answers</h5></center>";
+	$this->widget('zii.widgets.grid.CGridView', array(
+			'id' => 'gridComments',
+			'dataProvider' => new CActiveDataProvider('InfoComment', array(
+					'data'=>$model->infoComments,
+			)),
+			'columns'=>array(
+				'id',
+				array(
+						'name' => 'info_id',
+						'value' => '$data->infoTitle',
+				),
+				array(
+						'name' => 'user_id',
+						'value' => '$data->userName',
+				),
+				'content',
+				'date_create',
+				'date_update',
+				array(
+					'class'=>'CButtonColumn',
+				),
+			),
+	));
+}
+?>

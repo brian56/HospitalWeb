@@ -16,22 +16,34 @@ $this->menu=array(
 );
 ?>
 
-<h3>View User #<?php echo $model->id; ?></h3>
+<h4>View User #<?php echo $model->id; ?></h4>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'user_level_id',
-		'is_actived',
+		array(
+			'name' => 'user_level_id',
+			'value' => $model->getUserLevelName(),
+		),
+		array(
+			'name' => 'is_actived',
+			'value' => $model->getIsActived(),
+		),
 		'email',
 		'password',
 		'user_name',
 		'contact_phone',
 		'register_date',
-		'device_os_id',
+		array(
+			'name' => 'device_os_id',
+			'value' => $model->getDeviceOsName(),
+		),
 		'device_id',
-		'notify',
+		array(
+			'name' => 'notify',
+			'value' => $model->getNotifyName(),
+		),
 		'token',
 		'token_expired_date',
 	),

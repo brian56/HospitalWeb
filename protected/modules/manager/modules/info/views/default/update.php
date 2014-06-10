@@ -16,6 +16,6 @@ $this->menu=array(
 );
 ?>
 
-<h1>Update Info <?php echo $model->id; ?></h1>
+<center><h4>Update Info <?php echo $model->id; ?></h4></center>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

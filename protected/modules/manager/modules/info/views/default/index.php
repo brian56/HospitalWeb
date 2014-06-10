@@ -11,11 +11,28 @@ $this->menu=array(
 	array('label'=>'Manage Info', 'url'=>array('admin')),
 );
 ?>
-
-<h1>Infos</h1>
+<center>
+<h4>Infos</h4>
+</center>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
+	'columns'=>array(
+				'id',
+				array(
+						'name' => 'info_type_id',
+						'value' => '$data->infoTypeName',
+				),
+				array(
+						'name' => 'user_id',
+						'value' => '$data->userName',
+				),
+				'title',
+				array(
+						'name' => 'access_level_id',
+						'value' => '$data->accessLevelName',
+				)
+	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
 	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'/id/"+$.fn.yiiGridView.getSelection(id);}',
 )); ?>

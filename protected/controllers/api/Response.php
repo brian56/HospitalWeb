@@ -18,11 +18,12 @@ class Response {
 		$criteria->params = array(':token'=>$token, ':is_actived'=>1);
 		$user = User::model()->find($criteria);
 		if(!is_null($user)) {
-			$now = date('Y-m-d H:i:s');
-			if(strtotime($now) < strtotime($user->token_expired_date)) {
+			return $user->id;
+			/* $now = date('Y-m-d H:i:s');
+			 if(strtotime($now) < strtotime($user->token_expired_date)) {
 				return $user->id;
 			} else 
-				return null;
+				return null; */
 		} else return null;
 	}
 	

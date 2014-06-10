@@ -23,7 +23,16 @@
 <div class="container" id="page">
 
 	<div id="header">
-		<div id="logo"><?php echo CHtml::encode(Yii::app()->name); ?></div>
+		<div id="logo">
+		<?php 
+		if(Yii::app()->user->getState('isManager')) {
+			//echo CHtml::encode(Yii::app()->name); 
+			echo Yii::app()->user->getState('hospitalName', '');
+		} else {
+			echo Yii::app()->name;
+		}
+		?>
+		</div>
 	</div><!-- header -->
 	<div id="eflat-menu">
 

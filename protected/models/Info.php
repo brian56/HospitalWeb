@@ -24,6 +24,38 @@
  * @property InfoComment[] $infoComments
  */
 class Info extends CActiveRecord {
+	private $numberComments;
+	public function getNumberComments(){
+		return count($this->infoComments);
+	}
+	
+	private $isCommented;
+	public function getIsCommented(){
+		if(count($this->infoComments>0)){
+			return 'Yes';
+		}
+		return 'No';
+	}
+	
+	private $hospitalName;
+	public function getHospitalName(){
+		return $this->hospital->name;
+	}
+	
+	private $accessLevelName;
+	public function getAccessLevelName(){
+		return $this->accessLevel->name;
+	}
+	
+	private $infoTypeName;
+	public function getInfoTypeName(){
+		return $this->infoType->name;
+	}
+	
+	private $userName;
+	public function getUserName(){
+		return $this->user->user_name;
+	}
 	/**
 	 *
 	 * @return string the associated database table name
@@ -40,17 +72,17 @@ class Info extends CActiveRecord {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array (
-				array (
+				/* array (
 						'hospital_id',
 						'required' 
-				),
+				), */
 				array (
 						'info_type_id, user_id, hospital_id, appointment_status, access_level_id',
 						'numerical',
 						'integerOnly' => true 
 				),
 				array (
-						'title, content, date_create, date_update',
+						'title, content, date_create, date_update, userName',
 						'safe' 
 				),
 				// The following rule is used by search().
@@ -107,7 +139,7 @@ class Info extends CActiveRecord {
 		return array (
 				'id' => 'ID',
 				'info_type_id' => 'Info Type',
-				'user_id' => 'User',
+				'user_id' => 'Author',
 				'hospital_id' => 'Hospital',
 				'appointment_status' => 'Appointment Status',
 				'title' => 'Title',
@@ -154,6 +186,17 @@ class Info extends CActiveRecord {
 		) );
 	}
 	
+	public function searchQuestion() {
+		$criteria =new CDbCriteria();
+		$criteria->order = 'date_create DESC';
+		$criteria->condition = 't.info_type_id=:info_type_id';
+		$criteria->params = array(':info_type_id'=>3);
+		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		return new CActiveDataProvider ( $this, array (
+				'criteria' => $criteria 
+		) );
+	}
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
@@ -171,6 +214,9 @@ class Info extends CActiveRecord {
 		if($this->isNewRecord)
 		{
 			$this->date_create= date('Y-m-d H:i:s');
+			if(Yii::app()->user->getState('isManager')) {
+				$this->hospital_id = Yii::app()->user->getState('hospitalId');
+			}
 		}else{
 			$this->date_update = date('Y-m-d H:i:s');
 		}
@@ -195,4 +241,12 @@ class Info extends CActiveRecord {
 			}
 		}
 	}
+// 	public function afterFind() {
+// 		$this->numberComments = count($this->infoComments);
+// 		//var_dump($this->numberComments);
+// 		$this->setAttribute('userName', $this->user->email);
+// 		echo "<pre>";
+// 		print_r($this->getAttribute('userName'));
+// 		echo "</pre>";
+// 	}
 }
