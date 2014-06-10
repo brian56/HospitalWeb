@@ -117,9 +117,9 @@ class Sender {
         if ($response === FALSE) {
         	die('Curl failed: ' . curl_error($ch));
         }
-        echo "<pre>";
-        print_r($response);
-        echo "</pre>";
+//         echo "<pre>";
+//         print_r($response);
+//         echo "</pre>";
         $status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 

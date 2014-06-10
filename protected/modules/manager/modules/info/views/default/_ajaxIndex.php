@@ -10,12 +10,12 @@
 		),
 		array(
 			'name' => 'user_id',
-			'value' => '$data->userName',
+			'value' => '$data->infoUserName',
 		),
 		'title',
 		array(
 				'name' => 'access_level_id',
-				'value' => '$data->accessLevelName',
+				'value' => '$data->infoAccessLevelName',
 		),
 		/*
 		'content',

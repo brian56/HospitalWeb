@@ -36,7 +36,7 @@ class UserController extends Controller {
 		}
 		
 		$criteria->with = array (
-				'hospital'=>array('select'=>'id, name'),
+				'hospital',
 				'userLevel',
 				'deviceOs' 
 		);

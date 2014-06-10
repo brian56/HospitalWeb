@@ -24,38 +24,31 @@
  * @property InfoComment[] $infoComments
  */
 class Info extends CActiveRecord {
-	private $numberComments;
-	public function getNumberComments(){
+	//add new attributes to model
+	public function getInfoUserName() {
+		return $this->user->email;
+	}
+	public function getInfoTypeName() {
+		return $this->infoType->name;
+	}
+	public function getInfoCommentsCount() {
 		return count($this->infoComments);
 	}
-	
-	private $isCommented;
-	public function getIsCommented(){
-		if(count($this->infoComments>0)){
-			return 'Yes';
-		}
-		return 'No';
-	}
-	
-	private $hospitalName;
-	public function getHospitalName(){
-		return $this->hospital->name;
-	}
-	
-	private $accessLevelName;
-	public function getAccessLevelName(){
+	public function getInfoAccessLevelName() {
 		return $this->accessLevel->name;
 	}
 	
-	private $infoTypeName;
-	public function getInfoTypeName(){
-		return $this->infoType->name;
+	public function getAttributes($names = true) {
+		$attrs = parent::getAttributes($names);
+		$attrs['infoUserName'] = $this->getInfoUserName();
+		$attrs['infoTypeName'] = $this->getInfoTypeName();
+		$attrs['infoCommentsCount'] = $this->getInfoCommentsCount();
+		$attrs['infoAccessLevelName'] = $this->getInfoAccessLevelName();
+	
+		return $attrs;
 	}
 	
-	private $userName;
-	public function getUserName(){
-		return $this->user->user_name;
-	}
+	
 	/**
 	 *
 	 * @return string the associated database table name
@@ -144,7 +137,7 @@ class Info extends CActiveRecord {
 				'appointment_status' => 'Appointment Status',
 				'title' => 'Title',
 				'content' => 'Content',
-				'appointment_date' => 'Appointment Date Meeting',
+				'appointment_date' => 'Appointment Date',
 				'date_create' => 'Date Create',
 				'date_update' => 'Date Update',
 				'access_level_id' => 'Access Level' 
@@ -241,12 +234,4 @@ class Info extends CActiveRecord {
 			}
 		}
 	}
-// 	public function afterFind() {
-// 		$this->numberComments = count($this->infoComments);
-// 		//var_dump($this->numberComments);
-// 		$this->setAttribute('userName', $this->user->email);
-// 		echo "<pre>";
-// 		print_r($this->getAttribute('userName'));
-// 		echo "</pre>";
-// 	}
 }

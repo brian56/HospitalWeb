@@ -16,13 +16,16 @@
  * @property User $user
  */
 class InfoComment extends CActiveRecord {
-	private $userName;
-	public function getUserName(){
-		return $this->user->user_name;
+	//add new attributes to model
+	public function getUserName() {
+		return $this->user->email;
 	}
-	private $infoTitle;
-	public function getInfoTitle(){
-		return $this->info->title;
+	
+	public function getAttributes($names = true) {
+		$attrs = parent::getAttributes($names);
+		$attrs['userName'] = $this->getUserName();
+	
+		return $attrs;
 	}
 	/**
 	 *

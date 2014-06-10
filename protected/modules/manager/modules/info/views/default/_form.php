@@ -45,7 +45,7 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'appointment_status'); ?>
-		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Reject')); ?>
+		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Reject'),array('empty'=>'-- Select appointment status --') ); ?>
 		<?php echo $form->error($model,'appointment_status'); ?>
 	</div>
 	

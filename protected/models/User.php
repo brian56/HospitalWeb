@@ -30,17 +30,15 @@
  */
 class User extends CActiveRecord
 {
-	private $userLevelName;
+	//add new attributes to model
 	public function getUserLevelName(){
 		return $this->userLevel->name;
 	}
 	
-	private $deviceOsName;
 	public function getDeviceOsName(){
 		return $this->deviceOs->name." ".$this->deviceOs->device_type." ".$this->deviceOs->version;
 	}
 
-	private $isActived;
 	public function getIsActived(){
 		if($this->is_actived>0) {
 			return 'Yes';
@@ -48,17 +46,26 @@ class User extends CActiveRecord
 		return 'No';
 	}
 	
-	private $hospitalName;
 	public function getHospitalName(){
 		return $this->hospital->name;
 	}
 	
-	private $notifyName;
 	public function getNotifyName(){
 			if($this->notify>0) {
 			return 'Yes';
 		}
 		return 'No';
+	}
+	
+	public function getAttributes($names = true) {
+		$attrs = parent::getAttributes($names);
+		$attrs['userLevelName'] = $this->getUserLevelName();
+		$attrs['deviceOsName'] = $this->getDeviceOsName();
+		$attrs['isActived'] = $this->getIsActived();
+		$attrs['hospitalName'] = $this->getHospitalName();
+		$attrs['notifyName'] = $this->getNotifyName();
+	
+		return $attrs;
 	}
 	
 	/**

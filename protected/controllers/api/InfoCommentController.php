@@ -18,98 +18,14 @@ class InfoCommentController extends Controller {
 	public function filters() {
 		return array ();
 	}
-	// Actions
-	public function actionGetAll() {
-		// Get the respective model instance
-		$criteria = new CDbCriteria ();
-		$conditions = array ();
-
-		if (!isset ( $_GET [Params::param_Hospital_Id] )) {
-			Response::MissingParam(Params::param_Hospital_Id);
-		}
-		
-		if (isset ( $_GET [Params::param_Offset] )) {
-			$criteria->offset = $_GET [Params::param_Offset];
-		}
-		if (isset ( $_GET [Params::param_Limit] )) {
-			$criteria->limit = $_GET [Params::param_Limit];
-		}
-		if (isset ( $_GET [Params::param_Order] )) {
-			$criteria->order = $_GET [Params::param_Order];
-		}
-		$conditions [] = 't.hospital_id=:hospital_id';
-		$criteria->params = array_merge ( $criteria->params, array (
-				':hospital_id' => $_GET [Params::param_Hospital_Id]
-		) );
-		
-		$criteria->condition = $conditions[0];
-		$models = InfoComment::model ()->findAll ( $criteria );
-		
-		// Did we get some results?
-		if (empty ( $models )) {
-			// No
-			Response::NoRecord($this->modelName);
-		} else {
-			// Prepare response
-			Response::Success($this->modelName, $models);
-		}
-	}
-	
-	public function actionGetByType() {
-		// Get the respective model instance
-		$criteria = new CDbCriteria ();
-		$conditions = array ();
-
-		if (!isset ( $_GET [Params::param_Info_Type_Id] )) {
-			Response::MissingParam(Params::param_Info_Type_Id);
-		}
-		if (!isset ( $_GET [Params::param_Hospital_Id] )) {
-			Response::MissingParam(Params::param_Hospital_Id);
-		}
-		
-		if (isset ( $_GET [Params::param_Offset] )) {
-			$criteria->offset = $_GET [Params::param_Offset];
-		}
-		if (isset ( $_GET [Params::param_Limit] )) {
-			$criteria->limit = $_GET [Params::param_Limit];
-		}
-		if (isset ( $_GET [Params::param_Order] )) {
-			$criteria->order = $_GET [Params::param_Order];
-		}
-		$conditions [] = 't.info_type_id=:info_type_id';
-		$criteria->params = array_merge ( $criteria->params, array (
-				':info_type_id' => $_GET [Params::param_Info_Type_Id]
-		) );
-		$conditions [] = 't.hospital_id=:hospital_id';
-		$criteria->params = array_merge ( $criteria->params, array (
-				':hospital_id' => $_GET [Params::param_Hospital_Id]
-		) );
-		
-		$criteria->condition = implode ( ' AND ', $conditions );
-		$models = InfoComment::model ()->findAll ( $criteria );
-		
-		// Did we get some results?
-		if (empty ( $models )) {
-			// No
-			Response::NoRecord($this->modelName);
-		} else {
-			// Prepare response
-			Response::Success($this->modelName, $models);
-		}
-	}
-	public function actionGetByUserAndType() {
+	//actions
+	public function actionGetByInfo() {
 		// Get the respective model instance
 		$criteria = new CDbCriteria ();
 		$conditions = array ();
 		
-		if (!isset ( $_GET [Params::param_Hospital_Id] )) {
-			Response::MissingParam(Params::param_Hospital_Id);
-		}
-		if (!isset ( $_GET [Params::param_User_Id] )) {
-			Response::MissingParam(Params::param_User_Id);
-		}
-		if (!isset ( $_GET [Params::param_Info_Type_Id] )) {
-			Response::MissingParam(Params::param_Info_Type_Id);
+		if (!isset ( $_GET [Params::param_Info_Id] )) {
+			Response::MissingParam(Params::param_Info_Id);
 		}
 
 		if (isset ( $_GET [Params::param_Offset] )) {
@@ -121,20 +37,8 @@ class InfoCommentController extends Controller {
 		if (isset ( $_GET [Params::param_Order] )) {
 			$criteria->order = $_GET [Params::param_Order];
 		}
-		$conditions [] = 't.hospital_id=:hospital_id';
-		$criteria->params = array_merge ( $criteria->params, array (
-				':hospital_id' => $_GET [Params::param_Hospital_Id]
-		) );
-		$conditions [] = 't.user_id=:user_id';
-		$criteria->params = array (
-				':user_id' => $_GET [Params::param_User_Id]
-		);
-		$conditions [] = 't.info_type_id=:info_type_id';
-		$criteria->params = array_merge ( $criteria->params, array (
-				':info_type_id' => $_GET [Params::param_Info_Type_Id]
-		) );
-		
-		$criteria->condition = implode ( ' AND ', $conditions );
+		$criteria->params = array (':info_id' => $_GET [Params::param_Info_Id]);
+		$criteria->condition = 't.info_id=:info_id';
 		$models = InfoComment::model ()->findAll ( $criteria );
 		
 		// Did we get some results?

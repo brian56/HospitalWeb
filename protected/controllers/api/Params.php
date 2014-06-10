@@ -3,13 +3,13 @@ class Params {
 	
 	// status and message define
 	const status_success = 0;
-	const message_success = 'Success. Object:';
+	const message_success = 'Success. Object: ';
 	const status_no_record = 1;
-	const message_no_record = 'No records were found. Object:';
+	const message_no_record = 'No records were found. Object: ';
 	const status_params_missing = - 1;
-	const message_params_missing = 'Missing params:';
+	const message_params_missing = 'Missing params: ';
 	const status_params_error = - 2;
-	const message_params_error = 'Params format error:';
+	const message_params_error = 'Params format error: ';
 	const status_failed = - 3;
 	const message_failed = 'Can not excute request.';
 	

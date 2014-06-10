@@ -56,7 +56,8 @@ class Response {
     public static function Success($modelName='', $data = array()) {
     	$response ['status'] = Params::status_success;
 		$response ['message'] = Params::message_success . $modelName;
-		$response ['data'] = json_decode ( self::renderJsonDeep ( $data ) );
+// 		$response ['data'] = json_decode ( self::renderJsonDeep ( $data ) );
+		$response ['data'] = $data;
 		self::_sendResponse ( 200, CJSON::encode ( $response ) );
     }
     
