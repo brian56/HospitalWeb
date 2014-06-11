@@ -21,10 +21,7 @@ $('.search-form form').submit(function(){
 /* @var $model Info */
 
 	$this->menu=array(
-			array('label'=>'Manage Question', 'url'=>array('question')),
-			array('label'=>'Create Question', 'url'=>array('questioncreate')),
-			array('label'=>'Update Question', 'url'=>array('update', 'id'=>$model->id)),
-			array('label'=>'Delete Question', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>'Create Question', 'url'=>array('questionCreate')),
 
 	);
 
@@ -82,5 +79,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
-		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'?id="+$.fn.yiiGridView.getSelection(id);}',
+		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('questionview').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>

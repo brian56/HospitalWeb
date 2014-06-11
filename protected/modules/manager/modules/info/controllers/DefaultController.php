@@ -38,6 +38,18 @@ class DefaultController extends Controller
 				'actions'=>array('admin','delete', 'AjaxIndex', 'question', 'event', 'notice', 'AjaxQuestion'),
 				'users'=>array('@'),
 			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('question', 'questionCreate', 'questionUpdate', 'questionView', 'AjaxQuestion'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('event', 'eventCreate', 'eventView', 'eventUpdate'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('notice', 'noticeCreate', 'noticeView', 'noticeUpdate'),
+				'users'=>array('@'),
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -183,6 +195,8 @@ class DefaultController extends Controller
 		//print_r($model);
 		$this->renderPartial('_ajaxIndex', array('model'=>$model));
 	}
+	
+	//------------------question actions--------------------------------//
 	public function actionAjaxQuestion()
 	{
 		$model =new Info();
@@ -202,6 +216,53 @@ class DefaultController extends Controller
 				'model'=>$model,
 		));
 	}
+	public function actionQuestionCreate()
+	{
+		$model=new Info;
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_create=new CDbExpression('now()');
+			$model->info_type_id = 3;
+			if($model->save())
+				$this->redirect(array('question_view','id'=>$model->id));
+		}
+	
+		$this->render('question_create',array(
+				'model'=>$model,
+		));
+	}
+	public function actionQuestionUpdate($id)
+	{
+		$model=$this->loadModel($id);
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_update=new CDbExpression('now()');
+			if($model->save())
+				$this->redirect(array('question_view','id'=>$model->id));
+		}
+	
+		$this->render('question_update',array(
+				'model'=>$model,
+		));
+	}
+	public function actionQuestionView($id)
+	{
+		$this->render('question_view',array(
+				'model'=>$this->loadModel($id),
+		));
+	}
+	
+	//-----------------------event actions---------------------//
 	public function actionEvent()
 	{
 		$model=new Info('search');
@@ -213,6 +274,8 @@ class DefaultController extends Controller
 				'model'=>$model,
 		));
 	}
+	
+	//--------------------------notice actions------------------------//
 	public function actionNotice()
 	{
 		$model=new Info('search');

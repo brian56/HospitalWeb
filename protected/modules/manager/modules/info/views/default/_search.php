@@ -38,12 +38,12 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'title'); ?>
-		<?php echo $form->textArea($model,'title',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'title'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'content'); ?>
-		<?php echo $form->textArea($model,'content',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'content'); ?>
 	</div>
 
 	<div class="row">
