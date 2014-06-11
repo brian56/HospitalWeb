@@ -113,10 +113,9 @@ class SiteController extends Controller
 		if(isset($_POST['data']) && $_POST['data']!=='')
 		{
 			$content = $_POST['data'];
-			$message = 'testing';
 			$push_tokens = 'APA91bGtYCCfcNGvZb2uiabB5wOiy72TMIIjFSUOZJ8iJqDRHfj3n-426D2oGXqurTCvmGDFfrN-JFUVGYd31L6JJMRceD2SX4rrxoxnHaof6C55FAFHjfinVbagO4gpniMq1v7R72W2bwBt6rt-PpEbzu3cFfmhaQ';
 			$gcm = Yii::app()->gcm;
-			$gcm->send($push_tokens, $message, array('extra' => 'one device', 'value' => $content), array( 'delayWhileIdle' => true ));
+			$gcm->send($push_tokens, $message, array('extra' => 'one device', 'title'=> $content, 'value' =>''), array( 'delayWhileIdle' => true ));
 		}
 	}
 	
@@ -125,11 +124,10 @@ class SiteController extends Controller
 		if(isset($_POST['data']) && $_POST['data']!=='')
 		{
 			$content = $_POST['data'];
-			$message = 'testing';
 			$push_tokens = array('APA91bF5RbiRiHEsVQv7Usj3LE82WQNULV2B6-Z36tYg8pR5zcZ7E5vUiKAC2iQaCJwT40s9ZyH8NNJ5HlG_XBvOPjohSRGTGIkz2b-XqwdmQWV1Cqy7GVZQZ4vWzT-4QnWbs0EmxObYoN4heIoMX2Mc9SG5z4ukWg',
 					'APA91bGtYCCfcNGvZb2uiabB5wOiy72TMIIjFSUOZJ8iJqDRHfj3n-426D2oGXqurTCvmGDFfrN-JFUVGYd31L6JJMRceD2SX4rrxoxnHaof6C55FAFHjfinVbagO4gpniMq1v7R72W2bwBt6rt-PpEbzu3cFfmhaQ');
 			$gcm = Yii::app()->gcm;
-			$gcm->sendMulti($push_tokens, $message, array('extra' => 'multi devices ', 'value' => $content), array( 'delayWhileIdle' => true ));
+			$gcm->sendMulti($push_tokens, $message, array('extra' => 'multi devices ','title'=> $content, 'value' =>''), array( 'delayWhileIdle' => true ));
 		}
 	}
 }
