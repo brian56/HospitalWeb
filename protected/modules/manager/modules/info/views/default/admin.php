@@ -60,10 +60,10 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'name' => 'access_level_id',
 				'value' => '$data->infoAccessLevelName',
 		),
+		'date_create',
 		/*
 		'content',
 		'appointment_date',
-		'date_create',
 		'date_update',
 		*/
 		array(

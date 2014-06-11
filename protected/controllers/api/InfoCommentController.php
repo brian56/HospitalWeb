@@ -37,6 +37,7 @@ class InfoCommentController extends Controller {
 		if (isset ( $_GET [Params::param_Order] )) {
 			$criteria->order = $_GET [Params::param_Order];
 		}
+		$criteria->order = 't.date_create ASC';
 		$criteria->params = array (':info_id' => $_GET [Params::param_Info_Id]);
 		$criteria->condition = 't.info_id=:info_id';
 		$models = InfoComment::model ()->findAll ( $criteria );

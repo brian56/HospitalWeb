@@ -31,7 +31,8 @@ $this->menu=array(
 				array(
 						'name' => 'access_level_id',
 						'value' => '$data->infoAccessLevelName',
-				)
+				),
+				'date_create',
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
 	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'?id="+$.fn.yiiGridView.getSelection(id);}',
