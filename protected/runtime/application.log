@@ -379,3 +379,73 @@ in E:\xampp\htdocs\HospitalWeb\index.php (13)
 2014/06/10 21:38:31 [warning] [application] Failed to set unsafe attribute "appointment_date" of "Info".
 in E:\xampp\htdocs\HospitalWeb\protected\modules\manager\modules\info\controllers\DefaultController.php (71)
 in E:\xampp\htdocs\HospitalWeb\index.php (13)
+2014/06/11 11:50:52 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "getbytype?hospital_id=1&info_type_id=3&order=date_create desc".' in /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php(270): CController->missingAction('getbytype?hospi...')
+#1 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('getbytype?hospi...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('api/info/getbyt...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/XAMPP/xamppfiles/htdocs/HospitalWeb/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/HospitalWeb/api/info/getbytype%3Fhospital_id%3D1%26info_type_id%3D3%26order%3Ddate_create%20DESC
+---
+2014/06/11 11:50:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "getbytype?hospital_id=1&info_type_id=1&order=date_create desc".' in /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php(270): CController->missingAction('getbytype?hospi...')
+#1 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('getbytype?hospi...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('api/info/getbyt...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/XAMPP/xamppfiles/htdocs/HospitalWeb/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/HospitalWeb/api/info/getbytype%3Fhospital_id%3D1%26info_type_id%3D1%26order%3Ddate_create%20DESC
+---
+2014/06/11 11:53:49 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "getbytype?hospital_id=1&info_type_id=3".' in /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php(270): CController->missingAction('getbytype?hospi...')
+#1 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('getbytype?hospi...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('api/info/getbyt...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/XAMPP/xamppfiles/htdocs/HospitalWeb/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/HospitalWeb/api/info/getbytype%3Fhospital_id%3D1%26info_type_id%3D3
+---
+2014/06/11 11:53:53 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "getbytype?hospital_id=1&info_type_id=1".' in /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php(270): CController->missingAction('getbytype?hospi...')
+#1 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('getbytype?hospi...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('api/info/getbyt...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/XAMPP/xamppfiles/htdocs/HospitalWeb/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/HospitalWeb/api/info/getbytype%3Fhospital_id%3D1%26info_type_id%3D1
+---
+2014/06/11 11:53:55 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "getbytype?hospital_id=1&info_type_id=1".' in /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php(270): CController->missingAction('getbytype?hospi...')
+#1 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('getbytype?hospi...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('api/info/getbyt...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/XAMPP/xamppfiles/htdocs/HospitalWeb/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/HospitalWeb/api/info/getbytype%3Fhospital_id%3D1%26info_type_id%3D1
+---
+2014/06/11 11:59:30 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "getbytype?hospital_id=1&info_type_id=3".' in /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php(270): CController->missingAction('getbytype?hospi...')
+#1 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('getbytype?hospi...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('api/info/getbyt...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/XAMPP/xamppfiles/htdocs/HospitalWeb/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/HospitalWeb/api/info/getbytype%3Fhospital_id%3D1%26info_type_id%3D3
+---
+2014/06/11 11:59:48 [error] [exception.CHttpException.404] exception 'CHttpException' with message 'The system is unable to find the requested action "getbytype?hospital_id=1&info_type_id=1".' in /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php:483
+Stack trace:
+#0 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CController.php(270): CController->missingAction('getbytype?hospi...')
+#1 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(282): CController->run('getbytype?hospi...')
+#2 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/web/CWebApplication.php(141): CWebApplication->runController('api/info/getbyt...')
+#3 /Applications/XAMPP/xamppfiles/htdocs/yii/framework/base/CApplication.php(180): CWebApplication->processRequest()
+#4 /Applications/XAMPP/xamppfiles/htdocs/HospitalWeb/index.php(13): CApplication->run()
+#5 {main}
+REQUEST_URI=/HospitalWeb/api/info/getbytype%3Fhospital_id%3D1%26info_type_id%3D1
+---
