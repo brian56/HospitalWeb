@@ -39,7 +39,7 @@ class DefaultController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('question', 'questionCreate', 'questionUpdate', 'questionView', 'AjaxQuestion'),
+				'actions'=>array('trackingQuestion', 'question', 'questionCreate', 'questionUpdate', 'questionView', 'AjaxQuestion'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -48,6 +48,10 @@ class DefaultController extends Controller
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
 				'actions'=>array('notice', 'noticeCreate', 'noticeView', 'noticeUpdate'),
+				'users'=>array('@'),
+			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('trackingAppointment', 'appointment', 'appointmentCreate', 'appointmentView', 'appointmentUpdate'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -216,6 +220,17 @@ class DefaultController extends Controller
 				'model'=>$model,
 		));
 	}
+	public function actionTrackingQuestion()
+	{
+		$model=new Info('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Info']))
+			$model->attributes=$_GET['Info'];
+	
+		$this->render('trackingQuestion',array(
+				'model'=>$model,
+		));
+	}
 	public function actionQuestionCreate()
 	{
 		$model=new Info;
@@ -229,7 +244,7 @@ class DefaultController extends Controller
 			$model->date_create=new CDbExpression('now()');
 			$model->info_type_id = 3;
 			if($model->save())
-				$this->redirect(array('question_view','id'=>$model->id));
+				$this->redirect(array('questionView','id'=>$model->id));
 		}
 	
 		$this->render('question_create',array(
@@ -248,7 +263,7 @@ class DefaultController extends Controller
 			$model->attributes=$_POST['Info'];
 			$model->date_update=new CDbExpression('now()');
 			if($model->save())
-				$this->redirect(array('question_view','id'=>$model->id));
+				$this->redirect(array('questionView','id'=>$model->id));
 		}
 	
 		$this->render('question_update',array(
@@ -274,7 +289,51 @@ class DefaultController extends Controller
 				'model'=>$model,
 		));
 	}
+	public function actionEventCreate()
+	{
+		$model=new Info;
 	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_create=new CDbExpression('now()');
+			$model->info_type_id = 2;
+			if($model->save())
+				$this->redirect(array('eventView','id'=>$model->id));
+		}
+	
+		$this->render('event_create',array(
+				'model'=>$model,
+		));
+	}
+	public function actionEventUpdate($id)
+	{
+		$model=$this->loadModel($id);
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_update=new CDbExpression('now()');
+			if($model->save())
+				$this->redirect(array('eventView','id'=>$model->id));
+		}
+	
+		$this->render('event_update',array(
+				'model'=>$model,
+		));
+	}
+	public function actionEventView($id)
+	{
+		$this->render('event_view',array(
+				'model'=>$this->loadModel($id),
+		));
+	}
 	//--------------------------notice actions------------------------//
 	public function actionNotice()
 	{
@@ -285,6 +344,127 @@ class DefaultController extends Controller
 	
 		$this->render('notice',array(
 				'model'=>$model,
+		));
+	}
+	public function actionNoticeCreate()
+	{
+		$model=new Info;
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_create=new CDbExpression('now()');
+			$model->info_type_id = 1;
+			if($model->save())
+				$this->redirect(array('noticeView','id'=>$model->id));
+		}
+	
+		$this->render('notice_create',array(
+				'model'=>$model,
+		));
+	}
+	public function actionNoticeUpdate($id)
+	{
+		$model=$this->loadModel($id);
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_update=new CDbExpression('now()');
+			if($model->save())
+				$this->redirect(array('noticeView','id'=>$model->id));
+		}
+	
+		$this->render('notice_update',array(
+				'model'=>$model,
+		));
+	}
+	public function actionNoticeView($id)
+	{
+		$this->render('notice_view',array(
+				'model'=>$this->loadModel($id),
+		));
+	}
+	//--------------------------appointment actions------------------------//
+	public function actionAjaxAppointment()
+	{
+		$model =new Info();
+		$model->unsetAttributes();  // clear any default values
+	
+		//print_r($model);
+		$this->renderPartial('_ajaxAppointment', array('model'=>$model));
+	}
+	public function actionAppointment()
+	{
+		$model=new Info('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Info']))
+			$model->attributes=$_GET['Info'];
+	
+		$this->render('appointment',array(
+				'model'=>$model,
+		));
+	}
+	public function actionTrackingAppointment()
+	{
+		$model=new Info('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Info']))
+			$model->attributes=$_GET['Info'];
+	
+		$this->render('trackingAppointment',array(
+				'model'=>$model,
+		));
+	}
+	public function actionAppointmentCreate()
+	{
+		$model=new Info;
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_create=new CDbExpression('now()');
+			$model->info_type_id = 4;
+			if($model->save())
+				$this->redirect(array('appointmentView','id'=>$model->id));
+		}
+	
+		$this->render('appointment_create',array(
+				'model'=>$model,
+		));
+	}
+	public function actionAppointmentUpdate($id)
+	{
+		$model=$this->loadModel($id);
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_update=new CDbExpression('now()');
+			if($model->save())
+				$this->redirect(array('appointmentView','id'=>$model->id));
+		}
+	
+		$this->render('appointment_update',array(
+				'model'=>$model,
+		));
+	}
+	public function actionAppointmentView($id)
+	{
+		$this->render('appointment_view',array(
+				'model'=>$this->loadModel($id),
 		));
 	}
 }

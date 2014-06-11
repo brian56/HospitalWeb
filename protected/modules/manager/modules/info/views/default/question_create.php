@@ -9,6 +9,7 @@ $this->breadcrumbs=array(
 
 $this->menu=array(
 	array('label'=>'Manage Question', 'url'=>array('question')),
+	array('label'=>'Tracking new Question', 'url'=>array('trackingQuestion')),
 );
 ?>
 

@@ -21,12 +21,13 @@ $('.search-form form').submit(function(){
 /* @var $model Info */
 
 	$this->menu=array(
-			array('label'=>'Create Event', 'url'=>array('eventCreate')),
+			array('label'=>'Create Appointment', 'url'=>array('appointmentCreate')),
+			array('label'=>'Tracking new Appointment', 'url'=>array('trackingAppointment')),
 
 	);
 
 ?>
-<center><h4>Manage events</h4></center>
+<center><h4>Manage appointments</h4></center>
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
@@ -42,7 +43,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'info-grid',
-	'dataProvider'=>$model->searchEvent(),
+	'dataProvider'=>$model->searchAppointment(),
 	//'filter'=>$model,
 	'columns'=>array(
 		'id',
@@ -56,9 +57,13 @@ $this->widget('zii.widgets.grid.CGridView', array(
 				'value' => '$data->infoAccessLevelName',
 		),
 		'date_create',
+		'appointment_date',
+		array(
+				'name' => 'appointment_status',
+				'value' => '$data->appointmentStatusName',
+		),
 		/*
 		 'content',
-		'appointment_date',
 		'date_update',
 		*/
 		array(
@@ -66,5 +71,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
-		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('eventview').'?id="+$.fn.yiiGridView.getSelection(id);}',
+		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('appointmentview').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>

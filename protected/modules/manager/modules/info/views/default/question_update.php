@@ -13,6 +13,7 @@ $this->breadcrumbs=array(
 			array('label'=>'View Question', 'url'=>array('questionview', 'id'=>$model->id)),
 			array('label'=>'Delete Question', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
 			array('label'=>'Manage Question', 'url'=>array('question')),
+			array('label'=>'Tracking new Question', 'url'=>array('trackingQuestion')),
 	);
 ?>
 

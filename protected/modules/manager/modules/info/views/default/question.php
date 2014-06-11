@@ -22,24 +22,12 @@ $('.search-form form').submit(function(){
 
 	$this->menu=array(
 			array('label'=>'Create Question', 'url'=>array('questionCreate')),
+			array('label'=>'Tracking new Question', 'url'=>array('trackingQuestion')),
 
 	);
 
 ?>
 <center><h4>Manage questions</h4></center>
-<script type="text/javascript">
-    timeout = 3000;
-    function refresh() {       
-        <?php
-        echo CHtml::ajax(array(
-                'url'=> Yii::app()->baseUrl."/manager/info/default/AjaxQuestion",
-                'type'=>'post',
-                'update'=> '#info-grid',
-        ))
-        ?>
-    }
-    window.setInterval("refresh()", timeout);
-</script>
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.

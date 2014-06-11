@@ -37,6 +37,13 @@ class Info extends CActiveRecord {
 	public function getInfoAccessLevelName() {
 		return $this->accessLevel->name;
 	}
+	public function getAppointmentStatusName() {
+		if($this->appointment_status==0) {
+			return 'Pending';
+		} elseif ($this->appointment_status==1) {
+			return 'Confirmed';
+		} else return 'Rejected';
+	}
 	public function getInfoTimeCreate() {
 		return strtotime($this->date_create)*1000;
 	}
@@ -48,6 +55,7 @@ class Info extends CActiveRecord {
 		$attrs['infoCommentsCount'] = $this->getInfoCommentsCount();
 		$attrs['infoAccessLevelName'] = $this->getInfoAccessLevelName();
 		$attrs['infoTimeCreate'] = $this->getInfoTimeCreate();
+		$attrs['appointmentStatusName'] = $this->getAppointmentStatusName();
 	
 		return $attrs;
 	}
@@ -214,6 +222,16 @@ class Info extends CActiveRecord {
 				'criteria' => $criteria 
 		) );
 	}
+	public function searchAppointment() {
+		$criteria =new CDbCriteria();
+		$criteria->order = 'date_create DESC';
+		$criteria->condition = 't.info_type_id=:info_type_id';
+		$criteria->params = array(':info_type_id'=>4);
+		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		return new CActiveDataProvider ( $this, array (
+				'criteria' => $criteria 
+		) );
+	}
 	
 	/**
 	 * Returns the static model of the specified AR class.
@@ -229,6 +247,9 @@ class Info extends CActiveRecord {
 	
 	public function beforeSave()
 	{
+		if($this->appointment_date!='0'){
+			$this->appointment_date = date('Y-m-d H:i:s', strtotime($this->appointment_date));
+		}
 		if($this->isNewRecord)
 		{
 			$this->date_create= date('Y-m-d H:i:s');

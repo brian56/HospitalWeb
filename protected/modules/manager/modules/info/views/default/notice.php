@@ -16,6 +16,16 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
+<?php
+/* @var $this InfoController */
+/* @var $model Info */
+
+	$this->menu=array(
+			array('label'=>'Create Notice', 'url'=>array('noticeCreate')),
+
+	);
+
+?>
 <center><h4>Manage notices</h4></center>
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
@@ -48,7 +58,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'date_create',
 		/*
 		'content',
-		'appointment_date',
 		'date_update',
 		*/
 		array(
@@ -56,5 +65,5 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
-		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'?id="+$.fn.yiiGridView.getSelection(id);}',
+		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('noticeview').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>
