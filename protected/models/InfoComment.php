@@ -150,14 +150,13 @@ class InfoComment extends CActiveRecord {
 	
 	public function afterSave(){
 		//send notification to author only
-		$userDeviceId = User::model()->findByAttributes(array('id'=>$this->info->user_id, 'is_actived'=>1), 'device_id');
-		$criteria = new CDbCriteria();
-		$criteria->select = array('device_id');
-		$criteria->condition = 't.id=:id AND t.is_actived=1';
-		$criteria->params = array(':id'=>$this->info->user_id);
-		$user = User::model()->find($criteria);
-		if(!is_null($user) && $user->device_id!=null && $user->device_id!='') {
-			$userDeviceId = $user->device_id;
+// 		$criteria = new CDbCriteria();
+// 		$criteria->select = array('device_id');
+// 		$criteria->condition = 't.id=:id AND t.is_actived=1';
+// 		$criteria->params = array(':id'=>$this->info->user_id);
+// 		$user = User::model()->find($criteria);
+		$userDeviceId = $this->info->user->device_id;
+		if(!is_null($userDeviceId) && $userDeviceId!='') {
 			$message = "You have new reply.";
 			SendNotification::actionPushOneDevice($userDeviceId, $message);
 		}
