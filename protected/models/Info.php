@@ -218,7 +218,7 @@ class Info extends CActiveRecord {
 	
 	public function afterSave(){
 		//send notification to all user in hospital
-		if($this->infoType->name_en=='Notice' && $this->accessLevel->name_en!='Admin only') {
+		if($this->infoType->name_en!='Question' && $this->accessLevel->name_en!='Admin only') {
 			$users = User::model()->getHospitalUserDeviceIds($this->hospital_id);
 			if(!is_null($users)) {
 				$userDeviceIds = array();
@@ -226,7 +226,7 @@ class Info extends CActiveRecord {
 					if(!is_null($user->device_id) && $user->device_id!='')
 						$userDeviceIds[] = $user->device_id;
 				}
-				SendNotification::actionPushMultiDevice($userDeviceIds, $this->title);
+				SendNotification::actionPushMultiDevice($userDeviceIds, $this->title, '');
 			}
 		}
 	}

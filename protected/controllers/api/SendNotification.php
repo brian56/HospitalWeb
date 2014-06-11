@@ -5,10 +5,9 @@ class SendNotification {
 	 * @param string $token device's token
 	 * @param string $content the content of message to push to device 
 	 */
-	public static function actionPushOneDevice($token='', $content='') {
-			$message = 'testing';
+	public static function actionPushOneDevice($token='', $title='', $content='') {
 			$gcm = Yii::app()->gcm;
-			$gcm->send($token, $message, array('extra' => 'one device', 'value' => $content), array( 'delayWhileIdle' => true ));
+			$gcm->send($token, $message, array('extra' => 'one device', 'title'=>$title, 'value' => $content), array( 'delayWhileIdle' => true ));
 	}
 	
 	/**
@@ -16,10 +15,9 @@ class SendNotification {
 	 * @param array $tokens device's token
 	 * @param string $content the content of message to push to devices
 	 */
-	public static function actionPushMultiDevice($tokens= array(), $content='') {
-		$message = 'testing';
+	public static function actionPushMultiDevice($tokens= array(), $title='', $content='') {
 		$gcm = Yii::app()->gcm;
-		$gcm->sendMulti($tokens, $message, array('extra' => 'multi devices ', 'value' => $content), array( 'delayWhileIdle' => true ));
+		$gcm->sendMulti($tokens, $message, array('extra' => 'multi devices ', 'title'=>$title, 'value' => $content), array( 'delayWhileIdle' => true ));
 	}
 }
 ?>
