@@ -190,6 +190,27 @@ class Info extends CActiveRecord {
 		) );
 	}
 	
+	public function searchNotice() {
+		$criteria =new CDbCriteria();
+		$criteria->order = 'date_create DESC';
+		$criteria->condition = 't.info_type_id=:info_type_id';
+		$criteria->params = array(':info_type_id'=>1);
+		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		return new CActiveDataProvider ( $this, array (
+				'criteria' => $criteria 
+		) );
+	}
+	public function searchEvent() {
+		$criteria =new CDbCriteria();
+		$criteria->order = 'date_create DESC';
+		$criteria->condition = 't.info_type_id=:info_type_id';
+		$criteria->params = array(':info_type_id'=>2);
+		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		return new CActiveDataProvider ( $this, array (
+				'criteria' => $criteria 
+		) );
+	}
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

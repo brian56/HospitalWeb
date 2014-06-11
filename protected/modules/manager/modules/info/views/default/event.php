@@ -16,20 +16,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<center><h4>Manage questions</h4></center>
-<script type="text/javascript">
-    timeout = 3000;
-    function refresh() {       
-        <?php
-        echo CHtml::ajax(array(
-                'url'=> Yii::app()->baseUrl."/manager/info/default/AjaxQuestion",
-                'type'=>'post',
-                'update'=> '#info-grid',
-        ))
-        ?>
-    }
-    window.setInterval("refresh()", timeout);
-</script>
+<center><h4>Manage events</h4></center>
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
 or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
@@ -45,7 +32,7 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'info-grid',
-	'dataProvider'=>$model->searchQuestion(),
+	'dataProvider'=>$model->searchEvent(),
 	//'filter'=>$model,
 	'columns'=>array(
 		'id',
@@ -60,7 +47,7 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 		'date_create',
 		/*
-		'content',
+		 'content',
 		'appointment_date',
 		'date_update',
 		*/

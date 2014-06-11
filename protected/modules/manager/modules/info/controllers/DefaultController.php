@@ -35,7 +35,7 @@ class DefaultController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('admin','delete', 'AjaxIndex', 'question', 'AjaxQuestion'),
+				'actions'=>array('admin','delete', 'AjaxIndex', 'question', 'event', 'notice', 'AjaxQuestion'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -199,6 +199,28 @@ class DefaultController extends Controller
 			$model->attributes=$_GET['Info'];
 	
 		$this->render('question',array(
+				'model'=>$model,
+		));
+	}
+	public function actionEvent()
+	{
+		$model=new Info('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Info']))
+			$model->attributes=$_GET['Info'];
+	
+		$this->render('event',array(
+				'model'=>$model,
+		));
+	}
+	public function actionNotice()
+	{
+		$model=new Info('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Info']))
+			$model->attributes=$_GET['Info'];
+	
+		$this->render('notice',array(
 				'model'=>$model,
 		));
 	}
