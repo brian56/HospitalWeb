@@ -20,10 +20,14 @@ class InfoComment extends CActiveRecord {
 	public function getUserName() {
 		return $this->user->email;
 	}
+	public function getInfoCommentTimeCreate() {
+		return strtotime($this->date_create)*1000;
+	}
 	
 	public function getAttributes($names = true) {
 		$attrs = parent::getAttributes($names);
 		$attrs['userName'] = $this->getUserName();
+		$attrs['infoCommentTimeCreate'] = $this->getInfoCommentTimeCreate();
 	
 		return $attrs;
 	}

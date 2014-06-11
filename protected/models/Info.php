@@ -37,6 +37,9 @@ class Info extends CActiveRecord {
 	public function getInfoAccessLevelName() {
 		return $this->accessLevel->name;
 	}
+	public function getInfoTimeCreate() {
+		return strtotime($this->date_create)*1000;
+	}
 	
 	public function getAttributes($names = true) {
 		$attrs = parent::getAttributes($names);
@@ -44,6 +47,7 @@ class Info extends CActiveRecord {
 		$attrs['infoTypeName'] = $this->getInfoTypeName();
 		$attrs['infoCommentsCount'] = $this->getInfoCommentsCount();
 		$attrs['infoAccessLevelName'] = $this->getInfoAccessLevelName();
+		$attrs['infoTimeCreate'] = $this->getInfoTimeCreate();
 	
 		return $attrs;
 	}

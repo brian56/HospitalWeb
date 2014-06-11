@@ -7,13 +7,15 @@ $this->breadcrumbs=array(
 	$model->title,
 );
 
-$this->menu=array(
-	array('label'=>'List Info', 'url'=>array('index')),
-	array('label'=>'Create Info', 'url'=>array('create')),
-	array('label'=>'Update Info', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Info', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Info', 'url'=>array('admin')),
-);
+if($model->info_type_id==1) {
+	$this->menu=array(
+			array('label'=>'Create Question', 'url'=>array('create')),
+			array('label'=>'Update Question', 'url'=>array('update', 'id'=>$model->id)),
+			array('label'=>'Delete Question', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>'Manage Question', 'url'=>array('admin')),
+	);
+}
+
 ?>
 
 <center><h4>View Info #<?php echo $model->id; ?></h4></center>

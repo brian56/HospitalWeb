@@ -56,6 +56,10 @@ class User extends CActiveRecord
 		}
 		return 'No';
 	}
+	public function getUserRegisterTime() {
+		return strtotime($this->register_date)*1000;
+	}
+	
 	
 	public function getAttributes($names = true) {
 		$attrs = parent::getAttributes($names);
@@ -64,6 +68,7 @@ class User extends CActiveRecord
 		$attrs['isActived'] = $this->getIsActived();
 		$attrs['hospitalName'] = $this->getHospitalName();
 		$attrs['notifyName'] = $this->getNotifyName();
+		$attrs['userRegisterTime'] = $this->getNotifyName();
 	
 		return $attrs;
 	}

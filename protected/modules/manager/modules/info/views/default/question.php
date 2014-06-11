@@ -16,6 +16,19 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
+<?php
+/* @var $this InfoController */
+/* @var $model Info */
+
+	$this->menu=array(
+			array('label'=>'Manage Question', 'url'=>array('question')),
+			array('label'=>'Create Question', 'url'=>array('questioncreate')),
+			array('label'=>'Update Question', 'url'=>array('update', 'id'=>$model->id)),
+			array('label'=>'Delete Question', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+
+	);
+
+?>
 <center><h4>Manage questions</h4></center>
 <script type="text/javascript">
     timeout = 3000;
