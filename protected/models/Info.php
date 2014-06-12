@@ -191,13 +191,13 @@ class Info extends CActiveRecord {
 		) );
 	}
 	
-	public function searchQuestion() {
+	public function searchQuestion($hospital_id) {
 		
 		$criteria = new CDbCriteria ();
 		$criteria->compare ( 't.id', $this->id );
 		$criteria->compare ( 't.info_type_id', 3 );
 		$criteria->compare ( 't.user_id', $this->user_id );
-		$criteria->compare ( 't.hospital_id', $this->hospital_id );
+		$criteria->compare ( 't.hospital_id', $hospital_id );
 		$criteria->compare ( 't.appointment_status', $this->appointment_status );
 		$criteria->compare ( 't.title', $this->title, true );
 		$criteria->compare ( 't.content', $this->content, true );
@@ -213,12 +213,12 @@ class Info extends CActiveRecord {
 		) );
 	}
 	
-	public function searchNotice() {
+	public function searchNotice($hospital_id) {
 		$criteria = new CDbCriteria ();
 		$criteria->compare ( 't.id', $this->id );
 		$criteria->compare ( 't.info_type_id', 1 );
 		$criteria->compare ( 't.user_id', $this->user_id );
-		$criteria->compare ( 't.hospital_id', $this->hospital_id );
+		$criteria->compare ( 't.hospital_id', $hospital_id);
 		$criteria->compare ( 't.appointment_status', $this->appointment_status );
 		$criteria->compare ( 't.title', $this->title, true );
 		$criteria->compare ( 't.content', $this->content, true );
@@ -233,12 +233,12 @@ class Info extends CActiveRecord {
 				'criteria' => $criteria
 		) );
 	}
-	public function searchEvent() {
+	public function searchEvent($hospital_id) {
 		$criteria = new CDbCriteria ();
 		$criteria->compare ( 't.id', $this->id );
 		$criteria->compare ( 't.info_type_id', 2 );
 		$criteria->compare ( 't.user_id', $this->user_id );
-		$criteria->compare ( 't.hospital_id', $this->hospital_id );
+		$criteria->compare ( 't.hospital_id', $hospital_id);
 		$criteria->compare ( 't.appointment_status', $this->appointment_status );
 		$criteria->compare ( 't.title', $this->title, true );
 		$criteria->compare ( 't.content', $this->content, true );
@@ -253,12 +253,12 @@ class Info extends CActiveRecord {
 				'criteria' => $criteria
 		) );
 	}
-	public function searchAppointment() {
+	public function searchAppointment($hospital_id) {
 		$criteria = new CDbCriteria ();
 		$criteria->compare ( 't.id', $this->id );
 		$criteria->compare ( 't.info_type_id', 4 );
 		$criteria->compare ( 't.user_id', $this->user_id );
-		$criteria->compare ( 't.hospital_id', $this->hospital_id );
+		$criteria->compare ( 't.hospital_id', $hospital_id);
 		$criteria->compare ( 't.appointment_status', $this->appointment_status );
 		$criteria->compare ( 't.title', $this->title, true );
 		$criteria->compare ( 't.content', $this->content, true );

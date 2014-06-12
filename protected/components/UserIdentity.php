@@ -51,7 +51,7 @@ class UserIdentity extends CUserIdentity {
 			} else if ($record->user_level_id == 2) {
 				Yii::app ()->user->setState ( "isManager", true );
             	Yii::app()->user->setState("hospitalName", $record->hospital->name);
-            	Yii::app()->user->setState("hospitalId", $record->hospital->id);
+            	Yii::app()->user->setState("hospitalId", $record->hospital_id);
 			}
         }
         return !$this->errorCode;

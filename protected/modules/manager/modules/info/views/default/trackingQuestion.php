@@ -48,7 +48,7 @@ $this->breadcrumbs=array(
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'info-grid',
-	'dataProvider'=>$model->searchQuestion(),
+	'dataProvider'=>$model->searchQuestion(Yii::app()->user->getState('hospitalId')),
 	//'filter'=>$model,
 	'columns'=>array(
 		'id',
