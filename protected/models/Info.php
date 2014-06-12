@@ -172,17 +172,17 @@ class Info extends CActiveRecord {
 		// @todo Please modify the following code to remove attributes that should not be searched.
 		$criteria = new CDbCriteria ();
 		
-		$criteria->compare ( 'id', $this->id );
-		$criteria->compare ( 'info_type_id', $this->info_type_id );
-		$criteria->compare ( 'user_id', $this->user_id );
-		$criteria->compare ( 'hospital_id', $this->hospital_id );
-		$criteria->compare ( 'appointment_status', $this->appointment_status );
-		$criteria->compare ( 'title', $this->title, true );
-		$criteria->compare ( 'content', $this->content, true );
-		$criteria->compare ( 'appointment_date', $this->appointment_date, true );
-		$criteria->compare ( 'date_create', $this->date_create, true );
-		$criteria->compare ( 'date_update', $this->date_update, true );
-		$criteria->compare ( 'access_level_id', $this->access_level_id );
+		$criteria->compare ( 't.id', $this->id );
+		$criteria->compare ( 't.info_type_id', $this->info_type_id );
+		$criteria->compare ( 't.user_id', $this->user_id );
+		$criteria->compare ( 't.hospital_id', $this->hospital_id );
+		$criteria->compare ( 't.appointment_status', $this->appointment_status );
+		$criteria->compare ( 't.title', $this->title, true );
+		$criteria->compare ( 't.content', $this->content, true );
+		$criteria->compare ( 't.appointment_date', $this->appointment_date, true );
+		$criteria->compare ( 't.date_create', $this->date_create, true );
+		$criteria->compare ( 't.date_update', $this->date_update, true );
+		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
 		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
 		
@@ -192,44 +192,85 @@ class Info extends CActiveRecord {
 	}
 	
 	public function searchQuestion() {
-		$criteria =new CDbCriteria();
+		
+		$criteria = new CDbCriteria ();
+		$criteria->compare ( 't.id', $this->id );
+		$criteria->compare ( 't.info_type_id', 3 );
+		$criteria->compare ( 't.user_id', $this->user_id );
+		$criteria->compare ( 't.hospital_id', $this->hospital_id );
+		$criteria->compare ( 't.appointment_status', $this->appointment_status );
+		$criteria->compare ( 't.title', $this->title, true );
+		$criteria->compare ( 't.content', $this->content, true );
+		$criteria->compare ( 't.appointment_date', $this->appointment_date, true );
+		$criteria->compare ( 't.date_create', $this->date_create, true );
+		$criteria->compare ( 't.date_update', $this->date_update, true );
+		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
-		$criteria->condition = 't.info_type_id=:info_type_id';
-		$criteria->params = array(':info_type_id'=>3);
 		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria 
+				'criteria' => $criteria
 		) );
 	}
 	
 	public function searchNotice() {
-		$criteria =new CDbCriteria();
+		$criteria = new CDbCriteria ();
+		$criteria->compare ( 't.id', $this->id );
+		$criteria->compare ( 't.info_type_id', 1 );
+		$criteria->compare ( 't.user_id', $this->user_id );
+		$criteria->compare ( 't.hospital_id', $this->hospital_id );
+		$criteria->compare ( 't.appointment_status', $this->appointment_status );
+		$criteria->compare ( 't.title', $this->title, true );
+		$criteria->compare ( 't.content', $this->content, true );
+		$criteria->compare ( 't.appointment_date', $this->appointment_date, true );
+		$criteria->compare ( 't.date_create', $this->date_create, true );
+		$criteria->compare ( 't.date_update', $this->date_update, true );
+		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
-		$criteria->condition = 't.info_type_id=:info_type_id';
-		$criteria->params = array(':info_type_id'=>1);
 		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria 
+				'criteria' => $criteria
 		) );
 	}
 	public function searchEvent() {
-		$criteria =new CDbCriteria();
+		$criteria = new CDbCriteria ();
+		$criteria->compare ( 't.id', $this->id );
+		$criteria->compare ( 't.info_type_id', 2 );
+		$criteria->compare ( 't.user_id', $this->user_id );
+		$criteria->compare ( 't.hospital_id', $this->hospital_id );
+		$criteria->compare ( 't.appointment_status', $this->appointment_status );
+		$criteria->compare ( 't.title', $this->title, true );
+		$criteria->compare ( 't.content', $this->content, true );
+		$criteria->compare ( 't.appointment_date', $this->appointment_date, true );
+		$criteria->compare ( 't.date_create', $this->date_create, true );
+		$criteria->compare ( 't.date_update', $this->date_update, true );
+		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
-		$criteria->condition = 't.info_type_id=:info_type_id';
-		$criteria->params = array(':info_type_id'=>2);
 		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria 
+				'criteria' => $criteria
 		) );
 	}
 	public function searchAppointment() {
-		$criteria =new CDbCriteria();
+		$criteria = new CDbCriteria ();
+		$criteria->compare ( 't.id', $this->id );
+		$criteria->compare ( 't.info_type_id', 4 );
+		$criteria->compare ( 't.user_id', $this->user_id );
+		$criteria->compare ( 't.hospital_id', $this->hospital_id );
+		$criteria->compare ( 't.appointment_status', $this->appointment_status );
+		$criteria->compare ( 't.title', $this->title, true );
+		$criteria->compare ( 't.content', $this->content, true );
+		$criteria->compare ( 't.appointment_date', $this->appointment_date, true );
+		$criteria->compare ( 't.date_create', $this->date_create, true );
+		$criteria->compare ( 't.date_update', $this->date_update, true );
+		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
-		$criteria->condition = 't.info_type_id=:info_type_id';
-		$criteria->params = array(':info_type_id'=>4);
 		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria 
+				'criteria' => $criteria
 		) );
 	}
 	

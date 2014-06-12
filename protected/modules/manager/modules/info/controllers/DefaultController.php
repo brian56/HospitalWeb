@@ -39,7 +39,7 @@ class DefaultController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('trackingQuestion', 'question', 'questionCreate', 'questionUpdate', 'questionView', 'AjaxQuestion'),
+				'actions'=>array('answerCreate', 'trackingQuestion', 'question', 'questionCreate', 'questionUpdate', 'questionView', 'AjaxQuestion'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -51,7 +51,7 @@ class DefaultController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
-				'actions'=>array('trackingAppointment', 'appointment', 'appointmentCreate', 'appointmentView', 'appointmentUpdate'),
+				'actions'=>array('trackingAppointment','ajaxAppointment', 'appointment', 'appointmentCreate', 'appointmentView', 'appointmentUpdate'),
 				'users'=>array('@'),
 			),
 			array('deny',  // deny all users
@@ -251,6 +251,25 @@ class DefaultController extends Controller
 				'model'=>$model,
 		));
 	}
+	
+	
+	//=================controller tao cau tra loi ========================//
+	public function actionAnswerCreate()
+	{
+		
+		$model=new InfoComment;
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['InfoComment']))
+		{
+			$model->attributes=$_POST['InfoComment'];
+			if($model->save())
+				$this->redirect(array('questionView','id'=>$model->info_id));
+		}
+	}
+	
 	public function actionQuestionUpdate($id)
 	{
 		$model=$this->loadModel($id);

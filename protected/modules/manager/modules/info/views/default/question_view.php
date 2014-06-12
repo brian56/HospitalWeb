@@ -1,7 +1,6 @@
 <?php
 /* @var $this InfoController */
 /* @var $model Info */
-
 $this->breadcrumbs=array(
 		'Manager'=>array("/manager"),
 	'Questions'=>array('question'),
@@ -38,7 +37,60 @@ $this->breadcrumbs=array(
 		),
 	),
 )); 
-	echo "<center><h5>Answers</h5></center>";
+
+?>
+<?php
+/* @var $this InfoCommentController */
+/* @var $model InfoComment */
+/* @var $form CActiveForm */
+?>
+
+
+<div class="form">
+
+<?php 
+//=================form cau tra loi====================//
+$infoComment = new InfoComment();		//cau tra loi
+$form=$this->beginWidget('CActiveForm', array(
+	'id'=>'info-comment-form',
+	'action' => array( '/manager/info/default/answerCreate' ),
+	// Please note: When you enable ajax validation, make sure the corresponding
+	// controller action is handling ajax validation correctly.
+	// There is a call to performAjaxValidation() commented in generated controller code.
+	// See class documentation of CActiveForm for details on this.
+	'enableAjaxValidation'=>false,
+)); ?>
+	<h4>Create Answer for this question</h4>
+	<p class="note">Fields with <span class="required">*</span> are required.</p>
+
+	<?php echo $form->errorSummary($infoComment); ?>
+
+	<div class="row">
+		<?php echo $form->hiddenField($infoComment, 'user_id', array('value'=>Yii::app()->user->getState('userId'))); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->hiddenField($infoComment, 'info_id', array('value'=>$model->id)); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->labelEx($infoComment,'content'); ?>
+		<?php echo $form->textArea($infoComment,'content',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->error($infoComment,'content'); ?>
+	</div>
+
+	<div class="row buttons">
+		<?php echo CHtml::submitButton($infoComment->isNewRecord ? 'Create' : 'Save'); ?>
+	</div>
+
+<?php $this->endWidget(); ?>
+
+
+
+</div><!-- form -->
+<center><h5>Answers</h5></center>
+<?php 
+//==================list cac cau tra loi cua cau hoi=================//
 	$this->widget('zii.widgets.grid.CGridView', array(
 			'id' => 'gridComments',
 			'dataProvider' => new CActiveDataProvider('InfoComment', array(

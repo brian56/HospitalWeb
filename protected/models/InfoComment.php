@@ -48,6 +48,10 @@ class InfoComment extends CActiveRecord {
 		// will receive user inputs.
 		return array (
 				array (
+						'user_id, info_id, content',
+						'required' 
+				),
+				array (
 						'user_id, info_id',
 						'numerical',
 						'integerOnly' => true 

@@ -209,12 +209,25 @@ class User extends CActiveRecord
 	}
 	
 	public function getHospitalUsers(){
-		$criteria = new CDbCriteria();
-		$criteria->condition = 't.hospital_id=:hospital_id AND t.is_actived=:is_actived AND t.user_level_id=:user_level_id';
+		$criteria=new CDbCriteria;
+		
+		$criteria->compare('id',$this->id);
+		$criteria->compare('hospital_id',Yii::app()->user->getState('hospitalId'));
+		$criteria->compare('user_level_id',1);
+		$criteria->compare('is_actived',1);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('password',$this->password,true);
+		$criteria->compare('user_name',$this->user_name,true);
+		$criteria->compare('contact_phone',$this->contact_phone,true);
+		$criteria->compare('register_date',$this->register_date,true);
+		$criteria->compare('device_os_id',$this->device_os_id);
+		$criteria->compare('device_id',$this->device_id,true);
+		$criteria->compare('notify',$this->notify);
+		$criteria->compare('token',$this->token,true);
+		$criteria->compare('token_expired_date',$this->token_expired_date,true);
 		$criteria->order = 't.register_date DESC';
-		$criteria->params = array(':hospital_id'=>Yii::app()->user->getState('hospitalId'), ':is_actived'=>1, ':user_level_id'=>1);
-		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria
-		) );
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+		));
 	}
 }
