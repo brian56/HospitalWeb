@@ -22,7 +22,10 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'is_actived',
+		array(
+			'name' => 'is_actived',
+			'value' => $model->getActivedName()
+		),
 		'name',
 		'name_en',
 		'introduction',

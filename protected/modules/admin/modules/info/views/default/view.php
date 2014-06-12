@@ -22,15 +22,27 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'info_type_id',
-		'user_id',
-		'hospital_id',
+		array (
+				'name' => 'info_type_id',
+				'value' => $model->getInfoTypeName () 
+		),
+		array (
+				'name' => 'user_id',
+				'value' => $model->getInfoUserName()
+		),
+		array (
+				'name' => 'hospital_id',
+				'value' => $model->getInfoHospital()
+		),
 		'appointment_status',
 		'appointment_date',
 		'title',
 		'content',
 		'date_create',
 		'date_update',
-		'access_level_id',
+		array (
+				'name' => 'access_level_id',
+				'value' => $model->getInfoAccessLevelName()
+		),
 	),
 )); ?>

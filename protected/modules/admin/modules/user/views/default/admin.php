@@ -43,15 +43,28 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'user-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'user_level_id',
-		'is_actived',
+		array(
+			'name' =>'user_level_id',
+			'value' => '$data->userLevel->name'
+		),
+		array(
+			'name' =>'is_actived',
+			'value' => '$data->isActived'
+		),
+		array(
+			'name' =>'hospital_id',
+			'value' => '$data->hospitalName'
+		),
 		'email',
 		'user_name',
 		'register_date',
-		'notify',
+		array(
+			'name' =>'notify',
+			'value' => '$data->notifyName'
+		),
 		/*
 		'device_os_id',
 		'device_id',
@@ -62,4 +75,6 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 			'class'=>'CButtonColumn',
 		),
 	),
+'htmlOptions'=>array('style'=>'cursor: pointer;'),
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>

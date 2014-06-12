@@ -31,6 +31,9 @@ class Info extends CActiveRecord {
 	public function getInfoTypeName() {
 		return $this->infoType->name;
 	}
+	public function getInfoHospital() {
+		return $this->hospital->name;
+	}
 	public function getInfoCommentsCount() {
 		return count($this->infoComments);
 	}
@@ -55,6 +58,7 @@ class Info extends CActiveRecord {
 		$attrs['infoCommentsCount'] = $this->getInfoCommentsCount();
 		$attrs['infoAccessLevelName'] = $this->getInfoAccessLevelName();
 		$attrs['infoTimeCreate'] = $this->getInfoTimeCreate();
+		$attrs['infoHospital'] = $this->getInfoHospital();
 		$attrs['appointmentStatusName'] = $this->getAppointmentStatusName();
 	
 		return $attrs;
@@ -287,10 +291,11 @@ class Info extends CActiveRecord {
 	}
 	
 	public function beforeSave()
-	{
-		if(isset($this->appointment_date)){
-			$this->appointment_date = date('Y-m-d H:i:s', strtotime($this->appointment_date));
-		}
+	{	
+		echo '<pre>';
+		var_dump($this);
+		echo '</pre>';
+		die();
 		if($this->isNewRecord)
 		{
 			$this->date_create= date('Y-m-d H:i:s');

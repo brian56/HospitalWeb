@@ -43,19 +43,23 @@ or <b>=</b>) at the beginning of each of your search values to specify how the c
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'hospital-grid',
 	'dataProvider'=>$model->search(),
-	'filter'=>$model,
+	//'filter'=>$model,
 	'columns'=>array(
 		'id',
-		'is_actived',
+		array(
+			'name' => 'is_actived',
+			'value' => '$data->activedName'
+		),
 		'name',
 		'name_en',
 		'introduction',
 		'photos',
-		/*
 		'location',
-		*/
+		
 		array(
 			'class'=>'CButtonColumn',
 		),
 	),
+	'htmlOptions'=>array('style'=>'cursor: pointer;'),
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>

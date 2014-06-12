@@ -20,6 +20,19 @@
  */
 class Hospital extends CActiveRecord
 {
+	//add new attributes to model
+	public function getActivedName() {
+		if($this->is_actived==1) {
+			return 'Yes';
+		} else return 'No';
+	}
+	
+	public function getAttributes($names = true) {
+		$attrs = parent::getAttributes($names);
+		$attrs['activedName'] = $this->getActivedName();
+		return $attrs;
+	}
+	
 	/**
 	 * @return string the associated database table name
 	 */

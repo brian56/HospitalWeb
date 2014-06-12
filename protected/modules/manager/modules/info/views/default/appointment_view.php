@@ -32,9 +32,9 @@ $this->breadcrumbs=array(
 				'name' => 'appointment_status',
 				'value' => $model->appointmentStatusName,
 		),
+		'appointment_date',
 		'title',
 		'content',
-		'appointment_date',
 		'date_create',
 		'date_update',
 		array(

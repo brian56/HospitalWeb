@@ -16,6 +16,27 @@ $this->menu=array(
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
+		'columns'=>array(
+				'id',
+				array(
+						'name' => 'info_type_id',
+						'value' => '$data->infoTypeName',
+				),
+				array(
+						'name' => 'hospital_id',
+						'value' => '$data->hospital->name',
+				),
+				array(
+						'name' => 'user_id',
+						'value' => '$data->infoUserName',
+				),
+				'title',
+				array(
+						'name' => 'access_level_id',
+						'value' => '$data->infoAccessLevelName',
+				),
+				'date_create',
+		),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
-	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'/id/"+$.fn.yiiGridView.getSelection(id);}',
+	'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>

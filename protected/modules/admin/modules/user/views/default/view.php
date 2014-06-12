@@ -22,17 +22,32 @@ $this->menu=array(
 	'data'=>$model,
 	'attributes'=>array(
 		'id',
-		'hospital_id',
-		'user_level_id',
-		'is_actived',
+		array(
+			'name' =>'hospital_id',
+			'value' => $model->hospital->name
+		),
+		array(
+			'name' =>'user_level_id',
+			'value' => $model->userLevel->name
+		),
+		array(
+			'name' =>'is_actived',
+			'value' => $model->getIsActived()
+		),
 		'email',
 		'password',
 		'user_name',
 		'contact_phone',
 		'register_date',
-		'device_os_id',
+		array(
+			'name' =>'device_os_id',
+			'value' => $model->deviceOs->name
+		),
 		'device_id',
-		'notify',
+		array(
+			'name' =>'notify',
+			'value' => '$data->notifyName'
+		),
 		'token',
 		'token_expired_date',
 	),

@@ -23,27 +23,27 @@
 
 	<div class="row">
 		<?php echo $form->label($model,'name'); ?>
-		<?php echo $form->textArea($model,'name',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'name_en'); ?>
-		<?php echo $form->textArea($model,'name_en',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'name_en'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'introduction'); ?>
-		<?php echo $form->textArea($model,'introduction',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'introduction'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'photos'); ?>
-		<?php echo $form->textArea($model,'photos',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'photos'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->label($model,'location'); ?>
-		<?php echo $form->textArea($model,'location',array('rows'=>6, 'cols'=>50)); ?>
+		<?php echo $form->textField($model,'location'); ?>
 	</div>
 
 	<div class="row buttons">
