@@ -3,6 +3,7 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
+		'Manager'=>array("/manager"),
 	'Questions'=>array('question'),
 	$model->title,
 );

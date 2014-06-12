@@ -37,6 +37,20 @@
 	<div id="eflat-menu">
 
 	<?php 
+	$activedManagerItem = false;
+	if(isset(Yii::app()->controller->module->id) && (Yii::app()->controller->module->id=='manager')) {
+		$activedManagerItem = true;
+	}
+	if(isset(Yii::app()->controller->module->parentModule->id) && (Yii::app()->controller->module->parentModule->id=='manager')) {
+		$activedManagerItem = true;
+	}
+	$activedAdminItem = false;
+	if(isset(Yii::app()->controller->module->id) && (Yii::app()->controller->module->id=='admin')) {
+		$activedAdminItem = true;
+	}
+	if(isset(Yii::app()->controller->module->parentModule->id) && (Yii::app()->controller->module->parentModule->id=='admin')) {
+		$activedAdminItem = true;
+	}
 		$this->widget('application.extensions.eflatmenu.EFlatMenu', array(
 			'items' => array(
 				array(
@@ -48,13 +62,14 @@
 					'label'=>'Manager', 
 					'url'=>array('/manager'), 
 					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isManager")), 
-					'active'=>(isset(Yii::app()->controller->module->id) && (Yii::app()->controller->module->id=='manager')),
+					'active'=>$activedManagerItem
 				),
 				array(
 					'label'=>'Administrator', 
 					'url'=>array('/admin'), 
 					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isAdmin")) , 
-					'active'=>(isset(Yii::app()->controller->module->id) && Yii::app()->controller->module->id=='admin')),
+					'active'=>$activedAdminItem
+				),
 				array(
 					'label' => 'Login', 
 					'url' => array('site/login'), 

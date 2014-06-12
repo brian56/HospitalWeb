@@ -19,7 +19,10 @@ $('.search-form form').submit(function(){
 <?php
 /* @var $this InfoController */
 /* @var $model Info */
-
+$this->breadcrumbs=array(
+		'Manager'=>array("/manager"),
+		'Event',
+);
 	$this->menu=array(
 			array('label'=>'Create Event', 'url'=>array('eventCreate')),
 

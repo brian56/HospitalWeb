@@ -20,6 +20,10 @@ $('.search-form form').submit(function(){
 /* @var $this InfoController */
 /* @var $model Info */
 
+$this->breadcrumbs=array(
+		'Manager'=>array("/manager"),
+		'Notice',
+);
 	$this->menu=array(
 			array('label'=>'Create Notice', 'url'=>array('noticeCreate')),
 

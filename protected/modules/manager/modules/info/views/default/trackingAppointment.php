@@ -20,6 +20,10 @@ $('.search-form form').submit(function(){
 /* @var $this InfoController */
 /* @var $model Info */
 
+$this->breadcrumbs=array(
+		'Manager'=>array("/manager"),
+		'Tracking Appointment',
+);
 	$this->menu=array(
 			array('label'=>'Create Appointment', 'url'=>array('appointmentCreate')),
 			array('label'=>'Manage Appointments', 'url'=>array('appointment')),
