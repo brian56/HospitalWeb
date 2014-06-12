@@ -38,17 +38,17 @@
 	</div>
 	
 	<div class="row">
-		<?php echo $form->labelEx($model,'appointment_status'); ?>
-		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Reject')); ?>
-		<?php echo $form->error($model,'appointment_status'); ?>
-	</div>
-	
-	<div class="row">
 		<?php echo $form->labelEx($model,'appointment_date'); ?>
 		<?php echo $form->textField($model,'appointment_date'); ?>
 		<?php echo $form->error($model,'appointment_date'); ?>
 	</div>
 	
+	<div class="row">
+		<?php echo $form->labelEx($model,'appointment_status'); ?>
+		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Reject')); ?>
+		<?php echo $form->error($model,'appointment_status'); ?>
+	</div>
+
 	<div class="row">
 		<?php echo $form->labelEx($model,'access_level_id'); ?>
 		<?php echo $form->dropDownList($model, 'access_level_id', CHtml::listData(AccessLevel::model()->findAll(), 'id', 'name')); ?>

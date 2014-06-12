@@ -164,7 +164,7 @@ class InfoComment extends CActiveRecord {
 // 		$criteria->params = array(':id'=>$this->info->user_id);
 // 		$user = User::model()->find($criteria);
 		$userDeviceId = $this->info->user->device_id;
-		if(!is_null($userDeviceId) && $userDeviceId!='') {
+		if(!is_null($userDeviceId) && $userDeviceId!=''&& $this->info->user->notify==1) {
 			$message = "You have new reply.";
 			SendNotification::actionPushOneDevice($userDeviceId, $message, $this->content, $this->info->info_type_id, $this->id);
 		}
