@@ -23,6 +23,8 @@
 <div class="container" id="page">
 
 	<div id="header">
+	<b>
+	<center>
 		<div id="logo">
 		<?php 
 		if(Yii::app()->user->getState('isManager')) {
@@ -33,6 +35,8 @@
 		}
 		?>
 		</div>
+	</center>
+	</b>
 	</div><!-- header -->
 	<div id="eflat-menu">
 
