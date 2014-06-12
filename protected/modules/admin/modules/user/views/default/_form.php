@@ -21,8 +21,14 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'hospital_id'); ?>
-		<?php echo $form->dropDownList($model, 'hospital_id', CHtml::listData(Hospital::model()->findAll(), 'id', 'name_en'), array('empty'=>'-- Select a hospital --')); ?>
+		<?php echo $form->dropDownList($model, 'hospital_id', CHtml::listData(Hospital::model()->findAll(), 'id', 'name_en')); ?>
 		<?php echo $form->error($model,'hospital_id'); ?>
+	</div>
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'user_level_id'); ?>
+		<?php echo $form->dropDownList($model, 'user_level_id', CHtml::listData(UserLevel::model()->findAll(), 'id', 'name_en')); ?>
+		<?php echo $form->error($model,'user_level_id'); ?>
 	</div>
 	
 	<div class="row">
@@ -57,7 +63,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'device_os_id'); ?>
-		<?php echo $form->dropDownList($model, 'device_os_id', DeviceOS::getFullDeviceOS(), array('empty'=>'-- Select a device OS --')); ?>
+		<?php echo $form->dropDownList($model, 'device_os_id', DeviceOS::getFullDeviceOS()); ?>
 		<?php echo $form->error($model,'device_os_id'); ?>
 	</div>
 	<div class="row">

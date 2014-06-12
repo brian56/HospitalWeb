@@ -21,7 +21,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'is_actived'); ?>
-		<?php echo $form->textField($model,'is_actived'); ?>
+		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
 		<?php echo $form->error($model,'is_actived'); ?>
 	</div>
 
@@ -39,14 +39,8 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'introduction'); ?>
-		<?php echo $form->textArea($model,'introduction',array('rows'=>3, 'cols'=>50)); ?>
+		<?php echo $form->textArea($model,'introduction',array('rows'=>2, 'cols'=>100)); ?>
 		<?php echo $form->error($model,'introduction'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'photos'); ?>
-		<?php echo $form->textArea($model,'photos',array('rows'=>3, 'cols'=>50)); ?>
-		<?php echo $form->error($model,'photos'); ?>
 	</div>
 
 	<div class="row">
