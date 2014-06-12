@@ -292,10 +292,6 @@ class Info extends CActiveRecord {
 	
 	public function beforeSave()
 	{	
-		echo '<pre>';
-		var_dump($this);
-		echo '</pre>';
-		die();
 		if($this->isNewRecord)
 		{
 			$this->date_create= date('Y-m-d H:i:s');
