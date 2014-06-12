@@ -24,7 +24,13 @@
 		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
 		<?php echo $form->error($model,'is_actived'); ?>
 	</div>
-
+	
+	<div class="row">
+		<?php echo $form->labelEx($model,'user_level_id'); ?>
+		<?php echo $form->dropDownList($model, 'user_level_id', array('1'=>'User')); ?>
+		<?php echo $form->error($model,'user_level_id'); ?>
+	</div>
+	
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email'); ?>
@@ -54,7 +60,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'device_os_id'); ?>
-		<?php echo $form->dropDownList($model, 'device_os_id', DeviceOS::getFullDeviceOS(), array('empty'=>'-- Select a device OS --')); ?>
+		<?php echo $form->dropDownList($model, 'device_os_id', DeviceOS::getFullDeviceOS()); ?>
 		<?php echo $form->error($model,'device_os_id'); ?>
 	</div>
 	<div class="row">

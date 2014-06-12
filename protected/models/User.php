@@ -189,6 +189,8 @@ class User extends CActiveRecord
 	}
 	public function beforeSave()
 	{
+		if(!isset($this->user_name)) 
+			$this->user_name = "";
 		if($this->isNewRecord)
 		{
 			$this->password = md5($this->password);

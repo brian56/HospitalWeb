@@ -9,7 +9,7 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'List User', 'url'=>array('index')),
 	array('label'=>'Manage User', 'url'=>array('admin')),
-	array('label'=>'Trackingc New User', 'url'=>array('trackingUser')),
+	array('label'=>'Tracking New User', 'url'=>array('trackingUser')),
 );
 ?>
 
