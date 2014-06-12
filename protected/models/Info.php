@@ -77,10 +77,10 @@ class Info extends CActiveRecord {
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array (
-				/* array (
-						'hospital_id',
+				array (
+						'user_id, title, content',
 						'required' 
-				), */
+				),
 				array (
 						'info_type_id, user_id, hospital_id, appointment_status, access_level_id',
 						'numerical',

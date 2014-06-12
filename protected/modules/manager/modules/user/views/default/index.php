@@ -9,11 +9,11 @@ $this->breadcrumbs=array(
 $this->menu=array(
 	array('label'=>'Create User', 'url'=>array('create')),
 	array('label'=>'Manage User', 'url'=>array('admin')),
-	array('label'=>'Tracking User', 'url'=>array('trackingUser')),
+	array('label'=>'Tracking New User', 'url'=>array('trackingUser')),
 );
 ?>
 
-<h4>Users</h4>
+<center><h4>Users</h4></center>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,

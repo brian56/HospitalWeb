@@ -13,10 +13,10 @@ $this->menu=array(
 	array('label'=>'Create User', 'url'=>array('create')),
 	array('label'=>'View User', 'url'=>array('view', 'id'=>$model->id)),
 	array('label'=>'Manage User', 'url'=>array('admin')),
-	array('label'=>'Tracking User', 'url'=>array('trackingUser')),
+	array('label'=>'Tracking New User', 'url'=>array('trackingUser')),
 );
 ?>
 
-<h4>Update User <?php echo $model->id; ?></h4>
+<center><h4>Update User <?php echo $model->id; ?></h4></center>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

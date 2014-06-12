@@ -171,7 +171,7 @@ class User extends CActiveRecord
 		$criteria->compare('notify',$this->notify);
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('token_expired_date',$this->token_expired_date,true);
-
+		$criteria->order = 't.register_date DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
@@ -191,6 +191,7 @@ class User extends CActiveRecord
 	{
 		if($this->isNewRecord)
 		{
+			$this->password = md5($this->password);
 			$this->register_date= date('Y-m-d H:i:s');
 			if(Yii::app()->user->getState('isManager')) {
 				$this->hospital_id = Yii::app()->user->getState('hospitalId');
@@ -209,8 +210,11 @@ class User extends CActiveRecord
 	
 	public function getHospitalUsers(){
 		$criteria = new CDbCriteria();
-		$criteria->condition = 't.hospital_id=:hospital_id AND t.is_actived=:is_actived';
-		$criteria->params = array(':hospital_id'=>Yii::app()->user->getState('hospitalId'), ':is_actived'=>1);
-		return $this->findAll($criteria);
+		$criteria->condition = 't.hospital_id=:hospital_id AND t.is_actived=:is_actived AND t.user_level_id=:user_level_id';
+		$criteria->order = 't.register_date DESC';
+		$criteria->params = array(':hospital_id'=>Yii::app()->user->getState('hospitalId'), ':is_actived'=>1, ':user_level_id'=>1);
+		return new CActiveDataProvider ( $this, array (
+				'criteria' => $criteria
+		) );
 	}
 }
