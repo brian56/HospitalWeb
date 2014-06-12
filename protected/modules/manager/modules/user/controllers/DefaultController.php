@@ -31,7 +31,7 @@ class DefaultController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update', 'trackingUser'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -175,4 +175,23 @@ class DefaultController extends Controller
 		}
 	}
 	
+	public function actionAjaxUser()
+	{
+		$model =new User();
+		$model->unsetAttributes();  // clear any default values
+	
+		//print_r($model);
+		$this->renderPartial('_ajaxUser', array('model'=>$model));
+	}
+	public function actionTrackingUser()
+	{
+		$model=new User('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['User']))
+			$model->attributes=$_GET['User'];
+	
+		$this->render('trackingUser',array(
+				'model'=>$model,
+		));
+	}
 }

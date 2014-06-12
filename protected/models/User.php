@@ -206,4 +206,11 @@ class User extends CActiveRecord
 		$criteria->params = array(':hospital_id'=>$hospital_id, ':is_actived'=>1);
 		return $this->findAll($criteria);
 	}
+	
+	public function getHospitalUsers(){
+		$criteria = new CDbCriteria();
+		$criteria->condition = 't.hospital_id=:hospital_id AND t.is_actived=:is_actived';
+		$criteria->params = array(':hospital_id'=>Yii::app()->user->getState('hospitalId'), ':is_actived'=>1);
+		return $this->findAll($criteria);
+	}
 }

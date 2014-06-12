@@ -247,7 +247,7 @@ class Info extends CActiveRecord {
 	
 	public function beforeSave()
 	{
-		if($this->appointment_date!='0'){
+		if(isset($this->appointment_date)){
 			$this->appointment_date = date('Y-m-d H:i:s', strtotime($this->appointment_date));
 		}
 		if($this->isNewRecord)

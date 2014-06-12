@@ -1,22 +1,7 @@
-<?php
-/* @var $this UserController */
-/* @var $dataProvider CActiveDataProvider */
-
-$this->breadcrumbs=array(
-	'Users',
-);
-
-$this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
-	array('label'=>'Tracking User', 'url'=>array('trackingUser')),
-);
-?>
-
-<h4>Users</h4>
-
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'dataProvider'=>$dataProvider,
+	'id'=>'user-grid',
+	'dataProvider'=>$model->getHospitalUsers(),
+	//'filter'=>$model,
 	'columns'=>array(
 		'id',
 		array(
@@ -35,17 +20,16 @@ $this->menu=array(
 		'user_name',
 		'register_date',
 		/*'contact_phone',
-		'password',
 		'device_os_id',
+		'password',
 		'device_id',
 		'token',
 		'token_expired_date',
 		*/
 		array(
-				'class'=>'CButtonColumn',
+			'class'=>'CButtonColumn',
 		),
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
 		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>
-
