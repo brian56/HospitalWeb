@@ -4,20 +4,20 @@
 
 $this->breadcrumbs=array(
 		'Manager'=>array("/manager"),
-	'Questions'=>array('question'),
+	'Notices'=>array('notice'),
 	$model->title,
 );
 
 	$this->menu=array(
-			array('label'=>'Create Question', 'url'=>array('questioncreate')),
-			array('label'=>'Update Question', 'url'=>array('questionupdate', 'id'=>$model->id)),
-			array('label'=>'Delete Question', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-			array('label'=>'Manage Question', 'url'=>array('question')),
+			array('label'=>'Create Notice', 'url'=>array('noticecreate')),
+			array('label'=>'Update Notice', 'url'=>array('noticeupdate', 'id'=>$model->id)),
+			array('label'=>'Delete Notice', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>'Manage Notice', 'url'=>array('notice')),
 	);
 
 ?>
 
-<center><h4>View Question #<?php echo $model->id; ?></h4></center>
+<center><h4>View Notice #<?php echo $model->id; ?></h4></center>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -37,24 +37,4 @@ $this->breadcrumbs=array(
 		),
 	),
 )); 
-	echo "<center><h5>Answers</h5></center>";
-	$this->widget('zii.widgets.grid.CGridView', array(
-			'id' => 'gridComments',
-			'dataProvider' => new CActiveDataProvider('InfoComment', array(
-					'data'=>$model->infoComments,
-			)),
-			'columns'=>array(
-				'id',
-				array(
-						'name' => 'user_id',
-						'value' => '$data->userName',
-				),
-				'content',
-				'date_create',
-				'date_update',
-				array(
-					'class'=>'CButtonColumn',
-				),
-			),
-	));
 ?>

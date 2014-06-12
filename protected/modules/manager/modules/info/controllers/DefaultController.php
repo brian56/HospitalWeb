@@ -31,7 +31,7 @@ class DefaultController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('advanceManage', 'create','update'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -485,6 +485,12 @@ class DefaultController extends Controller
 		$this->render('appointment_view',array(
 				'model'=>$this->loadModel($id),
 		));
+	}
+	
+	
+	public function actionAdvanceManage()
+	{
+		$this->render('advanceManage');
 	}
 }
 	

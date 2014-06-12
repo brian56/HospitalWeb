@@ -3,7 +3,7 @@
 /* @var $model User */
 
 $this->breadcrumbs=array(
-	'Users'=>array('index'),
+	'Advance Manage'=> array('/manager/info/default/advancemanage'),
 	$model->user_name=>array('view','id'=>$model->id),
 	'Update',
 );

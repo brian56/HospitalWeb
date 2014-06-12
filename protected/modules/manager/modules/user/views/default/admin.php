@@ -2,9 +2,10 @@
 /* @var $this UserController */
 /* @var $model User */
 
+	
 $this->breadcrumbs=array(
-	'Users'=>array('index'),
-	'Manage',
+	'Advance Manage'=> array('/manager/info/default/advancemanage'),
+	'Manage User',
 );
 
 $this->menu=array(

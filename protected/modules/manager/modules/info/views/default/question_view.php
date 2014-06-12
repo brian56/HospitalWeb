@@ -60,8 +60,9 @@ $form=$this->beginWidget('CActiveForm', array(
 	// See class documentation of CActiveForm for details on this.
 	'enableAjaxValidation'=>false,
 )); ?>
+	<br>
 	<h4>Create Answer for this question</h4>
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<h6><i>Fields with <span class="required">*</span> are required.</i></h6>
 
 	<?php echo $form->errorSummary($infoComment); ?>
 
@@ -88,7 +89,7 @@ $form=$this->beginWidget('CActiveForm', array(
 
 
 </div><!-- form -->
-<center><h5>Answers</h5></center>
+<center><h4>Answers</h4></center>
 <?php 
 //==================list cac cau tra loi cua cau hoi=================//
 	$this->widget('zii.widgets.grid.CGridView', array(

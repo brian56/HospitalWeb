@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 		'Manager'=>array("/manager"),
-	'Question'=>array('event'),
+	'Event'=>array('event'),
 	$model->title=>array('view','id'=>$model->id),
 	'Update',
 );
@@ -17,6 +17,6 @@ $this->breadcrumbs=array(
 	);
 ?>
 
-<center><h4>Update Question <?php echo $model->id; ?></h4></center>
+<center><h4>Update Event <?php echo $model->id; ?></h4></center>
 
 <?php $this->renderPartial('event_form', array('model'=>$model)); ?>

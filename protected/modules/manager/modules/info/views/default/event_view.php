@@ -4,7 +4,7 @@
 
 $this->breadcrumbs=array(
 		'Manager'=>array("/manager"),
-	'Questions'=>array('event'),
+	'Events'=>array('event'),
 	$model->title,
 );
 

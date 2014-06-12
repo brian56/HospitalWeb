@@ -44,7 +44,7 @@ $this->breadcrumbs=array(
 	),
 )); 
 
-echo "<center><h5>Response</h5></center>";
+echo "<center><h4>Response</h4></center>";
 $this->widget('zii.widgets.grid.CGridView', array(
 		'id' => 'gridComments',
 		'dataProvider' => new CActiveDataProvider('InfoComment', array(

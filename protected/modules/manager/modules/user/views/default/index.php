@@ -3,7 +3,8 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Users',
+	'Advance Manage'=> array('/manager/info/default/advancemanage'),
+	'List Users',
 );
 
 $this->menu=array(
