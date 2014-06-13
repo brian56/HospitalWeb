@@ -132,7 +132,7 @@ class User extends CActiveRecord
 			'contact_phone' => 'Contact Phone',
 			'register_date' => 'Register Date',
 			'device_os_id' => 'Device Os',
-			'device_id' => 'Device',
+			'device_id' => 'Device Id',
 			'notify' => 'Notify',
 			'token' => 'Token',
 			'token_expired_date' => 'Token Expired Date',

@@ -33,25 +33,25 @@
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'email'); ?>
-		<?php echo $form->textField($model,'email'); ?>
+		<?php echo $form->textField($model,'email',array('size'=>100,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'email'); ?>
 	</div>
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'password'); ?>
-		<?php echo $form->textField($model,'password'); ?>
+		<?php echo $form->textField($model,'password',array('size'=>100,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'password'); ?>
 	</div>
 	
 	<div class="row">
 		<?php echo $form->labelEx($model,'user_name'); ?>
-		<?php echo $form->textField($model,'user_name'); ?>
+		<?php echo $form->textField($model,'user_name',array('size'=>100,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'user_name'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'contact_phone'); ?>
-		<?php echo $form->textField($model,'contact_phone'); ?>
+		<?php echo $form->textField($model,'contact_phone',array('size'=>100,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'contact_phone'); ?>
 	</div>
 
@@ -65,7 +65,7 @@
 	</div>
 	<div class="row">
 		<?php echo $form->labelEx($model,'device_id'); ?>
-		<?php echo $form->textField($model,'device_id'); ?>
+		<?php echo $form->textField($model,'device_id',array('size'=>100,'maxlength'=>100)); ?>
 		<?php echo $form->error($model,'device_id'); ?>
 	</div>
 
