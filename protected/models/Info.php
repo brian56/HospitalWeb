@@ -322,7 +322,10 @@ class Info extends CActiveRecord
 	
 	public function afterSave(){
 		//send notification to all user in hospital
-		if($this->infoType->name_en!='Appointment' && $this->infoType->name_en!='Question' && $this->infoType->name_en!='Vistor Comment' && $this->accessLevel->name_en!='Admin only') {
+		if($this->info_type_id!=3 && 
+			$this->info_type_id!=4 && 
+			$this->info_type_id!=5 && 
+			$this->access_level_id!=3) {
 			$users = User::model()->getHospitalUserDeviceIds($this->hospital_id);
 			if(!is_null($users)) {
 				$userDeviceIds = array();
