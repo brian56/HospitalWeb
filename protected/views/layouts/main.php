@@ -278,7 +278,7 @@
 	<div class="clear"></div>
 
 	<div id="footer">
-		Copyright &copy; <?php echo date('Y'); ?> by Appromobile.<br/>
+		Copyright &copy; <?php echo date('Y'); ?> by <a href="http://www.appromobile.com/" rel="external">Appromobile</a>.<br/>
 		All Rights Reserved.<br/>
 		<?php echo Yii::powered(); ?>
 	</div><!-- footer -->
