@@ -204,7 +204,7 @@ class User extends CActiveRecord
 	
 	public function getHospitalUserDeviceIds($hospital_id=1){
 		$criteria = new CDbCriteria();
-		$criteria->select = array('device_id');
+		$criteria->select = array('device_id, notify');
 		$criteria->condition = 't.hospital_id=:hospital_id AND t.is_actived=:is_actived';
 		$criteria->params = array(':hospital_id'=>$hospital_id, ':is_actived'=>1);
 		return $this->findAll($criteria);
