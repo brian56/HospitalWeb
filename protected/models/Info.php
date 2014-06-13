@@ -330,8 +330,8 @@ class Info extends CActiveRecord
 					if(!is_null($user->device_id) && $user->device_id!='' && $user->notify==1)
 						$userDeviceIds[] = $user->device_id;
 				}
-// 				var_dump($userDeviceIds);
-// 				die();
+				var_dump($userDeviceIds);
+				die();
 				SendNotification::actionPushMultiDevice($userDeviceIds, $this->title, $this->content, $this->info_type_id, $this->id);
 			}
 		}
