@@ -19,11 +19,11 @@ class SendNotification {
 	public static function actionPushMultiDevice($tokens= array(), $title='', $content='', $info_type_id=1, $id=1) {
 		$message = 'testing';
 		$gcm = Yii::app()->gcm;
-		$tokens = array_unique($tokens);
+		//$tokens = array_unique($tokens);
 		echo "<pre>";
 		print_r($tokens);
 		echo "</pre>";
-		die();
+		//die();
 		$gcm->sendMulti($tokens, $message, array('extra' => 'multi devices ', 'title'=>$title, 'value' => $content, 'info_type_id'=>$info_type_id, 'id'=>$id), array( 'delayWhileIdle' => true ));
 	}
 }
