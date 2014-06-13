@@ -21,7 +21,7 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_id', CHtml::listData(User::model()->findAll('hospital_id=:hospital_id', array(':hospital_id'=>Yii::app()->user->getState('hospitalId'))), 'id', 'user_name'), array('empty'=>'-- Select an user --')); ?>
+		<?php echo $form->dropDownList($model, 'user_id', array(Yii::app()->user->getState('userId')=>Yii::app()->user->getState('userName'))); ?>
 		<?php echo $form->error($model,'user_id'); ?>
 	</div>
 	

@@ -40,12 +40,12 @@ class UserIdentity extends CUserIdentity {
         } elseif ($record->user_level_id < 2) {
         	$this->errorCode = self::ERROR_USERNAME_INVALID;
         } else {
-        	Yii::app ()->user->setState ( "userId", $record->id );
-        	Yii::app()->user->setState("userName", $record->email);
             $this->_id = $record->id;
             $this->hospital_id = $record->hospital_id;
             $this->username = $record->email;
             $this->errorCode = self::ERROR_NONE;
+        	Yii::app ()->user->setState ( "userId", $record->id );
+        	Yii::app()->user->setState("userName", $record->email);
 			if ($record->user_level_id == 3) {
 				Yii::app ()->user->setState ( "isAdmin", true );
 			} else if ($record->user_level_id == 2) {
