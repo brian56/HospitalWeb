@@ -45,9 +45,11 @@ $this->breadcrumbs=array(
     }
     window.setInterval("refresh()", timeout);
 </script>
+
+<div id='info-grid'>
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'info-grid',
+	//'id'=>'info-grid',
 	'dataProvider'=>$model->searchVisitorComment(Yii::app()->user->getState('hospitalId')),
 	//'filter'=>$model,
 	'columns'=>array(
@@ -74,3 +76,4 @@ $this->widget('zii.widgets.grid.CGridView', array(
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
 		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('visitorCommentView').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>
+</div>

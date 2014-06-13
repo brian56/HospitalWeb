@@ -31,7 +31,7 @@ class DefaultController extends Controller
 				'users'=>array('@'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('create','update'),
+				'actions'=>array('create','update','ajaxLoadUser'),
 				'users'=>array('@'),
 			),
 			array('allow', // allow admin user to perform 'admin' and 'delete' actions
@@ -169,6 +169,21 @@ class DefaultController extends Controller
 		{
 			echo CActiveForm::validate($model);
 			Yii::app()->end();
+		}
+	}
+	public function actionAjaxLoadUser() {
+		$data=User::model()->findAll('hospital_id=:hospital_id',
+				array(':hospital_id'=>$_POST['Info']['hospital_id']));
+		$data=CHtml::listData($data,'id','email');
+		if(count($data)==0) {
+			echo CHtml::tag('option',
+					array('value'=>''),'No user was found',true);
+		} else {
+			foreach($data as $value=>$name)
+			{
+				echo CHtml::tag('option',
+						array('value'=>$value),CHtml::encode($name),true);
+			}
 		}
 	}
 }

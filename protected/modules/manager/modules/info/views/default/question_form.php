@@ -20,27 +20,31 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
+		<div class="span-10">
 		<?php echo $form->labelEx($model,'user_id'); ?>
 		<?php echo $form->dropDownList($model, 'user_id', array(Yii::app()->user->getState('userId')=>Yii::app()->user->getState('userName'))); ?>
 		<?php echo $form->error($model,'user_id'); ?>
-	</div>
+		</div>
 
-	<div class="row">
+		<div class="span-10">
 		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>100,'maxlength'=>100)); ?>
+		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'title'); ?>
+		</div>
 	</div>
 
 	<div class="row">
+		<div class="span-10">
 		<?php echo $form->labelEx($model,'content'); ?>
-		<?php echo $form->textArea($model,'content',array('rows'=>3, 'cols'=>100)); ?>
+		<?php echo $form->textArea($model,'content',array('rows'=>3, 'cols'=>57)); ?>
 		<?php echo $form->error($model,'content'); ?>
-	</div>
+		</div>
 	
-	<div class="row">
+		<div class="span-10">
 		<?php echo $form->labelEx($model,'access_level_id'); ?>
 		<?php echo $form->dropDownList($model, 'access_level_id', CHtml::listData(AccessLevel::model()->findAll(), 'id', 'name')); ?>
 		<?php echo $form->error($model,'access_level_id'); ?>
+		</div>
 	</div>
 	<div class="row buttons">
 		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>

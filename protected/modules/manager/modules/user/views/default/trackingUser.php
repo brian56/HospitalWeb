@@ -35,15 +35,15 @@ $('.search-form form').submit(function(){
         echo CHtml::ajax(array(
                 'url'=> Yii::app()->baseUrl."/manager/user/default/AjaxUser",
                 'type'=>'post',
-                'update'=> '#info-grid',
+                'update'=> '#user-grid',
         ))
         ?>
     }
     window.setInterval("refresh()", timeout);
 </script>
-
+<div id='user-grid'>
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'user-grid',
+	//'id'=>'user-grid',
 	'dataProvider'=>$model->getHospitalUsers(),
 	//'filter'=>$model,
 	'columns'=>array(
@@ -77,4 +77,5 @@ $('.search-form form').submit(function(){
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
 		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('view').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>
+</div>
 

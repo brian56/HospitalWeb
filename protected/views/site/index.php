@@ -11,8 +11,6 @@ else
 
 	<br>	
 	<br>
-	<br>
-	<br>
 	<br>	
 	<h2>
 		Welcome to <i>
@@ -28,14 +26,6 @@ else
 	</h2>
 
 	<h4>This page is for managing hospital's data.</h4>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
 	<br>
 	<br>
 	<br>

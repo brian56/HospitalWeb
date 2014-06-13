@@ -12,53 +12,58 @@
 )); ?>
 
 	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'id'); ?>
 		<?php echo $form->textField($model,'id'); ?>
+		</div>
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'info_type_id'); ?>
-		<?php echo $form->textField($model,'info_type_id'); ?>
-	</div>
-
-	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'user_id'); ?>
 		<?php echo $form->textField($model,'user_id'); ?>
+		</div>
+		
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'access_level_id'); ?>
+		<?php echo $form->dropDownList($model, 'access_level_id', CHtml::listData(AccessLevel::model()->findAll(), 'id', 'name'), array('empty'=>'- Select access level -')); ?>
+		</div>
 	</div>
 
 	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'appointment_date'); ?>
 		<?php echo $form->textField($model,'appointment_date'); ?>
-	</div>
+		</div>
 	
-	<div class="row">
-		<?php echo $form->label($model,'appointment_status'); ?>
-		<?php echo $form->textField($model,'appointment_status'); ?>
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'appointment_status'); ?>
+		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Refused'), array('empty'=>'- Select appointment status -')); ?>
+		</div>
 	</div>
 
 	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'title'); ?>
 		<?php echo $form->textField($model,'title'); ?>
-	</div>
+		</div>
 
-	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'content'); ?>
 		<?php echo $form->textField($model,'content'); ?>
+		</div>
 	</div>
 
 	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'date_create'); ?>
 		<?php echo $form->textField($model,'date_create'); ?>
-	</div>
+		</div>
 
-	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'date_update'); ?>
 		<?php echo $form->textField($model,'date_update'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->label($model,'access_level_id'); ?>
-		<?php echo $form->textField($model,'access_level_id'); ?>
+		</div>
 	</div>
 
 	<div class="row buttons">
