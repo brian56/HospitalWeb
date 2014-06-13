@@ -20,6 +20,10 @@ class SendNotification {
 		$message = 'testing';
 		$gcm = Yii::app()->gcm;
 		$tokens = array_unique($tokens);
+		echo "<pre>";
+		print_r($tokens);
+		echo "</pre>";
+		die();
 		$gcm->sendMulti($tokens, $message, array('extra' => 'multi devices ', 'title'=>$title, 'value' => $content, 'info_type_id'=>$info_type_id, 'id'=>$id), array( 'delayWhileIdle' => true ));
 	}
 }
