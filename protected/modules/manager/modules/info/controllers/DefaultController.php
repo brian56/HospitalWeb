@@ -485,8 +485,19 @@ class DefaultController extends Controller
 		{
 			$model->attributes=$_POST['Info'];
 			$model->date_update=new CDbExpression('now()');
-			if($model->save())
+			if($model->save()) {
 				$this->redirect(array('appointmentView','id'=>$model->id));
+				if($model->appointment_status==1) {
+					$userDeviceId = $model->user->device_id;
+					$title = 'Your appointment has been confirmed.';
+					SendNotification::actionPushOneDevice($userDeviceId,$title, $model->title, $model->info_type_id, $model->id);
+				}
+				if($model->appointment_status==-1) {
+					$userDeviceId = $model->user->device_id;
+					$title = 'Your appointment has been rejected.';
+					SendNotification::actionPushOneDevice($userDeviceId,$title, $model->title, $model->info_type_id, $model->id);
+				}
+			}
 		}
 	
 		$this->render('appointment_update',array(
