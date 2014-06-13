@@ -15,6 +15,8 @@ $this->breadcrumbs=array(
 		echo "<p></p>";
 		echo CHtml::link("> Manager Appointment",Yii::app()->baseUrl."/manager/info/default/appointment",array("style"=>"color: darkblue; text-decoration: bold;"));
 		echo "<p></p>";
+		echo CHtml::link("> Manager Visitor Comment",Yii::app()->baseUrl."/manager/info/default/visitorComment",array("style"=>"color: darkblue; text-decoration: bold;"));
+		echo "<p></p>";
 // 		echo CHtml::link("> Manager infos",Yii::app()->baseUrl."/manager/info/default/admin",array("style"=>"color: darkblue;"));
 // 		echo "<p></p>";
 		echo CHtml::link("> Manager Users",Yii::app()->baseUrl."/manager/user/default/admin",array("style"=>"color: darkblue;"));

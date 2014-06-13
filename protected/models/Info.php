@@ -278,6 +278,27 @@ class Info extends CActiveRecord {
 		) );
 	}
 	
+	public function searchVisitorComment($hospital_id) {
+		$criteria = new CDbCriteria ();
+		$criteria->compare ( 't.id', $this->id );
+		$criteria->compare ( 't.info_type_id', 5 );
+		$criteria->compare ( 't.user_id', $this->user_id );
+		$criteria->compare ( 't.hospital_id', $hospital_id);
+		$criteria->compare ( 't.appointment_status', $this->appointment_status );
+		$criteria->compare ( 't.title', $this->title, true );
+		$criteria->compare ( 't.content', $this->content, true );
+		$criteria->compare ( 't.appointment_date', $this->appointment_date, true );
+		$criteria->compare ( 't.date_create', $this->date_create, true );
+		$criteria->compare ( 't.date_update', $this->date_update, true );
+		$criteria->compare ( 't.access_level_id', $this->access_level_id );
+		$criteria->order = 'date_create DESC';
+		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		
+		return new CActiveDataProvider ( $this, array (
+				'criteria' => $criteria
+		) );
+	}
+	
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!

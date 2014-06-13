@@ -54,6 +54,10 @@ class DefaultController extends Controller
 				'actions'=>array('trackingAppointment','ajaxAppointment', 'appointment', 'appointmentCreate', 'appointmentView', 'appointmentUpdate'),
 				'users'=>array('@'),
 			),
+			array('allow', // allow admin user to perform 'admin' and 'delete' actions
+				'actions'=>array('trackingVisitorComment','ajaxVisitorComment', 'visitorComment', 'visitorCommentCreate', 'visitorCommentView', 'visitorCommentUpdate'),
+				'users'=>array('@'),
+			),
 			array('deny',  // deny all users
 				'users'=>array('*'),
 			),
@@ -486,6 +490,85 @@ class DefaultController extends Controller
 				'model'=>$this->loadModel($id),
 		));
 	}
+	
+	//--------------------------appointment actions------------------------//
+	public function actionAjaxVisitorComment()
+	{
+		$model =new Info();
+		$model->unsetAttributes();  // clear any default values
+	
+		//print_r($model);
+		$this->renderPartial('_ajaxVisitorComment', array('model'=>$model));
+	}
+	public function actionVisitorComment()
+	{
+		$model=new Info('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Info']))
+			$model->attributes=$_GET['Info'];
+	
+		$this->render('visitorComment',array(
+				'model'=>$model,
+		));
+	}
+	public function actionTrackingVisitorComment()
+	{
+		$model=new Info('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['Info']))
+			$model->attributes=$_GET['Info'];
+	
+		$this->render('trackingVisitorComment',array(
+				'model'=>$model,
+		));
+	}
+	public function actionVisitorCommentCreate()
+	{
+		$model=new Info;
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_create=new CDbExpression('now()');
+			$model->info_type_id = 5;
+			if($model->save())
+				$this->redirect(array('VisitorCommentView','id'=>$model->id));
+		}
+	
+		$this->render('visitorComment_create',array(
+				'model'=>$model,
+		));
+	}
+	public function actionVisitorCommentUpdate($id)
+	{
+		$model=$this->loadModel($id);
+	
+		// Uncomment the following line if AJAX validation is needed
+		// $this->performAjaxValidation($model);
+	
+		if(isset($_POST['Info']))
+		{
+			$model->attributes=$_POST['Info'];
+			$model->date_update=new CDbExpression('now()');
+			if($model->save())
+				$this->redirect(array('visitorCommentView','id'=>$model->id));
+		}
+	
+		$this->render('visitorComment_update',array(
+				'model'=>$model,
+		));
+	}
+	public function actionVisitorCommentView($id)
+	{
+		$this->render('visitorComment_view',array(
+				'model'=>$this->loadModel($id),
+		));
+	}
+	
+	
 	
 	
 	public function actionAdvanceManage()

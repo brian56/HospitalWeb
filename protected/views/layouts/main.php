@@ -81,6 +81,10 @@
 	if(isset(Yii::app()->controller->id) && checkController(Yii::app()->controller->action->id,'appointment')) {
 		$activedAppointmentItem = true;
 	}
+	$activedVisitorCommentItem = false;
+	if(isset(Yii::app()->controller->id) && checkController(Yii::app()->controller->action->id,'visitorcomment')) {
+		$activedVisitorCommentItem = true;
+	}
 	$activedAdvanceManageItem = false;
 	if(isset(Yii::app()->controller->module)) {
 		if(endsWith(Yii::app()->controller->module->id,'user'))
@@ -151,6 +155,12 @@
 					'url'=>array('/manager/info/default/question'), 
 					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isManager")), 
 					'active'=>$activedQuestionItem
+				),
+				array(
+					'label'=>'Visitor Comments', 
+					'url'=>array('/manager/info/default/visitorComment'), 
+					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isManager")), 
+					'active'=>$activedVisitorCommentItem
 				),
 				array(
 					'label'=>'Advance manage', 

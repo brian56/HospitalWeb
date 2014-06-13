@@ -177,9 +177,9 @@ class UserController extends Controller {
 		if (! isset ( $_POST [Params::param_Contact_Phone] )) {
 			Response::MissingParam(Params::param_Contact_Phone);
 		} */
-		if (! isset ( $_POST [Params::param_Device_Os_Id] )) {
+		/* if (! isset ( $_POST [Params::param_Device_Os_Id] )) {
 			Response::MissingParam(Params::param_Device_Os_Id);
-		}
+		} */
 		if (! isset ( $_POST [Params::param_Device_Id] )) {
 			Response::MissingParam(Params::param_Device_Id);
 		}
@@ -201,7 +201,8 @@ class UserController extends Controller {
 				$user->user_name = $_POST [Params::param_User_Name];
 			if(isset($_POST [Params::param_Contact_Phone]))
 				$user->contact_phone = $_POST [Params::param_Contact_Phone];
-			$user->device_os_id = $_POST [Params::param_Device_Os_Id];
+			if(isset($_POST [Params::param_Device_Os_Id]))
+				$user->device_os_id = $_POST [Params::param_Device_Os_Id];
 			$user->device_id = $_POST [Params::param_Device_Id];
 			$user->token = $this->generateToken ( $_POST [Params::param_Email], $_POST [Params::param_Device_Id] );
 			
@@ -222,9 +223,9 @@ class UserController extends Controller {
 			$update = User::model ()->updateByPk ( $checking_user->id, array (
 					'email' => $_POST[Params::param_Email],
 					'password' => md5($_POST[Params::param_Password]),
-					'user_name' => $_POST [Params::param_User_Name],
-					'contact_phone' => $_POST [Params::param_Contact_Phone],
-					'device_os_id' => $_POST [Params::param_Device_Os_Id],
+					//'user_name' => $_POST [Params::param_User_Name],
+					//'contact_phone' => $_POST [Params::param_Contact_Phone],
+					//'device_os_id' => $_POST [Params::param_Device_Os_Id],
 					'token' => $token,
 					'token_expired_date' => date('Y-m-d H:i:s', $tomorrow)
 			) );

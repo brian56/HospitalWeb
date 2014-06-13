@@ -1,7 +1,7 @@
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'info-grid',
-	'dataProvider'=>$model->searchQuestion(Yii::app()->user->getState('hospitalId')),
+	'dataProvider'=>$model->searchVisitorComment(Yii::app()->user->getState('hospitalId')),
 	//'filter'=>$model,
 	'columns'=>array(
 		'id',
@@ -25,6 +25,6 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		),
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
-		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('questionView').'?id="+$.fn.yiiGridView.getSelection(id);}',
+		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('visitorCommentView').'?id="+$.fn.yiiGridView.getSelection(id);}',
 )); ?>
 		
