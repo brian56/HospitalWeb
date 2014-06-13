@@ -23,65 +23,64 @@
  * @property User $user
  * @property InfoComment[] $infoComments
  */
-class Info extends CActiveRecord {
+class Info extends CActiveRecord
+{
 	//add new attributes to model
-	public function getInfoUserName() {
-		return $this->user->email;
-	}
-	public function getInfoTypeName() {
-		return $this->infoType->name;
-	}
-	public function getInfoHospital() {
-		return $this->hospital->name;
-	}
-	public function getInfoCommentsCount() {
-		return count($this->infoComments);
-	}
-	public function getInfoAccessLevelName() {
-		return $this->accessLevel->name;
-	}
-	public function getAppointmentStatusName() {
-		if($this->appointment_status==0) {
-			return 'Pending';
-		} elseif ($this->appointment_status==1) {
-			return 'Confirmed';
-		} else return 'Rejected';
-	}
-	public function getInfoTimeCreate() {
-		return strtotime($this->date_create)*1000;
-	}
+		public function getInfoUserName() {
+			return $this->user->email;
+		}
+		public function getInfoTypeName() {
+			return $this->infoType->name;
+		}
+		public function getInfoHospital() {
+			return $this->hospital->name;
+		}
+		public function getInfoCommentsCount() {
+			return count($this->infoComments);
+		}
+		public function getInfoAccessLevelName() {
+			return $this->accessLevel->name;
+		}
+		public function getAppointmentStatusName() {
+			if($this->appointment_status==0) {
+				return 'Pending';
+			} elseif ($this->appointment_status==1) {
+				return 'Confirmed';
+			} else return 'Rejected';
+		}
+		public function getInfoTimeCreate() {
+			return strtotime($this->date_create)*1000;
+		}
 	
-	public function getAttributes($names = true) {
-		$attrs = parent::getAttributes($names);
-		$attrs['infoUserName'] = $this->getInfoUserName();
-		$attrs['infoTypeName'] = $this->getInfoTypeName();
-		$attrs['infoCommentsCount'] = $this->getInfoCommentsCount();
-		$attrs['infoAccessLevelName'] = $this->getInfoAccessLevelName();
-		$attrs['infoTimeCreate'] = $this->getInfoTimeCreate();
-		$attrs['infoHospital'] = $this->getInfoHospital();
-		$attrs['appointmentStatusName'] = $this->getAppointmentStatusName();
+		public function getAttributes($names = true) {
+			$attrs = parent::getAttributes($names);
+			$attrs['infoUserName'] = $this->getInfoUserName();
+			$attrs['infoTypeName'] = $this->getInfoTypeName();
+			$attrs['infoCommentsCount'] = $this->getInfoCommentsCount();
+			$attrs['infoAccessLevelName'] = $this->getInfoAccessLevelName();
+			$attrs['infoTimeCreate'] = $this->getInfoTimeCreate();
+			$attrs['infoHospital'] = $this->getInfoHospital();
+			$attrs['appointmentStatusName'] = $this->getAppointmentStatusName();
 	
-		return $attrs;
-	}
-	
-	
+			return $attrs;
+		}
 	/**
-	 *
 	 * @return string the associated database table name
 	 */
-	public function tableName() {
+	public function tableName()
+	{
 		return 'info';
 	}
-	
+
 	/**
-	 *
 	 * @return array validation rules for model attributes.
 	 */
-	public function rules() {
+	public function rules()
+	{
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
-		return array (
-				array (
+		return array(
+			array (
 						'user_id, title, content',
 						'required' 
 				),
@@ -91,19 +90,15 @@ class Info extends CActiveRecord {
 						'integerOnly' => true 
 				),
 				array (
-						'title, content, date_create, date_update, userName',
+						'title, content, date_create, date_update, userName, appointment_date',
 						'safe' 
 				),
-				// The following rule is used by search().
-				// @todo Please remove those attributes that should not be searched.
-				array (
-						'id, info_type_id, user_id, hospital_id, appointment_status, title, content, appointment_date, date_create, date_update, access_level_id',
-						'safe',
-						'on' => 'search' 
-				) 
+			// The following rule is used by search().
+			// @todo Please remove those attributes that should not be searched.
+			array('id, info_type_id, user_id, hospital_id, appointment_status, title, content, appointment_date, date_create, date_update, access_level_id', 'safe', 'on'=>'search'),
 		);
 	}
-	
+
 	/**
 	 *
 	 * @return array relational rules.
@@ -139,27 +134,27 @@ class Info extends CActiveRecord {
 				) 
 		);
 	}
-	
+
 	/**
-	 *
 	 * @return array customized attribute labels (name=>label)
 	 */
-	public function attributeLabels() {
-		return array (
-				'id' => 'ID',
-				'info_type_id' => 'Info Type',
-				'user_id' => 'Author',
-				'hospital_id' => 'Hospital',
-				'appointment_status' => 'Appointment Status',
-				'title' => 'Title',
-				'content' => 'Content',
-				'appointment_date' => 'Appointment Date',
-				'date_create' => 'Date Create',
-				'date_update' => 'Date Update',
-				'access_level_id' => 'Access Level' 
+	public function attributeLabels()
+	{
+		return array(
+			'id' => 'ID',
+			'info_type_id' => 'Info Type',
+			'user_id' => 'User',
+			'hospital_id' => 'Hospital',
+			'appointment_status' => 'Appointment Status',
+			'title' => 'Title',
+			'content' => 'Content',
+			'appointment_date' => 'Appointment Date',
+			'date_create' => 'Date Create',
+			'date_update' => 'Date Update',
+			'access_level_id' => 'Access Level',
 		);
 	}
-	
+
 	/**
 	 * Retrieves a list of models based on the current search/filter conditions.
 	 *
@@ -170,33 +165,34 @@ class Info extends CActiveRecord {
 	 * - Pass data provider to CGridView, CListView or any similar widget.
 	 *
 	 * @return CActiveDataProvider the data provider that can return the models
-	 *         based on the search/filter conditions.
+	 * based on the search/filter conditions.
 	 */
-	public function search() {
+	public function search()
+	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
-		$criteria = new CDbCriteria ();
-		
-		$criteria->compare ( 't.id', $this->id );
-		$criteria->compare ( 't.info_type_id', $this->info_type_id );
-		$criteria->compare ( 't.user_id', $this->user_id );
-		$criteria->compare ( 't.hospital_id', $this->hospital_id );
-		$criteria->compare ( 't.appointment_status', $this->appointment_status );
-		$criteria->compare ( 't.title', $this->title, true );
-		$criteria->compare ( 't.content', $this->content, true );
-		$criteria->compare ( 't.appointment_date', $this->appointment_date, true );
-		$criteria->compare ( 't.date_create', $this->date_create, true );
-		$criteria->compare ( 't.date_update', $this->date_update, true );
-		$criteria->compare ( 't.access_level_id', $this->access_level_id );
+
+		$criteria=new CDbCriteria;
+
+		$criteria->compare('id',$this->id);
+		$criteria->compare('info_type_id',$this->info_type_id);
+		$criteria->compare('user_id',$this->user_id);
+		$criteria->compare('hospital_id',$this->hospital_id);
+		$criteria->compare('appointment_status',$this->appointment_status);
+		$criteria->compare('title',$this->title,true);
+		$criteria->compare('content',$this->content,true);
+		$criteria->compare('appointment_date',$this->appointment_date,true);
+		$criteria->compare('date_create',$this->date_create,true);
+		$criteria->compare('date_update',$this->date_update,true);
+		$criteria->compare('access_level_id',$this->access_level_id);
 		$criteria->order = 'date_create DESC';
-		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
 		
-		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria 
-		) );
+		return new CActiveDataProvider($this, array(
+			'criteria'=>$criteria,
+		));
 	}
-	
 	public function searchQuestion($hospital_id) {
-		
+	
 		$criteria = new CDbCriteria ();
 		$criteria->compare ( 't.id', $this->id );
 		$criteria->compare ( 't.info_type_id', 3 );
@@ -210,8 +206,8 @@ class Info extends CActiveRecord {
 		$criteria->compare ( 't.date_update', $this->date_update, true );
 		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
-		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
-		
+		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+	
 		return new CActiveDataProvider ( $this, array (
 				'criteria' => $criteria
 		) );
@@ -231,8 +227,8 @@ class Info extends CActiveRecord {
 		$criteria->compare ( 't.date_update', $this->date_update, true );
 		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
-		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
-		
+		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+	
 		return new CActiveDataProvider ( $this, array (
 				'criteria' => $criteria
 		) );
@@ -251,8 +247,8 @@ class Info extends CActiveRecord {
 		$criteria->compare ( 't.date_update', $this->date_update, true );
 		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
-		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
-		
+		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+	
 		return new CActiveDataProvider ( $this, array (
 				'criteria' => $criteria
 		) );
@@ -271,8 +267,8 @@ class Info extends CActiveRecord {
 		$criteria->compare ( 't.date_update', $this->date_update, true );
 		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
-		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
-		
+		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+	
 		return new CActiveDataProvider ( $this, array (
 				'criteria' => $criteria
 		) );
@@ -292,8 +288,8 @@ class Info extends CActiveRecord {
 		$criteria->compare ( 't.date_update', $this->date_update, true );
 		$criteria->compare ( 't.access_level_id', $this->access_level_id );
 		$criteria->order = 'date_create DESC';
-		$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
-		
+		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
+	
 		return new CActiveDataProvider ( $this, array (
 				'criteria' => $criteria
 		) );
@@ -302,17 +298,16 @@ class Info extends CActiveRecord {
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
-	 * 
-	 * @param string $className
-	 *        	active record class name.
+	 * @param string $className active record class name.
 	 * @return Info the static model class
 	 */
-	public static function model($className = __CLASS__) {
-		return parent::model ( $className );
+	public static function model($className=__CLASS__)
+	{
+		return parent::model($className);
 	}
 	
 	public function beforeSave()
-	{	
+	{
 		if($this->isNewRecord)
 		{
 			$this->date_create= date('Y-m-d H:i:s');

@@ -445,18 +445,27 @@ class DefaultController extends Controller
 				'model'=>$model,
 		));
 	}
+	
+	//log ra o cai controller ni
 	public function actionAppointmentCreate()
 	{
 		$model=new Info;
 	
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
+		
+		
 	
 		if(isset($_POST['Info']))
 		{
 			$model->attributes=$_POST['Info'];
-			$model->date_create=new CDbExpression('now()');
 			$model->info_type_id = 4;
+			$model->date_create=new CDbExpression('now()');
+			//$model->appointment_date = $_POST['Info']['appointment_date'];
+// 			echo "<pre>";
+// 			print_r($model->attributes);
+// 			echo "</pre>";
+// 			die();
 			if($model->save())
 				$this->redirect(array('appointmentView','id'=>$model->id));
 		}

@@ -46,7 +46,7 @@ $this->menu=array(
 		'device_id',
 		array(
 			'name' =>'notify',
-			'value' => '$data->notifyName'
+			'value' => $model->notifyName
 		),
 		'token',
 		'token_expired_date',
