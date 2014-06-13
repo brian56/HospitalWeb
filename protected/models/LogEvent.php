@@ -125,7 +125,10 @@ class LogEvent extends CActiveRecord {
 		$criteria->compare ( 'date_create', $this->date_create, true );
 		
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria 
+				'criteria' => $criteria,
+				'pagination' => array(
+						'pageSize' => 20,
+				),
 		) );
 	}
 	

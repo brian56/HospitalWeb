@@ -8,7 +8,13 @@ else
 
 ?>
 <center>
-	<h3>
+
+	<br>	
+	<br>
+	<br>
+	<br>
+	<br>	
+	<h2>
 		Welcome to <i>
 		<?php 
 			if (Yii::app()->user->getState('isManager')) {
@@ -19,15 +25,29 @@ else
 			}
 		?>
 		</i>
-	</h3>
+	</h2>
 
-	<p>This page is for managing hospital's data.</p>
-	
-	
+	<h4>This page is for managing hospital's data.</h4>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<h5>A hospital application developed by</h5>
 	<?php 
-	 ?>
-	<p> </p>
-	<?php 
+	echo CHtml::image('http://appromobile.com/wp-content/uploads/2013/06/cropped-Logo.png');
 // 		echo CHtml::textField('tripTotal','',array('size'=>60,'id' => 'push'));
 // 		echo "<p></p>";
 // 		$this->widget ( 'booster.widgets.TbButton', array (

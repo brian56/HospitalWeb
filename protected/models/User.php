@@ -174,6 +174,9 @@ class User extends CActiveRecord
 		$criteria->order = 't.register_date DESC';
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array(
+					'pageSize' => 20,
+			),
 		));
 	}
 
@@ -230,6 +233,9 @@ class User extends CActiveRecord
 		$criteria->order = 't.register_date DESC';
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
+				'pagination' => array(
+						'pageSize' => 20,
+				),
 		));
 	}
 	public function beforeDelete() {

@@ -189,6 +189,9 @@ class Info extends CActiveRecord
 		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
+			'pagination' => array(
+					'pageSize' => 20,
+			),
 		));
 	}
 	public function searchQuestion($hospital_id) {
@@ -209,7 +212,10 @@ class Info extends CActiveRecord
 		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
 	
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria
+				'criteria' => $criteria,
+				'pagination' => array(
+						'pageSize' => 20,
+				),
 		) );
 	}
 	
@@ -230,7 +236,10 @@ class Info extends CActiveRecord
 		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
 	
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria
+				'criteria' => $criteria,
+				'pagination' => array(
+						'pageSize' => 20,
+				),
 		) );
 	}
 	public function searchEvent($hospital_id) {
@@ -250,7 +259,10 @@ class Info extends CActiveRecord
 		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
 	
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria
+				'criteria' => $criteria,
+				'pagination' => array(
+						'pageSize' => 20,
+				),
 		) );
 	}
 	public function searchAppointment($hospital_id) {
@@ -270,7 +282,10 @@ class Info extends CActiveRecord
 		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
 	
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria
+				'criteria' => $criteria,
+				'pagination' => array(
+						'pageSize' => 20,
+				),
 		) );
 	}
 	
@@ -291,7 +306,10 @@ class Info extends CActiveRecord
 		//$criteria->with = array('hospital', 'user', 'infoType', 'accessLevel', 'infoComments');
 	
 		return new CActiveDataProvider ( $this, array (
-				'criteria' => $criteria
+				'criteria' => $criteria,
+				'pagination' => array(
+						'pageSize' => 20,
+				),
 		) );
 	}
 	
