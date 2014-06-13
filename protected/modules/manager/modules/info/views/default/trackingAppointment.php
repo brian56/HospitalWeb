@@ -31,7 +31,7 @@ $this->breadcrumbs=array(
 	);
 
 ?>
-<center><h4>Tracking new appointments</h4></center>
+<center><h3>Tracking new appointments</h3></center>
 <script type="text/javascript">
     timeout = 3000;
     function refresh() {       

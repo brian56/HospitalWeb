@@ -48,15 +48,15 @@
 
 	<div class="row">
 		<div class="span-10">
-		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->dropDownList($model,'user_id', array('promt'=>'Please select hospital first!')); ?>
-		<?php echo $form->error($model,'user_id'); ?>
-		</div>
-
-		<div class="span-10">
 		<?php echo $form->labelEx($model,'title'); ?>
 		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'title'); ?>
+		</div>
+		
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'user_id'); ?>
+		<?php echo $form->dropDownList($model,'user_id', array('promt'=>'Please select hospital first!')); ?>
+		<?php echo $form->error($model,'user_id'); ?>
 		</div>
 	</div>
 

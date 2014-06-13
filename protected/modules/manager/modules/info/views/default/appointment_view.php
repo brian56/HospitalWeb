@@ -18,7 +18,7 @@ $this->breadcrumbs=array(
 
 ?>
 
-<center><h4>View Appointment #<?php echo $model->id; ?></h4></center>
+<center><h3>View Appointment #<?php echo $model->id; ?></h3></center>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -44,7 +44,7 @@ $this->breadcrumbs=array(
 	),
 )); 
 
-echo "<center><h4>Response</h4></center>";
+echo "<center><h3>Response</h3></center>";
 $this->widget('zii.widgets.grid.CGridView', array(
 		'id' => 'gridComments',
 		'dataProvider' => new CActiveDataProvider('InfoComment', array(

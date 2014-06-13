@@ -13,6 +13,6 @@ $this->menu=array(
 );
 ?>
 
-<center><h4>Create Notice</h4></center>
+<center><h3>Create Notice</h3></center>
 
 <?php $this->renderPartial('notice_form', array('model'=>$model)); ?>

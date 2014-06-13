@@ -17,7 +17,7 @@ $this->breadcrumbs=array(
 
 ?>
 
-<center><h4>View Question #<?php echo $model->id; ?></h4></center>
+<center><h3>View Question #<?php echo $model->id; ?></h3></center>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -61,7 +61,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	'enableAjaxValidation'=>false,
 )); ?>
 	<br>
-	<h4>Create Answer for this question</h4>
+	<h3>Create Answer for this question</h3>
 	<h6><i>Fields with <span class="required">*</span> are required.</i></h6>
 
 	<?php echo $form->errorSummary($infoComment); ?>
@@ -89,7 +89,7 @@ $form=$this->beginWidget('CActiveForm', array(
 
 
 </div><!-- form -->
-<center><h4>Answers</h4></center>
+<center><h3>Answers</h3></center>
 <?php 
 //==================list cac cau tra loi cua cau hoi=================//
 	$this->widget('zii.widgets.grid.CGridView', array(

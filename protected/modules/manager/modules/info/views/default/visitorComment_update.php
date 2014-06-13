@@ -18,6 +18,6 @@ $this->breadcrumbs=array(
 	);
 ?>
 
-<center><h4>Update Visitor Comment <?php echo $model->id; ?></h4></center>
+<center><h3>Update Visitor Comment <?php echo $model->id; ?></h3></center>
 
 <?php $this->renderPartial('visitorComment_form', array('model'=>$model)); ?>

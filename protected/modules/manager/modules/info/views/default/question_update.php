@@ -18,6 +18,6 @@ $this->breadcrumbs=array(
 	);
 ?>
 
-<center><h4>Update Question <?php echo $model->id; ?></h4></center>
+<center><h3>Update Question <?php echo $model->id; ?></h3></center>
 
 <?php $this->renderPartial('question_form', array('model'=>$model)); ?>

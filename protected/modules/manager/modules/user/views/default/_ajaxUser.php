@@ -1,5 +1,5 @@
 <?php $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'user-grid',
+	//'id'=>'user-grid',
 	'dataProvider'=>$model->getHospitalUsers(),
 	//'filter'=>$model,
 	'columns'=>array(

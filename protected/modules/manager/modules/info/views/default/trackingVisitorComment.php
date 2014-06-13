@@ -31,7 +31,7 @@ $this->breadcrumbs=array(
 	);
 
 ?>
-<center><h4>Tracking new visitor comments</h4></center>
+<center><h3>Tracking new visitor comments</h3></center>
 <script type="text/javascript">
     timeout = 3000;
     function refresh() {       

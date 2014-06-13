@@ -21,29 +21,15 @@
 
 	<div class="row">
 		<div class="span-10">
-		<?php echo $form->labelEx($model,'hospital_id'); ?>
-		<?php echo $form->dropDownList($model, 'hospital_id', CHtml::listData(Hospital::model()->findAll(), 'id', 'name_en')); ?>
-		<?php echo $form->error($model,'hospital_id'); ?>
-		</div>
-	
-		<div class="span-10">
-		<?php echo $form->labelEx($model,'user_level_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_level_id', CHtml::listData(UserLevel::model()->findAll(), 'id', 'name_en')); ?>
-		<?php echo $form->error($model,'user_level_id'); ?>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="span-10">
-		<?php echo $form->labelEx($model,'is_actived'); ?>
-		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
-		<?php echo $form->error($model,'is_actived'); ?>
-		</div>
-	
-		<div class="span-10">
 		<?php echo $form->labelEx($model,'email'); ?>
 		<?php echo $form->textField($model,'email',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'email'); ?>
+		</div>
+		
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'hospital_id'); ?>
+		<?php echo $form->dropDownList($model, 'hospital_id', CHtml::listData(Hospital::model()->findAll(), 'id', 'name_en')); ?>
+		<?php echo $form->error($model,'hospital_id'); ?>
 		</div>
 	</div>
 	
@@ -53,11 +39,25 @@
 		<?php echo $form->textField($model,'password',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'password'); ?>
 		</div>
+		
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'is_actived'); ?>
+		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
+		<?php echo $form->error($model,'is_actived'); ?>
+		</div>
+	</div>
 	
+	<div class="row">
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'user_name'); ?>
 		<?php echo $form->textField($model,'user_name',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'user_name'); ?>
+		</div>
+		
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'user_level_id'); ?>
+		<?php echo $form->dropDownList($model, 'user_level_id', CHtml::listData(UserLevel::model()->findAll(), 'id', 'name_en')); ?>
+		<?php echo $form->error($model,'user_level_id'); ?>
 		</div>
 	</div>
 
@@ -67,7 +67,7 @@
 		<?php echo $form->textField($model,'contact_phone',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'contact_phone'); ?>
 		</div>
-
+		
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'device_os_id'); ?>
 		<?php echo $form->dropDownList($model, 'device_os_id', DeviceOS::getFullDeviceOS()); ?>
@@ -81,7 +81,7 @@
 		<?php echo $form->textField($model,'device_id',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'device_id'); ?>
 		</div>
-	
+		
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'notify'); ?>
 		<?php echo $form->dropDownList($model, 'notify', array('1'=>'Yes', '0'=>'No')); ?>

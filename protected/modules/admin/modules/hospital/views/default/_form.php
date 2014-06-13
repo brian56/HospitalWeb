@@ -20,33 +20,39 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'name'); ?>
+		<?php echo $form->textField($model,'name',array('size'=>60,'maxlength'=>60)); ?>
+		<?php echo $form->error($model,'name'); ?>
+		</div>
+		
+		<div class="span-10">
 		<?php echo $form->labelEx($model,'is_actived'); ?>
 		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
 		<?php echo $form->error($model,'is_actived'); ?>
+		</div>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'name'); ?>
-		<?php echo $form->textField($model,'name'); ?>
-		<?php echo $form->error($model,'name'); ?>
-	</div>
-
-	<div class="row">
+		<div class="span-10">
 		<?php echo $form->labelEx($model,'name_en'); ?>
-		<?php echo $form->textField($model,'name_en'); ?>
+		<?php echo $form->textField($model,'name_en',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'name_en'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'introduction'); ?>
-		<?php echo $form->textArea($model,'introduction',array('rows'=>2, 'cols'=>100)); ?>
-		<?php echo $form->error($model,'introduction'); ?>
-	</div>
-
-	<div class="row">
+		</div>
+		
+		<div class="span-10">
 		<?php echo $form->labelEx($model,'location'); ?>
-		<?php echo $form->textField($model,'location'); ?>
+		<?php echo $form->textField($model,'location',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($model,'location'); ?>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'introduction'); ?>
+		<?php echo $form->textArea($model,'introduction',array('rows'=>2, 'cols'=>57)); ?>
+		<?php echo $form->error($model,'introduction'); ?>
+		</div>
 	</div>
 
 	<div class="row buttons">

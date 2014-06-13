@@ -14,6 +14,6 @@ $this->menu=array(
 );
 ?>
 
-<center><h4>Create Visitor Comment</h4></center>
+<center><h3>Create Visitor Comment</h3></center>
 
 <?php $this->renderPartial('visitorComment_form', array('model'=>$model)); ?>

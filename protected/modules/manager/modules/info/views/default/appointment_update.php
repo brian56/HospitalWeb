@@ -18,6 +18,6 @@ $this->breadcrumbs=array(
 	);
 ?>
 
-<center><h4>Update Appointment <?php echo $model->id; ?></h4></center>
+<center><h3>Update Appointment <?php echo $model->id; ?></h3></center>
 
 <?php $this->renderPartial('appointment_form', array('model'=>$model)); ?>

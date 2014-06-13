@@ -12,33 +12,39 @@
 )); ?>
 
 	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'id'); ?>
 		<?php echo $form->textField($model,'id'); ?>
-	</div>
+		</div>
 
-	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'is_actived'); ?>
-		<?php echo $form->textField($model,'is_actived'); ?>
+		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
+		</div>
 	</div>
 
 	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'name'); ?>
 		<?php echo $form->textField($model,'name'); ?>
-	</div>
+		</div>
 
-	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'name_en'); ?>
 		<?php echo $form->textField($model,'name_en'); ?>
+		</div>
 	</div>
 
 	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'introduction'); ?>
 		<?php echo $form->textField($model,'introduction'); ?>
-	</div>
+		</div>
 
-	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'photos'); ?>
 		<?php echo $form->textField($model,'photos'); ?>
+		</div>
 	</div>
 
 	<div class="row">

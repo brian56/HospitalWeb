@@ -123,7 +123,16 @@ class DefaultController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('Info');
+		$criteria = new CDbCriteria();
+		$criteria->order = 't.date_create DESC';
+		$dataProvider=new CActiveDataProvider(
+			'Info',
+			array(
+				'criteria' => $criteria,
+				'pagination' => array(
+					'pageSize' => 20,
+				),
+		));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));
@@ -177,7 +186,7 @@ class DefaultController extends Controller
 		$data=CHtml::listData($data,'id','email');
 		if(count($data)==0) {
 			echo CHtml::tag('option',
-					array('value'=>''),'No user was found',true);
+					array('value'=>''),'- No user was found -',true);
 		} else {
 			foreach($data as $value=>$name)
 			{

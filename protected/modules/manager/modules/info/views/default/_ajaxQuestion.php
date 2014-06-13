@@ -1,6 +1,6 @@
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array(
-	'id'=>'info-grid',
+	//'id'=>'info-grid',
 	'dataProvider'=>$model->searchQuestion(Yii::app()->user->getState('hospitalId')),
 	//'filter'=>$model,
 	'columns'=>array(

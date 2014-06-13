@@ -124,7 +124,16 @@ class DefaultController extends Controller
 	 */
 	public function actionIndex()
 	{
-		$dataProvider=new CActiveDataProvider('User');
+		$criteria = new CDbCriteria();
+		$criteria->order = 't.register_date DESC';
+		$dataProvider=new CActiveDataProvider(
+			'User',
+			array(
+				'criteria' => $criteria,
+				'pagination' => array(
+					'pageSize' => 20,
+				),
+		));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,
 		));

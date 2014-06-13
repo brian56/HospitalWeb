@@ -17,7 +17,7 @@ $this->breadcrumbs=array(
 
 ?>
 
-<center><h4>View Event #<?php echo $model->id; ?></h4></center>
+<center><h3>View Event #<?php echo $model->id; ?></h3></center>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
