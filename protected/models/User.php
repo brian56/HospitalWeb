@@ -232,4 +232,17 @@ class User extends CActiveRecord
 				'criteria'=>$criteria,
 		));
 	}
+	public function beforeDelete() {
+// 		$criteria = new CDbCriteria();
+// 		$criteria->condition = 't.user_id=:user_id';
+// 		$criteria->params = array(':=user_id'=>$this->id);
+// 		$infos = Info::model()->findAll($criteria);
+		foreach ($this->infoComments as $infoComment) {
+			$infoComment->delete();
+		}
+		foreach ($this->infos as $info) {
+			$info->delete();
+		}
+		return parent::beforeDelete();
+	}
 }

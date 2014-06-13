@@ -334,4 +334,10 @@ class Info extends CActiveRecord
 			}
 		}
 	}
+	public function beforeDelete() {
+		foreach ($this->infoComments as $infoComment) {
+			$infoComment->delete();
+		}
+		return parent::beforeDelete();
+	}
 }
