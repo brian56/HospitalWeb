@@ -22,10 +22,10 @@
 
 <div class="container" id="page">
 
-	<div id="header">
-	<b>
 	<center>
+	<div id="header">
 		<div id="logo">
+		<b>
 		<?php 
 		if(Yii::app()->user->getState('isManager')) {
 			//echo CHtml::encode(Yii::app()->name); 
@@ -34,10 +34,10 @@
 			echo Yii::app()->name;
 		}
 		?>
+		</b>
 		</div>
-	</center>
-	</b>
 	</div><!-- header -->
+	</center>
 	<div id="eflat-menu">
 
 	<?php 
