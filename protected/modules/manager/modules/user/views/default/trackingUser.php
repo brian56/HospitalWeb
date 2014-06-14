@@ -27,7 +27,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<center><h4>Tracking new Users</h4></center>
+<center><h3>Tracking new Users</h3></center>
 <script type="text/javascript">
     timeout = 3000;
     function refresh() {       

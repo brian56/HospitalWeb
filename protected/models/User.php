@@ -36,7 +36,8 @@ class User extends CActiveRecord
 	}
 	
 	public function getDeviceOsName(){
-		return $this->deviceOs->name." ".$this->deviceOs->device_type." ".$this->deviceOs->version;
+		if(isset($this->deviceOs))
+			return $this->deviceOs->name." ".$this->deviceOs->device_type." ".$this->deviceOs->version;
 	}
 
 	public function getIsActived(){
@@ -196,10 +197,23 @@ class User extends CActiveRecord
 			$this->user_name = "";
 		if($this->isNewRecord)
 		{
+			$this->token = $this->generateToken ( $this->email, $this->device_id );
+				
+			$now = date('Y-m-d H:i:s');
+			$tomorrow = strtotime("+1 day", strtotime($now));
+			$this->token_expired_date = date('Y-m-d H:i:s', $tomorrow);
+			
 			$this->password = md5($this->password);
 			$this->register_date= date('Y-m-d H:i:s');
 			if(Yii::app()->user->getState('isManager')) {
 				$this->hospital_id = Yii::app()->user->getState('hospitalId');
+			}
+		} else {
+			if(isset($this->password) && $this->password!='') {
+				$user = $this->find('t.id=:id AND t.password=:password',array(':id'=>$this->id, ':password'=>$this->password));
+				if(is_null($user)){
+					$this->password = md5($this->password);
+				}
 			}
 		}
 		return parent::beforeSave();
@@ -208,8 +222,8 @@ class User extends CActiveRecord
 	public function getHospitalUserDeviceIds($hospital_id=1){
 		$criteria = new CDbCriteria();
 		$criteria->select = array('device_id, notify');
-		$criteria->condition = 't.hospital_id=:hospital_id AND t.is_actived=:is_actived';
-		$criteria->params = array(':hospital_id'=>$hospital_id, ':is_actived'=>1);
+		$criteria->condition = 't.hospital_id=:hospital_id AND t.is_actived=:is_actived AND t.notify=:notify';
+		$criteria->params = array(':hospital_id'=>$hospital_id, ':is_actived'=>1, ':notify'=>1);
 		return $this->findAll($criteria);
 	}
 	
@@ -219,7 +233,7 @@ class User extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('hospital_id',Yii::app()->user->getState('hospitalId'));
 		$criteria->compare('user_level_id',1);
-		$criteria->compare('is_actived',1);
+		$criteria->compare('is_actived',$this->is_actived);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('password',$this->password,true);
 		$criteria->compare('user_name',$this->user_name,true);
@@ -251,4 +265,15 @@ class User extends CActiveRecord
 		}
 		return parent::beforeDelete();
 	}
+	
+	/**
+	 * generate a token for authenticating between server and user
+	 * @param string $email user's email
+	 * @param string $device_id user's device id
+	 * @return string the token for authenticating
+	 */
+	public function generateToken($email='', $device_id='') {
+		return md5 ( uniqid ( $email . $device_id, true ) );
+	}
+	
 }

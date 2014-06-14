@@ -196,24 +196,21 @@ class UserController extends Controller {
 			$user->hospital_id = $_POST [Params::param_Hospital_Id];
 			$user->user_level_id = 1;
 			$user->email = $_POST [Params::param_Email];
-			$user->password = md5($_POST [Params::param_Password]);
+			$user->password = $_POST [Params::param_Password];
 			if(isset($_POST [Params::param_User_Name]))
 				$user->user_name = $_POST [Params::param_User_Name];
+			else $user->user_name = "";
 			if(isset($_POST [Params::param_Contact_Phone]))
 				$user->contact_phone = $_POST [Params::param_Contact_Phone];
 			if(isset($_POST [Params::param_Device_Os_Id]))
 				$user->device_os_id = $_POST [Params::param_Device_Os_Id];
 			$user->device_id = $_POST [Params::param_Device_Id];
-			$user->token = $this->generateToken ( $_POST [Params::param_Email], $_POST [Params::param_Device_Id] );
 			
-			$now = date('Y-m-d H:i:s');
-			$tomorrow = strtotime("+1 day", strtotime($now));
-			$user->token_expired_date = date('Y-m-d H:i:s', $tomorrow);
 			if ($user->insert ()) {
 				$data = array('token' => $user->token );
 				Response::SuccessWithSimpleArray($this->modelName, $data);
 			} else {
-				$message = 'Register failed.';
+				$message = 'Register failed.asdsd';
 				Response::Failed($message);
 			}
 		} else {
@@ -363,7 +360,6 @@ class UserController extends Controller {
 	}
 	public function actionDelete() {
 	}
-	
 	/**
 	 * generate a token for authenticating between server and user
 	 * @param string $email user's email
