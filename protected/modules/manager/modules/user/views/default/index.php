@@ -14,7 +14,7 @@ $this->menu=array(
 );
 ?>
 
-<center><h4>Users</h4></center>
+<center><h3>Users</h3></center>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,

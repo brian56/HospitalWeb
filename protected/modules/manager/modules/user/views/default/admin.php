@@ -28,7 +28,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<center><h4>Manage Users</h4></center>
+<center><h3>Manage Users</h3></center>
 
 <p>
 You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>

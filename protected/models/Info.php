@@ -343,17 +343,19 @@ class Info extends CActiveRecord
 		if($this->info_type_id!=3 && 
 			$this->info_type_id!=4 && 
 			$this->info_type_id!=5 && 
-			$this->access_level_id!=3) {
+			$this->access_level_id!=3 &&
+			$this->access_level_id!=2) {
 			$users = User::model()->getHospitalUserDeviceIds($this->hospital_id);
 			if(!is_null($users)) {
 				$userDeviceIds = array();
 				foreach ($users as $user) {
-					if(!is_null($user->device_id) && $user->device_id!='' && $user->notify==1)
+					if(!is_null($user->device_id) && $user->device_id!='')
 						$userDeviceIds[] = $user->device_id;
 				}
 				SendNotification::actionPushMultiDevice($userDeviceIds, $this->title, $this->content, $this->info_type_id, $this->id);
 			}
 		}
+		return parent::afterSave();
 	}
 	public function beforeDelete() {
 		foreach ($this->infoComments as $infoComment) {
