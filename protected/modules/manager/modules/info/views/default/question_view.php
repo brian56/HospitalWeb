@@ -76,7 +76,7 @@ $form=$this->beginWidget('CActiveForm', array(
 
 	<div class="row">
 		<?php echo $form->labelEx($infoComment,'content'); ?>
-		<?php echo $form->textArea($infoComment,'content',array('rows'=>4, 'cols'=>100)); ?>
+		<?php echo $form->textArea($infoComment,'content',array('rows'=>3, 'cols'=>100)); ?>
 		<?php echo $form->error($infoComment,'content'); ?>
 	</div>
 
