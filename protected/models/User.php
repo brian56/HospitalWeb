@@ -197,6 +197,9 @@ class User extends CActiveRecord
 			$this->user_name = "";
 		if($this->isNewRecord)
 		{
+			if(!isset($this->device_os_id)) {
+				$this->device_os_id = 1;
+			}
 			$this->token = $this->generateToken ( $this->email, $this->device_id );
 				
 			$now = date('Y-m-d H:i:s');
