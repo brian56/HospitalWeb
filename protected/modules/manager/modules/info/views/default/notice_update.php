@@ -19,4 +19,4 @@ $this->breadcrumbs=array(
 
 <center><h3>Update Notice <?php echo $model->id; ?></h3></center>
 
-<?php $this->renderPartial('notice_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('notice_formUpdate', array('model'=>$model)); ?>
