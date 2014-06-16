@@ -108,6 +108,22 @@ $form=$this->beginWidget('CActiveForm', array(
 				'date_update',
 				array(
 					'class'=>'CButtonColumn',
+					'template'=>'{view}{update}{delete}',
+					'buttons'=>array
+					(
+							'view' => array
+							(
+									'url'=> 'Yii::app()->createUrl("manager/infocomment/default/view", array("id"=>$data->id))',
+							),
+							'update' => array
+							(
+									'url'=> 'Yii::app()->createUrl("manager/infocomment/default/update", array("id"=>$data->id))',
+							),
+							'delete' => array
+							(
+									'url'=> 'Yii::app()->createUrl("manager/infocomment/default/delete", array("id"=>$data->id))',
+							),
+					),
 				),
 			),
 	));

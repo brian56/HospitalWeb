@@ -193,7 +193,7 @@ class InfoController extends Controller {
 		$info->access_level_id = $_POST[Params::param_Access_Level_Id];
 		$info->content = $_POST[Params::param_Content];
 		if(isset($_POST[Params::param_Appointment_Date])) {
-			$info->appointment_date = date('Y-m-d H:i:s', $_POST[Params::param_Appointment_Date]);	
+			$info->appointment_date = date('Y-m-d H:i:s', $_POST[Params::param_Appointment_Date]/1000);	
 			$info->appointment_status = 0;		//appointment is pending
 		}		
 		if ($info->insert ()) {
