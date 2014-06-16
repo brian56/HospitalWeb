@@ -5,7 +5,7 @@
 $this->breadcrumbs=array(
 		'Manager'=>array("/manager"),
 	'Question'=>array('question'),
-	$model->title=>array('view','id'=>$model->id),
+	$model->title=>array('questionView','id'=>$model->id),
 	'Update',
 );
 

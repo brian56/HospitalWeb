@@ -65,8 +65,20 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'date_update',
 		*/
 		array(
-			'class'=>'CButtonColumn',
+		'class'=>'CButtonColumn',
+		'template'=>'{view}{update}{delete}',
+		'buttons'=>array
+		(
+				'view' => array
+				(
+						'url'=> 'Yii::app()->createUrl("manager/info/default/noticeView", array("id"=>$data->id))',
+				),
+				'update' => array
+				(
+						'url'=> 'Yii::app()->createUrl("manager/info/default/noticeUpdate", array("id"=>$data->id))',
+				),
 		),
+),
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
 		'selectionChanged'=>'function(id){ location.href = "'.$this->createUrl('noticeview').'?id="+$.fn.yiiGridView.getSelection(id);}',

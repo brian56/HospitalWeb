@@ -22,6 +22,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		*/
 		array(
 			'class'=>'CButtonColumn',
+			'template'=>'{view}{update}{delete}',
+			'buttons'=>array
+			(
+					'view' => array
+					(
+							'url'=> 'Yii::app()->createUrl("manager/info/default/visitorCommentView", array("id"=>$data->id))',
+					),
+					'update' => array
+					(
+							'url'=> 'Yii::app()->createUrl("manager/info/default/visitorCommentUpdate", array("id"=>$data->id))',
+					),
+			),
 		),
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),
