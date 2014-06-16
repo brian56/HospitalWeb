@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
 	$this->menu=array(
 			array('label'=>'Create Visitor Comment', 'url'=>array('visitorCommentCreate')),
 			array('label'=>'Update Visitor Comment', 'url'=>array('visitorCommentUpdate', 'id'=>$model->id)),
-			array('label'=>'Delete Visitor Comment', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>'Delete Visitor Comment', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'visitorComment'),'confirm'=>'Are you sure you want to delete this item?')),
 			array('label'=>'Manage Visitor Comment', 'url'=>array('visitorComment')),
 			array('label'=>'Tracking New Visitor Comment', 'url'=>array('trackingVisitorComment')),
 	);

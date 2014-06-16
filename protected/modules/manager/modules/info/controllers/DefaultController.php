@@ -17,7 +17,7 @@ class DefaultController extends Controller
 				'accessControl',
 		);
 	}
-
+	
 	/**
 	 * Specifies the access control rules.
 	 * This method is used by the 'accessControl' filter.
@@ -73,6 +73,7 @@ class DefaultController extends Controller
 		$this->render('view',array(
 			'model'=>$this->loadModel($id),
 		));
+		$this->getViewPath();
 	}
 
 	/**
@@ -211,7 +212,7 @@ class DefaultController extends Controller
 		$model->unsetAttributes();  // clear any default values
 	
 		//print_r($model);
-		$this->renderPartial('_ajaxQuestion', array('model'=>$model));
+		$this->renderPartial('\question\_ajaxQuestion', array('model'=>$model));
 	}
 	public function actionQuestion()
 	{
@@ -220,7 +221,7 @@ class DefaultController extends Controller
 		if(isset($_GET['Info']))
 			$model->attributes=$_GET['Info'];
 	
-		$this->render('question',array(
+		$this->render('\question\question',array(
 				'model'=>$model,
 		));
 	}
@@ -231,7 +232,7 @@ class DefaultController extends Controller
 		if(isset($_GET['Info']))
 			$model->attributes=$_GET['Info'];
 	
-		$this->render('trackingQuestion',array(
+		$this->render('\question\trackingQuestion',array(
 				'model'=>$model,
 		));
 	}
@@ -251,7 +252,7 @@ class DefaultController extends Controller
 				$this->redirect(array('questionView','id'=>$model->id));
 		}
 	
-		$this->render('question_create',array(
+		$this->render('\question\question_create',array(
 				'model'=>$model,
 		));
 	}
@@ -289,13 +290,13 @@ class DefaultController extends Controller
 				$this->redirect(array('questionView','id'=>$model->id));
 		}
 	
-		$this->render('question_update',array(
+		$this->render('\question\question_update',array(
 				'model'=>$model,
 		));
 	}
 	public function actionQuestionView($id)
 	{
-		$this->render('question_view',array(
+		$this->render('\question\question_view',array(
 				'model'=>$this->loadModel($id),
 		));
 	}
@@ -308,7 +309,7 @@ class DefaultController extends Controller
 		if(isset($_GET['Info']))
 			$model->attributes=$_GET['Info'];
 	
-		$this->render('event',array(
+		$this->render('\event\event',array(
 				'model'=>$model,
 		));
 	}
@@ -328,7 +329,7 @@ class DefaultController extends Controller
 				$this->redirect(array('eventView','id'=>$model->id));
 		}
 	
-		$this->render('event_create',array(
+		$this->render('\event\event_create',array(
 				'model'=>$model,
 		));
 	}
@@ -347,13 +348,13 @@ class DefaultController extends Controller
 				$this->redirect(array('eventView','id'=>$model->id));
 		}
 	
-		$this->render('event_update',array(
+		$this->render('\event\event_update',array(
 				'model'=>$model,
 		));
 	}
 	public function actionEventView($id)
 	{
-		$this->render('event_view',array(
+		$this->render('\event\event_view',array(
 				'model'=>$this->loadModel($id),
 		));
 	}
@@ -365,7 +366,7 @@ class DefaultController extends Controller
 		if(isset($_GET['Info']))
 			$model->attributes=$_GET['Info'];
 	
-		$this->render('notice',array(
+		$this->render('\notice\notice',array(
 				'model'=>$model,
 		));
 	}
@@ -385,7 +386,7 @@ class DefaultController extends Controller
 				$this->redirect(array('noticeView','id'=>$model->id));
 		}
 	
-		$this->render('notice_create',array(
+		$this->render('\notice\notice_create',array(
 				'model'=>$model,
 		));
 	}
@@ -404,13 +405,13 @@ class DefaultController extends Controller
 				$this->redirect(array('noticeView','id'=>$model->id));
 		}
 	
-		$this->render('notice_update',array(
+		$this->render('\notice\notice_update',array(
 				'model'=>$model,
 		));
 	}
 	public function actionNoticeView($id)
 	{
-		$this->render('notice_view',array(
+		$this->render('\notice\notice_view',array(
 				'model'=>$this->loadModel($id),
 		));
 	}
@@ -421,7 +422,7 @@ class DefaultController extends Controller
 		$model->unsetAttributes();  // clear any default values
 	
 		//print_r($model);
-		$this->renderPartial('_ajaxAppointment', array('model'=>$model));
+		$this->renderPartial('\appointment\_ajaxAppointment', array('model'=>$model));
 	}
 	public function actionAppointment()
 	{
@@ -429,8 +430,10 @@ class DefaultController extends Controller
 		$model->unsetAttributes();  // clear any default values
 		if(isset($_GET['Info']))
 			$model->attributes=$_GET['Info'];
-	
-		$this->render('appointment',array(
+		//var_dump($this->getViewPath().'\appointment\appointment');
+		//die();
+		//$this->render($this->getViewPath().'\appointment\appointment',array(
+		$this->render('\appointment\appointment',array(
 				'model'=>$model,
 		));
 	}
@@ -441,7 +444,7 @@ class DefaultController extends Controller
 		if(isset($_GET['Info']))
 			$model->attributes=$_GET['Info'];
 	
-		$this->render('trackingAppointment',array(
+		$this->render('\appointment\trackingAppointment',array(
 				'model'=>$model,
 		));
 	}
@@ -470,7 +473,7 @@ class DefaultController extends Controller
 				$this->redirect(array('appointmentView','id'=>$model->id));
 		}
 	
-		$this->render('appointment_create',array(
+		$this->render('\appointment\appointment_create',array(
 				'model'=>$model,
 		));
 	}
@@ -500,13 +503,13 @@ class DefaultController extends Controller
 			}
 		}
 	
-		$this->render('appointment_update',array(
+		$this->render('\appointment\appointment_update',array(
 				'model'=>$model,
 		));
 	}
 	public function actionAppointmentView($id)
 	{
-		$this->render('appointment_view',array(
+		$this->render('\appointment\appointment_view',array(
 				'model'=>$this->loadModel($id),
 		));
 	}
@@ -518,7 +521,7 @@ class DefaultController extends Controller
 		$model->unsetAttributes();  // clear any default values
 	
 		//print_r($model);
-		$this->renderPartial('_ajaxVisitorComment', array('model'=>$model));
+		$this->renderPartial('\visitorComment\_ajaxVisitorComment', array('model'=>$model));
 	}
 	public function actionVisitorComment()
 	{
@@ -527,7 +530,7 @@ class DefaultController extends Controller
 		if(isset($_GET['Info']))
 			$model->attributes=$_GET['Info'];
 	
-		$this->render('visitorComment',array(
+		$this->render('\visitorComment\visitorComment',array(
 				'model'=>$model,
 		));
 	}
@@ -538,7 +541,7 @@ class DefaultController extends Controller
 		if(isset($_GET['Info']))
 			$model->attributes=$_GET['Info'];
 	
-		$this->render('trackingVisitorComment',array(
+		$this->render('\visitorComment\trackingVisitorComment',array(
 				'model'=>$model,
 		));
 	}
@@ -558,7 +561,7 @@ class DefaultController extends Controller
 				$this->redirect(array('VisitorCommentView','id'=>$model->id));
 		}
 	
-		$this->render('visitorComment_create',array(
+		$this->render('\visitorComment\visitorComment_create',array(
 				'model'=>$model,
 		));
 	}
@@ -577,13 +580,13 @@ class DefaultController extends Controller
 				$this->redirect(array('visitorCommentView','id'=>$model->id));
 		}
 	
-		$this->render('visitorComment_update',array(
+		$this->render('\visitorComment\visitorComment_update',array(
 				'model'=>$model,
 		));
 	}
 	public function actionVisitorCommentView($id)
 	{
-		$this->render('visitorComment_view',array(
+		$this->render('\visitorComment\visitorComment_view',array(
 				'model'=>$this->loadModel($id),
 		));
 	}

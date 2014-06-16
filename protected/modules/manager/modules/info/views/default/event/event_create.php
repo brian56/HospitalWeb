@@ -15,4 +15,4 @@ $this->menu=array(
 
 <center><h3>Create Event</h3></center>
 
-<?php $this->renderPartial('event_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('\event\event_form', array('model'=>$model)); ?>

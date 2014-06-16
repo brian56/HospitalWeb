@@ -16,4 +16,4 @@ $this->menu=array(
 
 <center><h3>Create Appointment</h3></center>
 
-<?php $this->renderPartial('appointment_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('\appointment\appointment_form', array('model'=>$model)); ?>

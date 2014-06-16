@@ -15,4 +15,4 @@ $this->menu=array(
 
 <center><h3>Create Notice</h3></center>
 
-<?php $this->renderPartial('notice_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('\notice\notice_form', array('model'=>$model)); ?>

@@ -32,6 +32,18 @@
 
 	<div class="row">
 		<div class="span-10">
+		<?php echo $form->label($model,'appointment_date'); ?>
+		<?php echo $form->textField($model,'appointment_date'); ?>
+		</div>
+	
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'appointment_status'); ?>
+		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Refused'), array('empty'=>'- Select appointment status -')); ?>
+		</div>
+	</div>
+
+	<div class="row">
+		<div class="span-10">
 		<?php echo $form->label($model,'title'); ?>
 		<?php echo $form->textField($model,'title'); ?>
 		</div>

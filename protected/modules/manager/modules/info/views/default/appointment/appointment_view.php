@@ -11,7 +11,7 @@ $this->breadcrumbs=array(
 	$this->menu=array(
 			array('label'=>'Create Appointment', 'url'=>array('appointmentcreate')),
 			array('label'=>'Update Appointment', 'url'=>array('appointmentupdate', 'id'=>$model->id)),
-			array('label'=>'Delete Appointment', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>'Delete Appointment', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'appointment'),'confirm'=>'Are you sure you want to delete this item?')),
 			array('label'=>'Manage Appointment', 'url'=>array('appointment')),
 			array('label'=>'Tracking new Appointment', 'url'=>array('trackingAppointment')),
 	);

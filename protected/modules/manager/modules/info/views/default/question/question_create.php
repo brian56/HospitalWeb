@@ -16,4 +16,4 @@ $this->menu=array(
 
 <center><h3>Create Question</h3></center>
 
-<?php $this->renderPartial('question_form', array('model'=>$model)); ?>
+<?php $this->renderPartial('\question\question_form', array('model'=>$model)); ?>

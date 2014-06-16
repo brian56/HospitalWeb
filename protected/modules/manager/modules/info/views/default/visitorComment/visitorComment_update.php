@@ -12,7 +12,7 @@ $this->breadcrumbs=array(
 	$this->menu=array(
 			array('label'=>'Create Visitor Comment', 'url'=>array('visitorCommentCreate')),
 			array('label'=>'View Visitor Comment', 'url'=>array('visitorCommentView', 'id'=>$model->id)),
-			array('label'=>'Delete Visitor Comment', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>'Delete Visitor Comment', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'visitorComment'),'confirm'=>'Are you sure you want to delete this item?')),
 			array('label'=>'Manage Visitor Comment', 'url'=>array('visitorComment')),
 			array('label'=>'Tracking New Visitor Comment', 'url'=>array('trackingVisitorComment')),
 	);
@@ -20,4 +20,4 @@ $this->breadcrumbs=array(
 
 <center><h3>Update Visitor Comment <?php echo $model->id; ?></h3></center>
 
-<?php $this->renderPartial('visitorComment_formUpdate', array('model'=>$model)); ?>
+<?php $this->renderPartial('\visitorComment\visitorComment_formUpdate', array('model'=>$model)); ?>
