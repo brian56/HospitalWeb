@@ -8,7 +8,13 @@ else
 
 ?>
 <center>
-
+<?php $this->widget('ext.LangPick.ELangPick', array(
+	    //'excludeFromList' => array('pl', 'en'), // list of languages to exclude from list
+	    'pickerType' => 'dropdown',              // buttons, links, dropdown
+	    //'linksSeparator' => '<b> | </b>',   // if picker type is set to 'links'
+	    'buttonsSize' => 'small',                // mini, small, large
+	    'buttonsColor' => 'primary',            // primary, info, success, warning, danger, inverse
+	)); ?>
 	<br>	
 	<br>
 	<br>	
