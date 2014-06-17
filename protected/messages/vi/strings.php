@@ -1,7 +1,7 @@
 <?php
  
 return array (
-	'Eame' => 'Email đăng nhập',
+	'Email' => 'Email đăng nhập',
 	'Password' => 'Mật khẩu',
 	'Login' => 'Đăng nhập',
 	'Logout' => 'Đăng xuất',
@@ -126,7 +126,7 @@ return array (
 		
 	'Public' =>'Công khai',
 	'Private' =>'Riêng tư',
-	'Admin Only' =>'Chỉ dành cho người quản trị',
+	'Admin only' =>'Chỉ dành cho người quản trị',
 	
 	'Admin'=> 'Người quản trị hệ thống',
 	'Manager'=> 'Người quản lý bệnh viện',
