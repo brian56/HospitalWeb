@@ -3,9 +3,9 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-	'Manager'=>array("/manager"),
-	'Appointment'=>array('appointment'),
-	'Create',
+// 	'Manager'=>array("/manager"),
+	Yii::t('strings','Appointment')=>array('appointment'),
+	Yii::t('strings','Create'),
 );
 
 $this->menu=array(

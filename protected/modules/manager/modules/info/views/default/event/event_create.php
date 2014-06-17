@@ -3,7 +3,7 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		Yii::t('strings','Manager')=>array("/manager"),
+// 		Yii::t('strings','Manager')=>array("/manager"),
 	Yii::t('strings','Event')=>array('event'),
 	Yii::t('strings','Create'),
 );

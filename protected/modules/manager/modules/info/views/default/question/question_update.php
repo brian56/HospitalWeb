@@ -3,7 +3,7 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		Yii::t('strings','Manager')=>array("/manager"),
+// 		Yii::t('strings','Manager')=>array("/manager"),
 	Yii::t('strings','Question')=>array('question'),
 	$model->title=>array('questionView','id'=>$model->id),
 	Yii::t('strings','Update'),

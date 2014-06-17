@@ -21,7 +21,7 @@ $('.search-form form').submit(function(){
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		Yii::t('strings','Manager')=>array("/manager"),
+// 		Yii::t('strings','Manager')=>array("/manager"),
 		Yii::t('strings','Visitor Comment'),
 );
 	$this->menu=array(
