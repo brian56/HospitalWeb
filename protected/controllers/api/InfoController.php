@@ -185,6 +185,9 @@ class InfoController extends Controller {
 		$user_id = Response::getUserIdFromToken($_POST[Params::param_Token]);
 		if(!is_null($user_id)) {
 			$info->user_id = $user_id;
+			if(isset($_POST[Params::param_Contact_Phone])) {
+				User::model()->updateByPk($user_id, array('contact_phone'=>$_POST[Params::param_Contact_Phone]));
+			}
 		} else {
 			$message = "Authenticate failed. Token had been expired.";
 			Response::Failed($message);

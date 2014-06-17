@@ -1,4 +1,6 @@
 eclipse.preferences.version=1
 encoding//protected/controllers/SiteController.php=UTF-8
+encoding//protected/messages/ko/strings.php=UTF-8
+encoding//protected/messages/vi/strings.php=UTF-8
 encoding//protected/models/Info.php=UTF-8
 encoding//protected/views/site/index.php=UTF-8

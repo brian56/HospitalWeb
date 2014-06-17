@@ -26,7 +26,7 @@ $this->breadcrumbs=array(
 		'id',
 		array(
 				'name' => 'user_id',
-				'value' => $model->getInfoUserName(),
+				'value' => $model->infoUserName,
 		),
 		array(
 				'name' => 'appointment_status',
@@ -35,6 +35,12 @@ $this->breadcrumbs=array(
 		'appointment_date',
 		'title',
 		'content',
+		array(
+				'label'=>'Contact phone',
+				'type'=>'raw',
+				'value'=>$model->user->contact_phone,
+		),
+
 		'date_create',
 		'date_update',
 		array(

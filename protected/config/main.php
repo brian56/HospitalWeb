@@ -20,6 +20,7 @@ return array(
         'application.extensions.*',
         'application.controllers.api.*',
     ),
+	'sourceLanguage'=>'en',
     'modules' => array(
         // uncomment the following to enable the Gii tool
 

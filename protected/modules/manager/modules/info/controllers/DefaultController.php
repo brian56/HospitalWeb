@@ -452,29 +452,34 @@ class DefaultController extends Controller
 	//log ra o cai controller ni
 	public function actionAppointmentCreate()
 	{
-		$model=new Info;
+		$info=new Info;
+		$user=new User;
 	
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 		
 		
 	
-		if(isset($_POST['Info']))
+		if(isset($_POST['Info'])&& isset($_POST['User']))
 		{
-			$model->attributes=$_POST['Info'];
-			$model->info_type_id = 4;
-			$model->date_create=new CDbExpression('now()');
+			$info->attributes=$_POST['Info'];
+			$info->info_type_id = 4;
+			$info->date_create=new CDbExpression('now()');
+			$user->attributes = $_POST['User'];
+			if(isset($user->contact_phone) && $user->contact_phone!='') {
+				User::model()->updateByPk($info->user_id, array('contact_phone'=>$user->contact_phone));
+			}
 			//$model->appointment_date = $_POST['Info']['appointment_date'];
 // 			echo "<pre>";
 // 			print_r($model->attributes);
 // 			echo "</pre>";
 // 			die();
-			if($model->save())
-				$this->redirect(array('appointmentView','id'=>$model->id));
+			if($info->save())
+				$this->redirect(array('appointmentView','id'=>$info->id));
 		}
 	
 		$this->render('\appointment\appointment_create',array(
-				'model'=>$model,
+				'info'=>$info, 'user' => $user,
 		));
 	}
 	public function actionAppointmentUpdate($id)
