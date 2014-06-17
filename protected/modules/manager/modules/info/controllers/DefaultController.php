@@ -221,7 +221,7 @@ class DefaultController extends Controller
 		if(isset($_GET['Info']))
 			$model->attributes=$_GET['Info'];
 	
-		$this->render('\question\question',array(
+		$this->render('/question/question',array(
 				'model'=>$model,
 		));
 	}
