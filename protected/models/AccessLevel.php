@@ -55,8 +55,8 @@ class AccessLevel extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'name' => 'Name',
-			'name_en' => 'Name En',
+			'name' => Yii::t('strings','Name'),
+			'name_en' => Yii::t('strings','Name in English'),
 		);
 	}
 

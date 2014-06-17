@@ -3,17 +3,17 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-	'Visitor Comment'=>array('visitorComment'),
-	'Create',
+		Yii::t('strings','Manager')=>array("/manager"),
+	Yii::t('strings','Visitor Comment')=>array('visitorComment'),
+	Yii::t('strings','Create'),
 );
 
 $this->menu=array(
-	array('label'=>'Manage Visitor Comments', 'url'=>array('visitorComment')),
-	array('label'=>'Tracking New Visitor Comment', 'url'=>array('trackingVisitorComment')),
+	array('label'=>Yii::t('strings','Manage Visitor Comment'), 'url'=>array('visitorComment')),
+	array('label'=>Yii::t('strings','Tracking new Visitor Comment'), 'url'=>array('trackingVisitorComment')),
 );
 ?>
 
-<center><h3>Create Visitor Comment</h3></center>
+<center><h3><?php echo Yii::t('strings','Create Visitor Comment');?></h3></center>
 
 <?php $this->renderPartial('\visitorComment\visitorComment_form', array('model'=>$model)); ?>

@@ -3,22 +3,22 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-	'Appointment'=>array('appointment'),
+		Yii::t('strings','Manager')=>array("/manager"),
+	Yii::t('strings','Appointment')=>array('appointment'),
 	$model->title,
 );
 
 	$this->menu=array(
-			array('label'=>'Create Appointment', 'url'=>array('appointmentcreate')),
-			array('label'=>'Update Appointment', 'url'=>array('appointmentupdate', 'id'=>$model->id)),
-			array('label'=>'Delete Appointment', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'appointment'),'confirm'=>'Are you sure you want to delete this item?')),
-			array('label'=>'Manage Appointment', 'url'=>array('appointment')),
-			array('label'=>'Tracking new Appointment', 'url'=>array('trackingAppointment')),
+			array('label'=>Yii::t('strings','Create Appointment'), 'url'=>array('appointmentcreate')),
+			array('label'=>Yii::t('strings','Update Appointment'), 'url'=>array('appointmentupdate', 'id'=>$model->id)),
+			array('label'=>Yii::t('strings','Delete Appointment'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'appointment'),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>Yii::t('strings','Manage Appointment'), 'url'=>array('appointment')),
+			array('label'=>Yii::t('strings','Tracking new Appointment'), 'url'=>array('trackingAppointment')),
 	);
 
 ?>
 
-<center><h3>View Appointment #<?php echo $model->id; ?></h3></center>
+<center><h3><?php echo Yii::t('strings','View Appointment').' #'; echo $model->id; ?></h3></center>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -36,7 +36,7 @@ $this->breadcrumbs=array(
 		'title',
 		'content',
 		array(
-				'label'=>'Contact phone',
+				'label'=>Yii::t('strings','Contact Phone'),
 				'type'=>'raw',
 				'value'=>$model->user->contact_phone,
 		),
@@ -50,7 +50,7 @@ $this->breadcrumbs=array(
 	),
 )); 
 
-echo "<center><h3>Response</h3></center>";
+echo "<center><h3>".Yii::t('strings','Response')."</h3></center>";
 $this->widget('zii.widgets.grid.CGridView', array(
 		'id' => 'gridComments',
 		'dataProvider' => new CActiveDataProvider('InfoComment', array(

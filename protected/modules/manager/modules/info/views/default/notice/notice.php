@@ -21,22 +21,23 @@ $('.search-form form').submit(function(){
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-		'Notice',
+		Yii::t('strings','Manager')=>array("/manager"),
+		Yii::t('strings','Notice'),
 );
 	$this->menu=array(
-			array('label'=>'Create Notice', 'url'=>array('noticeCreate')),
+			array('label'=>Yii::t('strings','Create Notice'), 'url'=>array('noticeCreate')),
 
 	);
 
 ?>
-<center><h3>Manage notices</h3></center>
+<center><h3><?php echo Yii::t('strings','Manage Notice');?></h3></center>
 <p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
+<?php 
+echo Yii::t('strings', 'You may optionally enter a comparison operator (<, <=, >, >=, <> or =) at the beginning of each of your search values to specify how the comparison should be done.');
+?>
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link(Yii::t('strings','Advanced Search'),'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_search',array(
 	'model'=>$model,
@@ -69,12 +70,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'template'=>'{view}{update}{delete}',
 		'buttons'=>array
 		(
+				'delete' => array
+				(
+					'label' => Yii::t('strings','Delete'),
+				),
 				'view' => array
 				(
+					'label' => Yii::t('strings','View'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/noticeView", array("id"=>$data->id))',
 				),
 				'update' => array
 				(
+					'label' => Yii::t('strings','Update'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/noticeUpdate", array("id"=>$data->id))',
 				),
 		),

@@ -19,7 +19,7 @@
 
 		<div class="span-10">
 		<?php echo $form->label($model,'is_actived'); ?>
-		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived'), array('empty'=>'- Select user active status -')); ?>
+		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>Yii::t('strings','Actived'), '0'=>Yii::t('strings','Inactived')), array('empty'=>Yii::t('strings','- Select user active status -'))); ?>
 		</div>
 	</div>
 
@@ -50,7 +50,7 @@
 	<div class="row">
 		<div class="span-10">
 		<?php echo $form->label($model,'device_os_id'); ?>
-		<?php echo $form->dropDownList($model, 'device_os_id', DeviceOS::getFullDeviceOS(),array('empty'=>'- Select device OS -')); ?>
+		<?php echo $form->dropDownList($model, 'device_os_id', DeviceOS::getFullDeviceOS(),array('empty'=>Yii::t('strings','- Select device OS -'))); ?>
 		</div>
 
 		<div class="span-10">
@@ -62,7 +62,7 @@
 	<div class="row">
 		<div class="span-10">
 		<?php echo $form->label($model,'notify'); ?>
-		<?php echo $form->dropDownList($model, 'notify', array('1'=>'Yes', '0'=>'No'), array('empty'=>'- Select notify status -')); ?>
+		<?php echo $form->dropDownList($model, 'notify', array('1'=>Yii::t('strings','Yes'), '0'=>Yii::t('strings','No')), array('empty'=>Yii::t('strings','- Select notify status -'))); ?>
 		</div>
 	
 		<div class="span-10">
@@ -72,7 +72,7 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php echo CHtml::submitButton(Yii::t('strings','Search')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -15,20 +15,20 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note"><?php echo Yii::t('strings','Fields with * are required');?></p>
 
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'is_actived'); ?>
-		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
+		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>Yii::t('strings','Actived'), '0'=>Yii::t('strings','Inactived'))); ?>
 		<?php echo $form->error($model,'is_actived'); ?>
 		</div>
 	
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'user_level_id'); ?>
-		<?php echo $form->dropDownList($model, 'user_level_id', array('1'=>'User')); ?>
+		<?php echo $form->dropDownList($model, 'user_level_id', array('1'=>Yii::t('strings','User'))); ?>
 		<?php echo $form->error($model,'user_level_id'); ?>
 		</div>
 	</div>
@@ -77,12 +77,12 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'notify'); ?>
-		<?php echo $form->dropDownList($model, 'notify', array('1'=>'Yes', '0'=>'No')); ?>
+		<?php echo $form->dropDownList($model, 'notify', array('1'=>Yii::t('strings','Yes'), '0'=>Yii::t('strings','No'))); ?>
 		<?php echo $form->error($model,'notify'); ?>
 	</div>
 	
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

@@ -20,24 +20,25 @@ $('.search-form form').submit(function(){
 /* @var $this InfoController */
 /* @var $model Info */
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-		'Appointment',
+		Yii::t('strings','Manager')=>array("/manager"),
+		Yii::t('strings','Appointment'),
 );
 
 	$this->menu=array(
-			array('label'=>'Create Appointment', 'url'=>array('appointmentCreate')),
-			array('label'=>'Tracking new Appointment', 'url'=>array('trackingAppointment')),
+			array('label'=>Yii::t('strings','Create Appointment'), 'url'=>array('appointmentCreate')),
+			array('label'=>Yii::t('strings','Tracking new Appointment'), 'url'=>array('trackingAppointment')),
 
 	);
 
 ?>
-<center><h3>Manage appointments</h3></center>
+<center><h3><?php echo Yii::t('strings','Manage Appointment');?></h3></center>
 <p>
-You may optionally enter a comparison operator (<b>&lt;</b>, <b>&lt;=</b>, <b>&gt;</b>, <b>&gt;=</b>, <b>&lt;&gt;</b>
-or <b>=</b>) at the beginning of each of your search values to specify how the comparison should be done.
+<?php 
+echo Yii::t('strings', 'You may optionally enter a comparison operator (<, <=, >, >=, <> or =) at the beginning of each of your search values to specify how the comparison should be done.');
+?>
 </p>
 
-<?php echo CHtml::link('Advanced Search','#',array('class'=>'search-button')); ?>
+<?php echo CHtml::link(Yii::t('strings','Advanced Search'),'#',array('class'=>'search-button')); ?>
 <div class="search-form" style="display:none">
 <?php $this->renderPartial('_searchAppointment',array(
 	'model'=>$model,
@@ -75,12 +76,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'template'=>'{view}{update}{delete}',
 			'buttons'=>array
 			(
+					'delete' => array
+					(
+						'label' => Yii::t('strings','Delete'),
+					),
 					'view' => array
 					(
+						'label' => Yii::t('strings','View'),
 							'url'=> 'Yii::app()->createUrl("manager/info/default/appointmentView", array("id"=>$data->id))',
 					),
 					'update' => array
 					(
+						'label' => Yii::t('strings','Update'),
 							'url'=> 'Yii::app()->createUrl("manager/info/default/appointmentUpdate", array("id"=>$data->id))',
 					),
 			),

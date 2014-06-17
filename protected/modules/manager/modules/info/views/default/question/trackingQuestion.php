@@ -21,17 +21,17 @@ $('.search-form form').submit(function(){
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-		'Tracking Question',
+		Yii::t('strings','Manager')=>array("/manager"),
+		Yii::t('strings','Tracking new Question'),
 );
 	$this->menu=array(
-			array('label'=>'Create Question', 'url'=>array('questionCreate')),
-			array('label'=>'Manage Questions', 'url'=>array('question')),
+			array('label'=>Yii::t('strings','Create Question'), 'url'=>array('questionCreate')),
+			array('label'=>Yii::t('strings','Manage Question'), 'url'=>array('question')),
 
 	);
 
 ?>
-<center><h3>Tracking new questions</h3></center>
+<center><h3><?php echo Yii::t('strings','Tracking new Question');?></h3></center>
 <script type="text/javascript">
     timeout = 3000;
     function refresh() {       
@@ -75,12 +75,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'template'=>'{view}{update}{delete}',
 		'buttons'=>array
 		(
+				'delete' => array
+				(
+						'label' => Yii::t('strings','Delete'),
+				),
 				'view' => array
 				(
+						'label' => Yii::t('strings','View'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/questionView", array("id"=>$data->id))',
 				),
 				'update' => array
 				(
+						'label' => Yii::t('strings','Update'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/questionUpdate", array("id"=>$data->id))',
 				),
 		),

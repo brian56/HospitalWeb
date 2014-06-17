@@ -3,18 +3,18 @@
 /* @var $dataProvider CActiveDataProvider */
 
 $this->breadcrumbs=array(
-	'Advance Manage'=> array('/manager/info/default/advancemanage'),
-	'List Users',
+	Yii::t('strings','Advance Manage')=> array('/manager/info/default/advancemanage'),
+	Yii::t('strings','List User'),
 );
 
 $this->menu=array(
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
-	array('label'=>'Tracking New User', 'url'=>array('trackingUser')),
+	array('label'=>Yii::t('strings','Create User'), 'url'=>array('create')),
+	array('label'=>Yii::t('strings','Manage User'), 'url'=>array('admin')),
+	array('label'=>Yii::t('strings','Tracking new User'), 'url'=>array('trackingUser')),
 );
 ?>
 
-<center><h3>Users</h3></center>
+<center><h3><?php echo Yii::t('strings', 'List User');?></h3></center>
 
 <?php $this->widget('zii.widgets.grid.CGridView', array(
 	'dataProvider'=>$dataProvider,
@@ -43,7 +43,23 @@ $this->menu=array(
 		'token_expired_date',
 		*/
 		array(
-				'class'=>'CButtonColumn',
+		'class'=>'CButtonColumn',
+		'template'=>'{view}{update}{delete}',
+		'buttons'=>array
+		(
+				'delete' => array
+				(
+					'label' => Yii::t('strings','Delete'),
+				),
+				'view' => array
+				(
+					'label' => Yii::t('strings','View'),
+				),
+				'update' => array
+				(
+					'label' => Yii::t('strings','Update'),
+				),
+			),
 		),
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),

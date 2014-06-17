@@ -95,10 +95,10 @@ class LogEvent extends CActiveRecord {
 	public function attributeLabels() {
 		return array (
 				'id' => 'ID',
-				'user_id' => 'User',
-				'event_id' => 'Event',
-				'hospital_id' => 'Hospital',
-				'date_create' => 'Date Create' 
+				'user_id' => Yii::t('strings','User'),
+				'event_id' => Yii::t('strings','Event'),
+				'hospital_id' => Yii::t('strings','Hospital'),
+				'date_create' => Yii::t('strings','Date Create'),
 		);
 	}
 	

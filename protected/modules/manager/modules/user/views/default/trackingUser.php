@@ -3,14 +3,14 @@
 /* @var $model User */
 
 $this->breadcrumbs=array(
-	'Advance Manage'=> array('/manager/info/default/advancemanage'),
-	'Tracking User',
+	Yii::t('strings','Advance Manage')=> array('/manager/info/default/advancemanage'),
+	Yii::t('strings','Tracking new User'),
 );
 
 $this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
+	array('label'=>Yii::t('strings','List User'), 'url'=>array('index')),
+	array('label'=>Yii::t('strings','Create User'), 'url'=>array('create')),
+	array('label'=>Yii::t('strings','Manage User'), 'url'=>array('admin')),
 );
 
 Yii::app()->clientScript->registerScript('search', "
@@ -27,7 +27,7 @@ $('.search-form form').submit(function(){
 ");
 ?>
 
-<center><h3>Tracking new Users</h3></center>
+<center><h3><?php echo Yii::t('strings','Tracking new User');?></h3></center>
 <script type="text/javascript">
     timeout = 3000;
     function refresh() {       
@@ -71,7 +71,23 @@ $('.search-form form').submit(function(){
 		'token_expired_date',
 		*/
 		array(
-			'class'=>'CButtonColumn',
+		'class'=>'CButtonColumn',
+		'template'=>'{view}{update}{delete}',
+		'buttons'=>array
+		(
+				'delete' => array
+				(
+					'label' => Yii::t('strings','Delete'),
+				),
+				'view' => array
+				(
+					'label' => Yii::t('strings','View'),
+				),
+				'update' => array
+				(
+					'label' => Yii::t('strings','Update'),
+				),
+			),
 		),
 	),
 	'htmlOptions'=>array('style'=>'cursor: pointer;'),

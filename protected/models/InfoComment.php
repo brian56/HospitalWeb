@@ -98,11 +98,11 @@ class InfoComment extends CActiveRecord {
 	public function attributeLabels() {
 		return array (
 				'id' => 'ID',
-				'user_id' => 'Author',
-				'info_id' => 'Info',
-				'content' => 'Content',
-				'date_create' => 'Date Create',
-				'date_update' => 'Date Update' 
+				'user_id' => Yii::t('strings','Author'),
+				'info_id' => Yii::t('strings','Info'),
+				'content' => Yii::t('strings','Content'),
+				'date_create' => Yii::t('strings','Date Create'),
+				'date_update' => Yii::t('strings','Date Update'),
 		);
 	}
 	

@@ -21,17 +21,17 @@ $('.search-form form').submit(function(){
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-		'Tracking Appointment',
+		Yii::t('strings','Manager')=>array("/manager"),
+		Yii::t('strings','Tracking new Appointment'),
 );
 	$this->menu=array(
-			array('label'=>'Create Appointment', 'url'=>array('appointmentCreate')),
-			array('label'=>'Manage Appointments', 'url'=>array('appointment')),
+			array('label'=>Yii::t('strings','Create Appointment'), 'url'=>array('appointmentCreate')),
+			array('label'=>Yii::t('strings','Manage Appointment'), 'url'=>array('appointment')),
 
 	);
 
 ?>
-<center><h3>Tracking new appointments</h3></center>
+<center><h3><?php echo Yii::t('strings','Tracking new Appointment');?></h3></center>
 <script type="text/javascript">
     timeout = 3000;
     function refresh() {       
@@ -78,12 +78,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'template'=>'{view}{update}{delete}',
 		'buttons'=>array
 		(
+				'delete' => array
+				(
+					'label' => Yii::t('strings','Delete'),
+				),
 				'view' => array
 				(
+					'label' => Yii::t('strings','View'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/appointmentView", array("id"=>$data->id))',
 				),
 				'update' => array
 				(
+					'label' =>Yii::t('strings','Update'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/appointmentUpdate", array("id"=>$data->id))',
 				),
 		),

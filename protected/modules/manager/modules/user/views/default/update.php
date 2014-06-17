@@ -3,20 +3,20 @@
 /* @var $model User */
 
 $this->breadcrumbs=array(
-	'Advance Manage'=> array('/manager/info/default/advancemanage'),
+	Yii::t('strings','Advance Manage')=> array('/manager/info/default/advancemanage'),
 	$model->user_name=>array('view','id'=>$model->id),
-	'Update',
+	Yii::t('strings','Update'),
 );
 
 $this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'View User', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage User', 'url'=>array('admin')),
-	array('label'=>'Tracking New User', 'url'=>array('trackingUser')),
+	array('label'=>Yii::t('strings','List User'), 'url'=>array('index')),
+	array('label'=>Yii::t('strings','Create User'), 'url'=>array('create')),
+	array('label'=>Yii::t('strings','View User'), 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>Yii::t('strings','Manage User'), 'url'=>array('admin')),
+	array('label'=>Yii::t('strings','Tracking new User'), 'url'=>array('trackingUser')),
 );
 ?>
 
-<center><h3>Update User <?php echo $model->id; ?></h3></center>
+<center><h3><?php echo Yii::t('strings','Update User').' #';  echo $model->id; ?></h3></center>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

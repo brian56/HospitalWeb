@@ -26,7 +26,7 @@
 		
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'access_level_id'); ?>
-		<?php echo $form->dropDownList($model, 'access_level_id', CHtml::listData(AccessLevel::model()->findAll(), 'id', 'name'), array('empty'=>'- Select access level -')); ?>
+		<?php echo $form->dropDownList($model, 'access_level_id', CHtml::listData(AccessLevel::model()->findAll(), 'id', 'name'), array('empty'=>Yii::t('strings','- Select access level -'))); ?>
 		</div>
 	</div>
 

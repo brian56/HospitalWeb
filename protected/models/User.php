@@ -42,9 +42,9 @@ class User extends CActiveRecord
 
 	public function getIsActived(){
 		if($this->is_actived>0) {
-			return 'Yes';
+			return Yii::t('strings','Yes');
 		}
-		return 'No';
+		return Yii::t('strings','No');
 	}
 	
 	public function getHospitalName(){
@@ -53,9 +53,9 @@ class User extends CActiveRecord
 	
 	public function getNotifyName(){
 			if($this->notify>0) {
-			return 'Yes';
+			return Yii::t('strings','Yes');
 		}
-		return 'No';
+		return Yii::t('strings','No');
 	}
 	public function getUserRegisterTime() {
 		return strtotime($this->register_date)*1000;
@@ -124,19 +124,19 @@ class User extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'hospital_id' => 'Hospital',
-			'user_level_id' => 'User Level',
-			'is_actived' => 'Actived',
+			'hospital_id' => Yii::t('strings','Hospital'),
+			'user_level_id' => Yii::t('strings','User Level'),
+			'is_actived' => Yii::t('strings','Active Status'),
 			'email' => 'Email',
-			'password' => 'Password',
-			'user_name' => 'User Name',
-			'contact_phone' => 'Contact Phone',
-			'register_date' => 'Register Date',
-			'device_os_id' => 'Device Os',
-			'device_id' => 'Device Id',
-			'notify' => 'Notify',
+			'password' => Yii::t('strings','Password'),
+			'user_name' => Yii::t('strings','User Name'),
+			'contact_phone' => Yii::t('strings','Contact Phone'),
+			'register_date' => Yii::t('strings','Register Date'),
+			'device_os_id' => Yii::t('strings','Device Os'),
+			'device_id' => Yii::t('strings','Device Id'),
+			'notify' => Yii::t('strings','Notify'),
 			'token' => 'Token',
-			'token_expired_date' => 'Token Expired Date',
+			'token_expired_date' => Yii::t('strings','Token Expired Date'),
 		);
 	}
 

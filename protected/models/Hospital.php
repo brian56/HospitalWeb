@@ -23,8 +23,8 @@ class Hospital extends CActiveRecord
 	//add new attributes to model
 	public function getActivedName() {
 		if($this->is_actived==1) {
-			return 'Yes';
-		} else return 'No';
+			return Yii::t('strings','Yes');
+		} else return Yii::t('strings','No');
 	}
 	
 	public function getAttributes($names = true) {
@@ -79,12 +79,12 @@ class Hospital extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'is_actived' => 'Is Actived',
-			'name' => 'Name',
-			'name_en' => 'Name En',
-			'introduction' => 'Introduction',
-			'photos' => 'Photos',
-			'location' => 'Location',
+			'is_actived' => Yii::t('strings','Active Status'),
+			'name' => Yii::t('strings','Name'),
+			'name_en' => Yii::t('strings','Name in English'),
+			'introduction' => Yii::t('strings','Introduction'),
+			'photos' => Yii::t('strings','Photos'),
+			'location' => Yii::t('strings','Location'),
 		);
 	}
 

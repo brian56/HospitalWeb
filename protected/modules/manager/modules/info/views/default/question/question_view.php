@@ -2,22 +2,22 @@
 /* @var $this InfoController */
 /* @var $model Info */
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-	'Questions'=>array('question'),
+		Yii::t('strings','Manager')=>array("/manager"),
+	Yii::t('strings','Question')=>array('question'),
 	$model->title,
 );
 
 	$this->menu=array(
-			array('label'=>'Create Question', 'url'=>array('questioncreate')),
-			array('label'=>'Update Question', 'url'=>array('questionupdate', 'id'=>$model->id)),
-			array('label'=>'Delete Question', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'question'),'confirm'=>'Are you sure you want to delete this item?')),
-			array('label'=>'Manage Question', 'url'=>array('question')),
-			array('label'=>'Tracking new Question', 'url'=>array('trackingQuestion')),
+			array('label'=>Yii::t('strings','Create Question'), 'url'=>array('questioncreate')),
+			array('label'=>Yii::t('strings','Update Question'), 'url'=>array('questionupdate', 'id'=>$model->id)),
+			array('label'=>Yii::t('strings','Delete Question'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'question'),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>Yii::t('strings','Manage Question'), 'url'=>array('question')),
+			array('label'=>Yii::t('strings','Tracking new Question'), 'url'=>array('trackingQuestion')),
 	);
 
 ?>
 
-<center><h3>View Question #<?php echo $model->id; ?></h3></center>
+<center><h3><?php echo Yii::t('strings','View Question').' #'; echo $model->id; ?></h3></center>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
@@ -61,8 +61,8 @@ $form=$this->beginWidget('CActiveForm', array(
 	'enableAjaxValidation'=>false,
 )); ?>
 	<br>
-	<h3>Create Answer for this question</h3>
-	<h6><i>Fields with <span class="required">*</span> are required.</i></h6>
+	<h3><?php echo Yii::t('strings','Create answer for this question');?></h3>
+	<h6><i><?php echo Yii::t('strings','Fields with * are required');?></i></h6>
 
 	<?php echo $form->errorSummary($infoComment); ?>
 
@@ -81,7 +81,7 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($infoComment->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($infoComment->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>
@@ -89,7 +89,7 @@ $form=$this->beginWidget('CActiveForm', array(
 
 
 </div><!-- form -->
-<center><h3>Answers</h3></center>
+<center><h3><?php  echo Yii::t('strings','Answers');?></h3></center>
 <?php 
 //==================list cac cau tra loi cua cau hoi=================//
 	$this->widget('zii.widgets.grid.CGridView', array(
@@ -113,14 +113,17 @@ $form=$this->beginWidget('CActiveForm', array(
 					(
 							'view' => array
 							(
+								'label' => Yii::t('strings','View'),
 									'url'=> 'Yii::app()->createUrl("manager/infocomment/default/view", array("id"=>$data->id))',
 							),
 							'update' => array
 							(
+								'label' => Yii::t('strings','Update'),
 									'url'=> 'Yii::app()->createUrl("manager/infocomment/default/update", array("id"=>$data->id))',
 							),
 							'delete' => array
 							(
+								'label' => Yii::t('strings','Delete'),
 									'url'=> 'Yii::app()->createUrl("manager/infocomment/default/delete", array("id"=>$data->id))',
 							),
 					),

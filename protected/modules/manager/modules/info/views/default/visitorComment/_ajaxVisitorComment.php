@@ -25,12 +25,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 			'template'=>'{view}{update}{delete}',
 			'buttons'=>array
 			(
+					'delete' => array
+					(
+							'label' => Yii::t('strings','Delete'),
+					),
 					'view' => array
 					(
+							'label' => Yii::t('strings','View'),
 							'url'=> 'Yii::app()->createUrl("manager/info/default/visitorCommentView", array("id"=>$data->id))',
 					),
 					'update' => array
 					(
+							'label' => Yii::t('strings','Update'),
 							'url'=> 'Yii::app()->createUrl("manager/info/default/visitorCommentUpdate", array("id"=>$data->id))',
 					),
 			),

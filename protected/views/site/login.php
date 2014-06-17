@@ -3,15 +3,15 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
+$this->pageTitle=Yii::app()->name . ' - '.Yii::t('strings','Login');
 $this->breadcrumbs=array(
-	'Login',
+	Yii::t('strings','Login'),
 );
 ?>
 
-<h1>Login</h1>
+<h3><?php echo Yii::t('strings','Login');?></h3>
 
-<p>Please fill out the following form with your login credentials:</p>
+<p><?php echo Yii::t('strings','Please fill out the following form with your login credentials:');?></p>
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -22,7 +22,7 @@ $this->breadcrumbs=array(
 	),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note"><?php echo Yii::t('strings','Fields with * are required');?></p>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
@@ -44,7 +44,7 @@ $this->breadcrumbs=array(
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Login'); ?>
+		<?php echo CHtml::submitButton(Yii::t('strings','Login')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

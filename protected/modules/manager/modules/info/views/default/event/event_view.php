@@ -3,21 +3,21 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-	'Events'=>array('event'),
+		Yii::t('strings','Manager')=>array("/manager"),
+	Yii::t('strings','Events')=>array('event'),
 	$model->title,
 );
 
 	$this->menu=array(
-			array('label'=>'Create Event', 'url'=>array('eventcreate')),
-			array('label'=>'Update Event', 'url'=>array('eventupdate', 'id'=>$model->id)),
-			array('label'=>'Delete Event', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'event'),'confirm'=>'Are you sure you want to delete this item?')),
-			array('label'=>'Manage Event', 'url'=>array('event')),
+			array('label'=>Yii::t('strings','Create Event'), 'url'=>array('eventcreate')),
+			array('label'=>Yii::t('strings','Update Event'), 'url'=>array('eventupdate', 'id'=>$model->id)),
+			array('label'=>Yii::t('strings','Delete Event'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'event'),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>Yii::t('strings','Manage Event'), 'url'=>array('event')),
 	);
 
 ?>
 
-<center><h3>View Event #<?php echo $model->id; ?></h3></center>
+<center><h3><?php echo Yii::t('strings','View Event').' #'; echo $model->id; ?></h3></center>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

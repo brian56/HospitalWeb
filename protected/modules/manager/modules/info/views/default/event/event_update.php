@@ -3,20 +3,20 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-	'Event'=>array('event'),
+		Yii::t('strings','Manager')=>array("/manager"),
+	Yii::t('strings','Event')=>array('event'),
 	$model->title=>array('eventView','id'=>$model->id),
-	'Update',
+	Yii::t('strings','Update'),
 );
 
 	$this->menu=array(
-			array('label'=>'Create Event', 'url'=>array('eventcreate')),
-			array('label'=>'View Event', 'url'=>array('eventview', 'id'=>$model->id)),
-			array('label'=>'Delete Event', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'event'),'confirm'=>'Are you sure you want to delete this item?')),
-			array('label'=>'Manage Event', 'url'=>array('event')),
+			array('label'=>Yii::t('strings','Create Event'), 'url'=>array('eventcreate')),
+			array('label'=>Yii::t('strings','View Event'), 'url'=>array('eventview', 'id'=>$model->id)),
+			array('label'=>Yii::t('strings','Delete Event'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'event'),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>Yii::t('strings','Manage Event'), 'url'=>array('event')),
 	);
 ?>
 
-<center><h3>Update Event <?php echo $model->id; ?></h3></center>
+<center><h3><?php echo Yii::t('strings','Update Event').' #'; echo $model->id; ?></h3></center>
 
 <?php $this->renderPartial('\event\event_formUpdate', array('model'=>$model)); ?>

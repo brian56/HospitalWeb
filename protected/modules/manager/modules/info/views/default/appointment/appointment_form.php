@@ -15,7 +15,7 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note"><?php echo Yii::t('strings','Fields with * are required');?></p>
 
 	<?php echo $form->errorSummary($info,$user); ?>
 
@@ -50,7 +50,7 @@
 	<div class="row">
 		<div class="span-10">
 		<?php echo $form->labelEx($info,'appointment_status'); ?>
-		<?php echo $form->dropDownList($info,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Reject')); ?>
+		<?php echo $form->dropDownList($info,'appointment_status',array('0'=>Yii::t('strings','Pending'), '1'=>Yii::t('strings','Confirmed'), '-1'=>Yii::t('strings','Rejected'))); ?>
 		<?php echo $form->error($info,'appointment_status'); ?>
 		</div>
 
@@ -70,7 +70,7 @@
 	</div>
 	
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($info->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php echo CHtml::submitButton($info->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save')); ?>
 	</div>
 
 <?php $this->endWidget(); ?>

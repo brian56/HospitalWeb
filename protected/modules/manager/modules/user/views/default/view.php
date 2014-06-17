@@ -3,21 +3,21 @@
 /* @var $model User */
 
 $this->breadcrumbs=array(
-	'Advance Manage'=> array('/manager/info/default/advancemanage'),
+	Yii::t('strings','Advance Manage')=> array('/manager/info/default/advancemanage'),
 	$model->user_name,
 );
 
 $this->menu=array(
-	array('label'=>'List User', 'url'=>array('index')),
-	array('label'=>'Create User', 'url'=>array('create')),
-	array('label'=>'Update User', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete User', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage User', 'url'=>array('admin')),
-	array('label'=>'Tracking New User', 'url'=>array('trackingUser')),
+	array('label'=>Yii::t('strings','List User'), 'url'=>array('index')),
+	array('label'=>Yii::t('strings','Create User'), 'url'=>array('create')),
+	array('label'=>Yii::t('strings','Update User'), 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=>Yii::t('strings','Delete User'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=>Yii::t('strings','Manage User'), 'url'=>array('admin')),
+	array('label'=>Yii::t('strings','Tracking new User'), 'url'=>array('trackingUser')),
 );
 ?>
 
-<center><h3>View User #<?php echo $model->id; ?></h3></center>
+<center><h3><?php echo Yii::t('strings','View User').' #'; echo $model->id; ?></h3></center>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

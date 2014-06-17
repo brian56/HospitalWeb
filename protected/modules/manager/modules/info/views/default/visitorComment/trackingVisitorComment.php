@@ -21,17 +21,17 @@ $('.search-form form').submit(function(){
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-		'Tracking Visitor Comment',
+		Yii::t('strings','Manager')=>array("/manager"),
+		Yii::t('strings','Tracking new Visitor Comment'),
 );
 	$this->menu=array(
-			array('label'=>'Create Visitor Comment', 'url'=>array('visitorCommentCreate')),
-			array('label'=>'Manage Visitor Comment', 'url'=>array('visitorComment')),
+			array('label'=>Yii::t('strings','Create Visitor Comment'), 'url'=>array('visitorCommentCreate')),
+			array('label'=>Yii::t('strings','Manage Visitor Comment'), 'url'=>array('visitorComment')),
 
 	);
 
 ?>
-<center><h3>Tracking new visitor comments</h3></center>
+<center><h3><?php echo Yii::t('strings','Tracking new Visitor Comment');?></h3></center>
 <script type="text/javascript">
     timeout = 3000;
     function refresh() {       
@@ -74,12 +74,18 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'template'=>'{view}{update}{delete}',
 		'buttons'=>array
 		(
+				'delete' => array
+				(
+						'label'=> Yii::t('strings','Delete'),
+				),
 				'view' => array
 				(
+						'label'=> Yii::t('strings','View'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/visitorCommentView", array("id"=>$data->id))',
 				),
 				'update' => array
 				(
+						'label' => Yii::t('strings','Update'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/visitorCommentUpdate", array("id"=>$data->id))',
 				),
 		),

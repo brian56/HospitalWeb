@@ -30,7 +30,7 @@ class Info extends CActiveRecord
 			return $this->user->email;
 		}
 		public function getInfoTypeName() {
-			return $this->infoType->name;
+			return Yii::t('strings',$this->infoType->name);
 		}
 		public function getInfoHospital() {
 			return $this->hospital->name;
@@ -39,14 +39,14 @@ class Info extends CActiveRecord
 			return count($this->infoComments);
 		}
 		public function getInfoAccessLevelName() {
-			return $this->accessLevel->name;
+			return Yii::t('strings',$this->accessLevel->name);
 		}
 		public function getAppointmentStatusName() {
 			if($this->appointment_status==0) {
-				return 'Pending';
+				return Yii::t('strings','Pending');
 			} elseif ($this->appointment_status==1) {
-				return 'Confirmed';
-			} else return 'Rejected';
+				return Yii::t('strings','Confirmed');
+			} else return Yii::t('strings','Rejected');
 		}
 		public function getInfoTimeCreate() {
 			return strtotime($this->date_create)*1000;
@@ -142,16 +142,16 @@ class Info extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'info_type_id' => 'Info Type',
-			'user_id' => 'User',
-			'hospital_id' => 'Hospital',
-			'appointment_status' => 'Appointment Status',
-			'title' => 'Title',
-			'content' => 'Content',
-			'appointment_date' => 'Appointment Date',
-			'date_create' => 'Date Create',
-			'date_update' => 'Date Update',
-			'access_level_id' => 'Access Level',
+			'info_type_id' => Yii::t('strings','Info Type'),
+			'user_id' => Yii::t('strings','Author'),
+			'hospital_id' => Yii::t('strings','Hospital'),
+			'appointment_status' => Yii::t('strings','Appointment Status'),
+			'title' => Yii::t('strings','Title'),
+			'content' => Yii::t('strings','Content'),
+			'appointment_date' => Yii::t('strings','Appointment Date'),
+			'date_create' => Yii::t('strings','Date Create'),
+			'date_update' => Yii::t('strings','Date Update'),
+			'access_level_id' => Yii::t('strings','Access Level'),
 		);
 	}
 

@@ -3,16 +3,16 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-	'Notice'=>array('notice'),
-	'Create',
+		Yii::t('strings','Manager')=>array("/manager"),
+	Yii::t('strings','Notice')=>array('notice'),
+	Yii::t('strings','Create'),
 );
 
 $this->menu=array(
-	array('label'=>'Manage Notice', 'url'=>array('notice')),
+	array('label'=>Yii::t('strings','Manage Notice'), 'url'=>array('notice')),
 );
 ?>
 
-<center><h3>Create Notice</h3></center>
+<center><h3><?php echo Yii::t('strings','Create Notice');?></h3></center>
 
 <?php $this->renderPartial('\notice\notice_form', array('model'=>$model)); ?>

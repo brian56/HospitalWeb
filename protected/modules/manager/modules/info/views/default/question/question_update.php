@@ -3,21 +3,21 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-		'Manager'=>array("/manager"),
-	'Question'=>array('question'),
+		Yii::t('strings','Manager')=>array("/manager"),
+	Yii::t('strings','Question')=>array('question'),
 	$model->title=>array('questionView','id'=>$model->id),
-	'Update',
+	Yii::t('strings','Update'),
 );
 
 	$this->menu=array(
-			array('label'=>'Create Question', 'url'=>array('questioncreate')),
-			array('label'=>'View Question', 'url'=>array('questionview', 'id'=>$model->id)),
-			array('label'=>'Delete Question', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'question'),'confirm'=>'Are you sure you want to delete this item?')),
-			array('label'=>'Manage Question', 'url'=>array('question')),
-			array('label'=>'Tracking new Question', 'url'=>array('trackingQuestion')),
+			array('label'=>Yii::t('strings','Create Question'), 'url'=>array('questioncreate')),
+			array('label'=>Yii::t('strings','View Question'), 'url'=>array('questionview', 'id'=>$model->id)),
+			array('label'=>Yii::t('strings','Delete Question'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id), 'params' => array('returnUrl'=>'question'),'confirm'=>'Are you sure you want to delete this item?')),
+			array('label'=>Yii::t('strings','Manage Question'), 'url'=>array('question')),
+			array('label'=>Yii::t('strings','Tracking new Question'), 'url'=>array('trackingQuestion')),
 	);
 ?>
 
-<center><h3>Update Question <?php echo $model->id; ?></h3></center>
+<center><h3><?php echo Yii::t('strings','Update Question').' #'; echo $model->id; ?></h3></center>
 
 <?php $this->renderPartial('\question\question_formUpdate', array('model'=>$model)); ?>
