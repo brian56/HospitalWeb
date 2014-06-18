@@ -26,7 +26,15 @@
 		
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'access_level_id'); ?>
-		<?php echo $form->dropDownList($model, 'access_level_id', CHtml::listData(AccessLevel::model()->findAll(), 'id', 'name'), array('empty'=>Yii::t('strings','- Select access level -'))); ?>
+		<?php 
+			$listData = CHtml::listData(AccessLevel::model()->findAll(),'id','name');
+			$t_listData = array();
+			foreach($listData as $key => $item)
+			{
+				$t_listData[$key]=Yii::t('strings',$item);
+			}
+			echo $form->dropDownList($model, 'access_level_id', $t_listData,array('empty'=>Yii::t('strings','- Select access level -'))); 
+		?>
 		</div>
 	</div>
 
@@ -55,7 +63,15 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php 
+		$this->widget(
+				'booster.widgets.TbButton',
+				array(
+						'label' => Yii::t('strings','Search'),
+						'context' => 'primary',
+						'buttonType' => 'submit',
+				)
+		);?>
 	</div>
 
 <?php $this->endWidget(); ?>

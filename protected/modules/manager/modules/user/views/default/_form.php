@@ -82,7 +82,15 @@
 	</div>
 	
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save')); ?>
+		<?php 
+		$this->widget(
+				'booster.widgets.TbButton',
+				array(
+						'label' => $model->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save'),
+						'context' => 'primary',
+						'buttonType' => 'submit',
+				)
+		);?>
 	</div>
 
 <?php $this->endWidget(); ?>

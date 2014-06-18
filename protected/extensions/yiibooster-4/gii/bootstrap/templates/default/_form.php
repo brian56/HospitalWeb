@@ -19,7 +19,7 @@ foreach ($this->tableSchema->columns as $column) {
 		continue;
 	}
 	?>
-	<?php echo "<?php echo " . $this->generateActiveRow($this->modelClass, $column) . "; ?>\n"; ?>
+	<?php echo "<?php echo " . $this->generateActiveGroup($this->modelClass, $column) . "; ?>\n"; ?>
 
 <?php
 }
@@ -27,7 +27,7 @@ foreach ($this->tableSchema->columns as $column) {
 <div class="form-actions">
 	<?php echo "<?php \$this->widget('booster.widgets.TbButton', array(
 			'buttonType'=>'submit',
-			'type'=>'primary',
+			'context'=>'primary',
 			'label'=>\$model->isNewRecord ? 'Create' : 'Save',
 		)); ?>\n"; ?>
 </div>

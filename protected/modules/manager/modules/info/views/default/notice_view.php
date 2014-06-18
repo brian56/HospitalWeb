@@ -28,7 +28,7 @@ $this->breadcrumbs=array(
 				'value' => $model->getInfoUserName(),
 		),
 		'title',
-		'content',
+		array('name'=>'content', 'type' => 'raw'),
 		'date_create',
 		'date_update',
 		array(

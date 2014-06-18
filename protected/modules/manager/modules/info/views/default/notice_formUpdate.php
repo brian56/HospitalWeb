@@ -35,12 +35,6 @@
 
 	<div class="row">
 		<div class="span-10">
-		<?php echo $form->labelEx($model,'content'); ?>
-		<?php echo $form->textArea($model,'content',array('rows'=>3, 'cols'=>57)); ?>
-		<?php echo $form->error($model,'content'); ?>
-		</div>
-	
-		<div class="span-10">
 		<?php echo $form->labelEx($model,'access_level_id'); ?>
 		<?php 
 			$listData = CHtml::listData(AccessLevel::model()->findAll(),'id','name');
@@ -54,8 +48,33 @@
 		<?php echo $form->error($model,'access_level_id'); ?>
 		</div>
 	</div>
+
+	<div class="row">
+		<div class="span-18">
+		<?php echo $form->labelEx($model,'content'); ?>
+		<?php 
+		$this->widget(
+						'booster.widgets.TbRedactorJs',
+						[
+						'model' => $model,
+						'id' => 'Post_content',
+						'attribute' => 'content',
+						]
+				);
+		//echo $form->textArea($model,'content',array('rows'=>3, 'cols'=>57)); ?>
+		<?php echo $form->error($model,'content'); ?>
+		</div>
+	</div>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save')); ?>
+		<?php 
+		$this->widget(
+				'booster.widgets.TbButton',
+				array(
+						'label' => $model->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save'),
+						'context' => 'primary',
+						'buttonType' => 'submit',
+				)
+		);?>
 	</div>
 
 <?php $this->endWidget(); ?>

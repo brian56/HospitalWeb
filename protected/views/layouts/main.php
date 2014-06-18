@@ -270,6 +270,7 @@
 	<?php if(isset($this->breadcrumbs)):?>
 		<?php $this->widget('zii.widgets.CBreadcrumbs', array(
 			'links'=>$this->breadcrumbs,
+			'homeLink' => CHtml::link(Yii::t('strings','Home'), Yii::app()->homeUrl),
 		)); ?><!-- breadcrumbs -->
 	<?php endif?>
 

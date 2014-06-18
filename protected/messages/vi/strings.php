@@ -18,6 +18,11 @@ return array (
     'User' =>'Người dùng',
     'Manager' =>'Quản lý',
 		
+	'No results found' => 'Không tìm thấy kết quả nào',
+	'Displaying' => 'Hiển thị',
+	'of'=>'trên',
+	'result(s)'=>'kết quả',
+		
 	'Welcome to' => 'Chào mừng đến với',
 	"This page is for managing hospital's data." => 'Trang web này dành cho người quản lý bệnh viện.',
 	"A hospital application developed by" => "Ứng dụng quản lý bệnh viện phát triển bởi",

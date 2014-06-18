@@ -76,6 +76,16 @@ $form=$this->beginWidget('CActiveForm', array(
 
 	<div class="row">
 		<?php echo $form->labelEx($infoComment,'content'); ?>
+		<?php 
+// 		$this->widget(
+// 				'booster.widgets.TbRedactorJs',
+// 				[
+// 				'model' => $infoComment,
+// 				'id' => 'Post_content',
+// 				'attribute' => 'content',
+// 				'value' => '<b>Here is the text which will be put into editor view upon opening.</b>',
+// 				]
+// 		); ?>
 		<?php echo $form->textArea($infoComment,'content',array('rows'=>3, 'cols'=>100)); ?>
 		<?php echo $form->error($infoComment,'content'); ?>
 	</div>
@@ -92,7 +102,8 @@ $form=$this->beginWidget('CActiveForm', array(
 <center><h3><?php  echo Yii::t('strings','Answers');?></h3></center>
 <?php 
 //==================list cac cau tra loi cua cau hoi=================//
-	$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
+			'type'=>'bordered condensed',
 			'id' => 'gridComments',
 			'dataProvider' => new CActiveDataProvider('InfoComment', array(
 					'data'=>$model->infoComments,
@@ -107,7 +118,7 @@ $form=$this->beginWidget('CActiveForm', array(
 				'date_create',
 				'date_update',
 				array(
-					'class'=>'CButtonColumn',
+					'class'=>'booster.widgets.TbButtonColumn',
 					'template'=>'{view}{update}{delete}',
 					'buttons'=>array
 					(

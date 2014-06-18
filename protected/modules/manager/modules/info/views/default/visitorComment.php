@@ -46,10 +46,13 @@ echo Yii::t('strings', 'You may optionally enter a comparison operator (<, <=, >
 </div><!-- search-form -->
 
 <?php 
-$this->widget('zii.widgets.grid.CGridView', array(
+$this->widget('booster.widgets.TbGridView', array(
 	'id'=>'info-grid',
+	'type'=>'bordered condensed',
 	'dataProvider'=>$model->searchVisitorComment(Yii::app()->user->getState('hospitalId')),
-	//'filter'=>$model,
+// 	'filter'=>$model,
+'emptyText' => Yii::t('strings','No results found'),
+'summaryText' => Yii::t('strings','Displaying').' {start}-{end} '.Yii::t('strings','of').' {count} '.Yii::t('strings','result(s)'),
 	'columns'=>array(
 		'id',
 		array(
@@ -67,21 +70,25 @@ $this->widget('zii.widgets.grid.CGridView', array(
 		'date_update',
 		*/
 		array(
-		'class'=>'CButtonColumn',
+		'class'=>'booster.widgets.TbButtonColumn',
 		'template'=>'{view}{update}{delete}',
+		'htmlOptions'=>array('style'=>'width:60px;'),
 		'buttons'=>array
 		(
 				'delete' => array
 				(
+					'options' => array('style'=>'margin:2px;'),
 					'label' => Yii::t('strings','Delete'),
 				),
 				'view' => array
 				(
+						'options' => array('style'=>'margin:2px;'),
 					'label' => Yii::t('strings','View'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/visitorCommentView", array("id"=>$data->id))',
 				),
 				'update' => array
 				(
+						'options' => array('style'=>'margin:2px;'),
 					'label' => Yii::t('strings','Update'),
 						'url'=> 'Yii::app()->createUrl("manager/info/default/visitorCommentUpdate", array("id"=>$data->id))',
 				),

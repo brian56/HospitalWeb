@@ -29,7 +29,7 @@ class TbBulkActions extends CComponent {
      * <pre>
      * 'actions' => array(
      *      array(
-     *          'type'=> 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
+     *          'context'=> 'primary', // '', 'primary', 'info', 'success', 'warning', 'danger' or 'inverse'
      *          'size'=> 'large', // '', 'large', 'small', 'mini'
      *          'label'=>'...',     // text label of the button or dropdown label
      *          'click'=> // the js function that will be called
@@ -328,7 +328,7 @@ class TbBulkActions extends CComponent {
 			'class' => 'booster.widgets.TbButton',
 			'id' => $action['id'], // we must ensure this
 			'buttonType' => isset($action['buttonType']) ? $action['buttonType'] : TbButton::BUTTON_LINK,
-			'type' => isset($action['type']) ? $action['type'] : '',
+			'context' => isset($action['context']) ? $action['context'] : '',
 			'size' => isset($action['size']) ? $action['size'] : TbButton::SIZE_SMALL,
 			'icon' => isset($action['icon']) ? $action['icon'] : null,
 			'label' => isset($action['label']) ? $action['label'] : null,

@@ -16,8 +16,13 @@ $this->menu=array(
 
 <center><h3><?php echo Yii::t('strings', 'List User');?></h3></center>
 
-<?php $this->widget('zii.widgets.grid.CGridView', array(
+<?php 
+$this->widget('booster.widgets.TbGridView', array(
+	'id'=>'user-grid',
+	'type'=>'bordered condensed',
 	'dataProvider'=>$dataProvider,
+'emptyText' => Yii::t('strings','No results found'),
+'summaryText' => Yii::t('strings','Displaying').' {start}-{end} '.Yii::t('strings','of').' {count} '.Yii::t('strings','result(s)'),
 	'columns'=>array(
 		'id',
 		array(
@@ -43,7 +48,7 @@ $this->menu=array(
 		'token_expired_date',
 		*/
 		array(
-		'class'=>'CButtonColumn',
+'class'=>'booster.widgets.TbButtonColumn',
 		'template'=>'{view}{update}{delete}',
 		'buttons'=>array
 		(

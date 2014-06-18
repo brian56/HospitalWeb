@@ -128,6 +128,9 @@ return array(
         'bootstrap' => array(
             'class' => 'ext.yiibooster-4.components.Booster',
         ),
+//         'bootstrap' => array(
+//             'class' => 'bootstrap.components.Bootstrap',
+//         ),
         'apns' => array(
         		'class' => 'ext.apns-gcm.YiiApns',
         		'environment' => 'sandbox',
