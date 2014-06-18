@@ -19,7 +19,7 @@
 
 		<div class="span-10">
 		<?php echo $form->label($model,'is_actived'); ?>
-		<?php echo $form->dropDownList($model, 'is_actived', array('1'=>'Actived', '0'=>'Inactived')); ?>
+		<?php echo $form->dropDownList($model, 'is_actived', array('1'=> Yii::t('strings','Actived'), '0'=> Yii::t('strings','Inactived'))); ?>
 		</div>
 	</div>
 
@@ -53,7 +53,15 @@
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton('Search'); ?>
+		<?php 
+		$this->widget(
+				'booster.widgets.TbButton',
+				array(
+						'label' => Yii::t('strings','Search'),
+						'context' => 'primary',
+						'buttonType' => 'submit',
+				)
+		);?>
 	</div>
 
 <?php $this->endWidget(); ?>

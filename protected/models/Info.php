@@ -330,7 +330,7 @@ class Info extends CActiveRecord
 		{
 			$this->date_create= date('Y-m-d H:i:s');
 			if(Yii::app()->user->getState('isManager')) {
-				$this->hospital_id = Yii::app()->user->getState('hospitalId');
+				$this->hospital_id = Yii::app()->user->getState('globalId');
 			}
 		}else{
 			$this->date_update = date('Y-m-d H:i:s');

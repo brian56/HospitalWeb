@@ -47,7 +47,7 @@ echo Yii::t('strings', 'You may optionally enter a comparison operator (<, <=, >
 <?php 
 $this->widget('zii.widgets.grid.CGridView', array(
 	'id'=>'info-grid',
-	'dataProvider'=>$model->searchNotice(Yii::app()->user->getState('hospitalId')),
+	'dataProvider'=>$model->searchNotice(Yii::app()->user->getState('globalId')),
 	//'filter'=>$model,
 	'columns'=>array(
 		'id',

@@ -3,20 +3,20 @@
 /* @var $model Hospital */
 
 $this->breadcrumbs=array(
-	'Hospitals'=>array('index'),
+	 Yii::t('strings','Hospitals')=>array('index'),
 	$model->name,
 );
 
 $this->menu=array(
-	array('label'=>'List Hospital', 'url'=>array('index')),
-	array('label'=>'Create Hospital', 'url'=>array('create')),
-	array('label'=>'Update Hospital', 'url'=>array('update', 'id'=>$model->id)),
-	array('label'=>'Delete Hospital', 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
-	array('label'=>'Manage Hospital', 'url'=>array('admin')),
+	array('label'=> Yii::t('strings','List Hospital'), 'url'=>array('index')),
+	array('label'=> Yii::t('strings','Create Hospital'), 'url'=>array('create')),
+	array('label'=> Yii::t('strings','Update Hospital'), 'url'=>array('update', 'id'=>$model->id)),
+	array('label'=> Yii::t('strings','Delete Hospital'), 'url'=>'#', 'linkOptions'=>array('submit'=>array('delete','id'=>$model->id),'confirm'=>'Are you sure you want to delete this item?')),
+	array('label'=> Yii::t('strings','Manage Hospital'), 'url'=>array('admin')),
 );
 ?>
 
-<h3>View Hospital #<?php echo $model->id; ?></h3>
+<h3><?php echo  Yii::t('strings','View Hospital').' #'; echo $model->id; ?></h3>
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,

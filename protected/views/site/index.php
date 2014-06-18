@@ -22,7 +22,7 @@ else
 		<?php echo Yii::t('strings','Welcome to');?> <i>
 		<?php 
 			if (Yii::app()->user->getState('isManager')) {
-				echo CHtml::encode(Yii::app()->user->getState('hospitalName'));
+				echo CHtml::encode(Yii::app()->user->getState('globalName'));
 			}
 			else {
 				echo CHtml::encode(Yii::app ()->name);

@@ -3,19 +3,19 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-	'Infos'=>array('index'),
+	Yii::t('strings','Infos')=>array('index'),
 	$model->title=>array('view','id'=>$model->id),
-	'Update',
+	Yii::t('strings','Update'),
 );
 
 $this->menu=array(
-	array('label'=>'List Info', 'url'=>array('index')),
-	array('label'=>'Create Info', 'url'=>array('create')),
-	array('label'=>'View Info', 'url'=>array('view', 'id'=>$model->id)),
-	array('label'=>'Manage Info', 'url'=>array('admin')),
+	array('label'=>Yii::t('strings','List Info'), 'url'=>array('index')),
+	array('label'=>Yii::t('strings','Create Info'), 'url'=>array('create')),
+	array('label'=>Yii::t('strings','View Info'), 'url'=>array('view', 'id'=>$model->id)),
+	array('label'=>Yii::t('strings','Manage Info'), 'url'=>array('admin')),
 );
 ?>
 
-<h3>Update Info <?php echo $model->id; ?></h3>
+<h3><?php echo Yii::t('strings','Update Info').' #'; echo $model->id; ?></h3>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

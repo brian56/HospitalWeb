@@ -209,7 +209,7 @@ class User extends CActiveRecord
 			$this->password = md5($this->password);
 			$this->register_date= date('Y-m-d H:i:s');
 			if(Yii::app()->user->getState('isManager')) {
-				$this->hospital_id = Yii::app()->user->getState('hospitalId');
+				$this->hospital_id = Yii::app()->user->getState('globalId');
 			}
 		} else {
 			if(isset($this->password) && $this->password!='') {
@@ -234,7 +234,7 @@ class User extends CActiveRecord
 		$criteria=new CDbCriteria;
 		
 		$criteria->compare('id',$this->id);
-		$criteria->compare('hospital_id',Yii::app()->user->getState('hospitalId'));
+		$criteria->compare('hospital_id',Yii::app()->user->getState('globalId'));
 		$criteria->compare('user_level_id',1);
 		$criteria->compare('is_actived',$this->is_actived);
 		$criteria->compare('email',$this->email,true);

@@ -47,7 +47,7 @@ echo Yii::t('strings', 'You may optionally enter a comparison operator (<, <=, >
 $this->widget('booster.widgets.TbGridView', array(
 	'id'=>'info-grid',
 	'type'=>'bordered condensed',
-	'dataProvider'=>$model->searchEvent(Yii::app()->user->getState('hospitalId')),
+	'dataProvider'=>$model->searchEvent(Yii::app()->user->getState('globalId')),
 // 	'filter'=>$model,
 	'emptyText' => Yii::t('strings','No results found'),
 	'summaryText' => Yii::t('strings','Displaying').' {start}-{end} '.Yii::t('strings','of').' {count} '.Yii::t('strings','result(s)'),

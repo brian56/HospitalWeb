@@ -50,8 +50,8 @@ class UserIdentity extends CUserIdentity {
 				Yii::app ()->user->setState ( "isAdmin", true );
 			} else if ($record->user_level_id == 2) {
 				Yii::app ()->user->setState ( "isManager", true );
-            	Yii::app()->user->setState("hospitalName", $record->hospital->name);
-            	Yii::app()->user->setState("hospitalId", $record->hospital_id);
+            	Yii::app()->user->setState("globalName", $record->hospital->name);
+            	Yii::app()->user->setState("globalId", $record->hospital_id);
 			}
         }
         return !$this->errorCode;

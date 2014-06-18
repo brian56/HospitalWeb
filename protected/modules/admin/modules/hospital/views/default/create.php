@@ -3,16 +3,16 @@
 /* @var $model Hospital */
 
 $this->breadcrumbs=array(
-	'Hospitals'=>array('index'),
-	'Create',
+	 Yii::t('strings','Hospitals')=>array('index'),
+	 Yii::t('strings','Create'),
 );
 
 $this->menu=array(
-	array('label'=>'List Hospital', 'url'=>array('index')),
-	array('label'=>'Manage Hospital', 'url'=>array('admin')),
+	array('label'=> Yii::t('strings','List Hospital'), 'url'=>array('index')),
+	array('label'=> Yii::t('strings','Manage Hospital'), 'url'=>array('admin')),
 );
 ?>
 
-<h3>Create Hospital</h3>
+<h3><?php echo  Yii::t('strings','Create Hospital');?></h3>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

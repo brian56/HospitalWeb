@@ -147,7 +147,7 @@ class DefaultController extends Controller
 		$criteria = new CDbCriteria();
 		$criteria->condition = 't.hospital_id=:hospital_id';
 		$criteria->order = 'date_create DESC';
-		$criteria->params = array(':hospital_id'=>Yii::app()->user->getState('hospitalId'));
+		$criteria->params = array(':hospital_id'=>Yii::app()->user->getState('globalId'));
 		$dataProvider=new CActiveDataProvider('Info', array('criteria'=>$criteria));
 		$this->render('index',array(
 			'dataProvider'=>$dataProvider,

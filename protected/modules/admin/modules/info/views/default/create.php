@@ -3,16 +3,16 @@
 /* @var $model Info */
 
 $this->breadcrumbs=array(
-	'Infos'=>array('index'),
-	'Create',
+	Yii::t('strings','Infos')=>array('index'),
+	Yii::t('strings','Create'),
 );
 
 $this->menu=array(
-	array('label'=>'List Info', 'url'=>array('index')),
-	array('label'=>'Manage Info', 'url'=>array('admin')),
+	array('label'=>Yii::t('strings','List Info'), 'url'=>array('index')),
+	array('label'=>Yii::t('strings','Manage Info'), 'url'=>array('admin')),
 );
 ?>
 
-<h3>Create Info</h3>
+<h3><?php echo Yii::t('strings','Create Info');?></h3>
 
 <?php $this->renderPartial('_form', array('model'=>$model)); ?>

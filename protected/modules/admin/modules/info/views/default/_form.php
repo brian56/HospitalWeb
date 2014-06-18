@@ -15,14 +15,22 @@
 	'enableAjaxValidation'=>false,
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note"><?php echo Yii::t('strings', 'Fields with * are required');?></p>
 
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'info_type_id'); ?>
-		<?php echo $form->dropDownList($model, 'info_type_id', CHtml::listData(InfoType::model()->findAll(), 'id', 'name')); ?>
+		<?php 
+			$listData = CHtml::listData(InfoType::model()->findAll(),'id','name');
+			$t_listData = array();
+			foreach($listData as $key => $item)
+			{
+				$t_listData[$key]=Yii::t('strings',$item);
+			}
+			echo $form->dropDownList($model, 'info_type_id', $t_listData,array('empty'=>Yii::t('strings','- Select info type -'))); 
+		?>
 		<?php echo $form->error($model,'info_type_id'); ?>
 		</div>
 	
@@ -55,7 +63,7 @@
 		
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'user_id'); ?>
-		<?php echo $form->dropDownList($model,'user_id', array('promt'=>'Please select hospital first!')); ?>
+		<?php echo $form->dropDownList($model,'user_id', array('promt'=>Yii::t('strings', 'Please select hospital first!'))); ?>
 		<?php echo $form->error($model,'user_id'); ?>
 		</div>
 	</div>
@@ -69,7 +77,7 @@
 	
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'appointment_status'); ?>
-		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>'Pending', '1'=>'Confirmed', '-1'=>'Refused')); ?>
+		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>Yii::t('strings', 'Pending'), '1'=>Yii::t('strings', 'Confirmed'), '-1'=>Yii::t('strings', 'Rejected'))); ?>
 		<?php echo $form->error($model,'appointment_status'); ?>
 		</div>
 	</div>
@@ -83,12 +91,28 @@
 	
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'access_level_id'); ?>
-		<?php echo $form->dropDownList($model, 'access_level_id', CHtml::listData(AccessLevel::model()->findAll(), 'id', 'name')); ?>
+		<?php 
+			$listData = CHtml::listData(AccessLevel::model()->findAll(),'id','name');
+			$t_listData = array();
+			foreach($listData as $key => $item)
+			{
+				$t_listData[$key]=Yii::t('strings',$item);
+			}
+			echo $form->dropDownList($model, 'access_level_id', $t_listData); 
+		?>
 		<?php echo $form->error($model,'access_level_id'); ?>
 		</div>
 	</div>
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+		<?php 
+		$this->widget(
+				'booster.widgets.TbButton',
+				array(
+						'label' => $model->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save'),
+						'context' => 'primary',
+						'buttonType' => 'submit',
+				)
+		);?>
 	</div>
 
 <?php $this->endWidget(); ?>
