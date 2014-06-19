@@ -29,7 +29,7 @@
 		<?php 
 		if(Yii::app()->user->getState('isManager')) {
 			//echo CHtml::encode(Yii::app()->name); 
-			echo Yii::app()->user->getState('hospitalName', '');
+			echo Yii::app()->user->getState('globalName', '');
 		} else {
 			echo Yii::app()->name;
 		}
@@ -171,7 +171,7 @@
 				
 				
 				array(
-					'label'=>Yii::t('strings','Infos'), 
+					'label'=>Yii::t('strings','Info'), 
 					'url'=>array('/admin/info'), 
 					'visible' => (!Yii::app()->user->isGuest && Yii::app()->user->getState("isAdmin")), 
 					'active'=>$activedAdminInfos
