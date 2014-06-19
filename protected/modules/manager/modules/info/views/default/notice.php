@@ -45,9 +45,9 @@ echo Yii::t('strings', 'You may optionally enter a comparison operator (<, <=, >
 </div><!-- search-form -->
 
 <?php 
-$this->widget('booster.widgets.TbGridView', array(
+$this->widget('booster.widgets.TbExtendedGridView', array(
 	'id'=>'info-grid',
-	'type'=>'bordered condensed',
+	'type'=>'striped bordered condensed',
 	'dataProvider'=>$model->searchNotice(Yii::app()->user->getState('globalId')),
 // 	'filter'=>$model,
 	'emptyText' => Yii::t('strings','No results found'),
