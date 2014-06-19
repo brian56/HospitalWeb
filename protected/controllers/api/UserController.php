@@ -210,7 +210,7 @@ class UserController extends Controller {
 				$data = array('token' => $user->token );
 				Response::SuccessWithSimpleArray($this->modelName, $data);
 			} else {
-				$message = 'Register failed.asdsd';
+				$message = 'Register failed';
 				Response::Failed($message);
 			}
 		} else {

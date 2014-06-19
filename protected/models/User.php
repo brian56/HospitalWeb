@@ -172,7 +172,9 @@ class User extends CActiveRecord
 		$criteria->compare('notify',$this->notify);
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('token_expired_date',$this->token_expired_date,true);
-		$criteria->order = 't.register_date DESC';
+		if(!isset($_GET['User_sort']))
+			$criteria->order = 'register_date DESC';
+		
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 			'pagination' => array(
@@ -247,7 +249,8 @@ class User extends CActiveRecord
 		$criteria->compare('notify',$this->notify);
 		$criteria->compare('token',$this->token,true);
 		$criteria->compare('token_expired_date',$this->token_expired_date,true);
-		$criteria->order = 't.register_date DESC';
+		if(!isset($_GET['User_sort']))
+			$criteria->order = 'register_date DESC';
 		return new CActiveDataProvider($this, array(
 				'criteria'=>$criteria,
 				'pagination' => array(

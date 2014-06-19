@@ -124,7 +124,8 @@ class DefaultController extends Controller
 	public function actionIndex()
 	{
 		$criteria = new CDbCriteria();
-		$criteria->order = 't.date_create DESC';
+		if(!isset($_GET['Info_sort']))
+			$criteria->order = 't.date_create DESC';
 		$dataProvider=new CActiveDataProvider(
 			'Info',
 			array(
