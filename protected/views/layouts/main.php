@@ -206,7 +206,7 @@
 					'visible' => Yii::app()->user->isGuest, 
 					'active'=>(Yii::app()->controller->id=='site' && Yii::app()->controller->action->id=='login')),
 				array(
-					'label' => Yii::t('strings','Logout'). '(' . Yii::app()->user->name . ')', 
+					'label' => Yii::t('strings','Logout'). ' (' . Yii::app()->user->name . ')', 
 					'url' => array('/site/logout'), 
 					'visible' => !Yii::app()->user->isGuest)
 			)
