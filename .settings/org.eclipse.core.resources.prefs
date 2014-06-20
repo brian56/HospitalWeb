@@ -1,5 +1,6 @@
 eclipse.preferences.version=1
 encoding//protected/controllers/SiteController.php=UTF-8
+encoding//protected/extensions/kindeditor/assets/php/upload_json.php=UTF-8
 encoding//protected/messages/ko/strings.php=UTF-8
 encoding//protected/messages/vi/strings.php=UTF-8
 encoding//protected/models/Info.php=UTF-8
