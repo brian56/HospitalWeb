@@ -91,7 +91,15 @@ $form=$this->beginWidget('CActiveForm', array(
 	</div>
 
 	<div class="row buttons">
-		<?php echo CHtml::submitButton($infoComment->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save')); ?>
+		<?php 
+		$this->widget(
+				'booster.widgets.TbButton',
+				array(
+						'label' => $infoComment->isNewRecord ? Yii::t('strings','Create') : Yii::t('strings','Save'),
+						'context' => 'primary',
+						'buttonType' => 'submit',
+				)
+		);?>
 	</div>
 
 <?php $this->endWidget(); ?>

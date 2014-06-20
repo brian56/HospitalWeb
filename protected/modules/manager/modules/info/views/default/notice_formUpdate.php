@@ -27,14 +27,6 @@
 		</div>
 
 		<div class="span-10">
-		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>60)); ?>
-		<?php echo $form->error($model,'title'); ?>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="span-10">
 		<?php echo $form->labelEx($model,'access_level_id'); ?>
 		<?php 
 			$listData = CHtml::listData(AccessLevel::model()->findAll(),'id','name');
@@ -50,18 +42,34 @@
 	</div>
 
 	<div class="row">
+		<?php echo $form->labelEx($model,'title'); ?>
+		<?php echo $form->textField($model,'title',array('size'=>125)); ?>
+		<?php echo $form->error($model,'title'); ?>
+	</div>
+
+	<div class="row">
 		<div class="span-18">
 		<?php echo $form->labelEx($model,'content'); ?>
-		<?php 
-		$this->widget(
-						'booster.widgets.TbRedactorJs',
-						[
-						'model' => $model,
-						'id' => 'Post_content',
-						'attribute' => 'content',
-						]
-				);
-		//echo $form->textArea($model,'content',array('rows'=>3, 'cols'=>57)); ?>
+		<?php $this->widget('ext.kindeditor.KindEditorWidget',array(
+				'id'=>'Info_content',   //Textarea id
+				'language' => Yii::app()->language,
+				// Additional Parameters (Check http://www.kindsoft.net/docs/option.html)
+				'items' => array(
+						'options' => array('action' => $this->action->id, 'id' => $this->id,'PHPSESSID'=>session_id()),
+						'langType'=> Yii::app()->language,
+						'width'=>'800px',
+						'height'=>'600px',
+						'themeType'=>'simple',
+						'allowImageUpload'=>true,
+						'allowFileManager'=>true,
+						'items'=>array(
+								'undo', 'redo', 'preview','fontname', 'fontsize','cut', 'copy', 'paste', 'plainpaste', 'wordpaste','emoticons', 'image','multiimage', 'link', '|', 'forecolor', 'hilitecolor', 'bold', 'italic',
+								'underline', 'removeformat', '|', 'justifyleft', 'justifycenter',
+								'justifyright', 'insertorderedlist','insertunorderedlist', 'indent', 'outdent', '|','media', 'table', 'hr',
+								),
+				),
+		)); 
+		echo $form->textArea($model,'content',array('rows'=>3, 'cols'=>57,'hidden'=> 'true')); ?>
 		<?php echo $form->error($model,'content'); ?>
 		</div>
 	</div>

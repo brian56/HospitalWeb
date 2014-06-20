@@ -17,7 +17,7 @@
 
 	<p class="note"><?php echo Yii::t('strings','Fields with * are required');?></p>
 
-	<?php echo $form->errorSummary($info,$user); ?>
+	<?php echo $form->errorSummary(array($info, $user)); ?>
 
 	<div class="row">
 		<div class="span-10">
@@ -25,35 +25,37 @@
 		<?php echo $form->dropDownList($info, 'user_id', array(Yii::app()->user->getState('userId')=>Yii::app()->user->getState('userName'))); ?>
 		<?php echo $form->error($info,'user_id'); ?>
 		</div>
-	
-		<div class="span-10">
-		<?php echo $form->labelEx($info,'title'); ?>
-		<?php echo $form->textField($info,'title',array('size'=>60,'maxlength'=>60)); ?>
-		<?php echo $form->error($info,'title'); ?>
-		</div>
-	</div>
-
-	<div class="row">
-		<div class="span-10">
-		<?php echo $form->labelEx($info,'content'); ?>
-		<?php echo $form->textArea($info,'content',array('rows'=>3, 'cols'=>57)); ?>
-		<?php echo $form->error($info,'content'); ?>
-		</div>
-	
 		<div class="span-10">
 		<?php echo $form->labelEx($info,'appointment_date'); ?>
 		<?php echo $form->textField($info,'appointment_date',array('size'=>60,'maxlength'=>60)); ?>
 		<?php echo $form->error($info,'appointment_date'); ?>
 		</div>
+		
 	</div>
-	
+
 	<div class="row">
+		<div class="span-10">
+		<?php echo $form->labelEx($info,'title'); ?>
+		<?php echo $form->textField($info,'title',array('size'=>60)); ?>
+		<?php echo $form->error($info,'title'); ?>
+		</div>
+		
 		<div class="span-10">
 		<?php echo $form->labelEx($info,'appointment_status'); ?>
 		<?php echo $form->dropDownList($info,'appointment_status',array('0'=>Yii::t('strings','Pending'), '1'=>Yii::t('strings','Confirmed'), '-1'=>Yii::t('strings','Rejected'))); ?>
 		<?php echo $form->error($info,'appointment_status'); ?>
 		</div>
-
+		
+	</div>
+	
+	<div class="row">
+		
+		<div class="span-10">
+		<?php echo $form->labelEx($info,'content'); ?>
+		<?php echo $form->textArea($info,'content',array('rows'=>3, 'cols'=>57)); ?>
+		<?php echo $form->error($info,'content'); ?>
+		</div>
+		
 		<div class="span-10">
 		<?php echo $form->labelEx($info,'access_level_id'); ?>
 		<?php 

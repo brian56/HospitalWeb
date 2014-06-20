@@ -27,33 +27,34 @@
 		</div>
 	
 		<div class="span-10">
-		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title',array('size'=>60,'maxlength'=>60)); ?>
-		<?php echo $form->error($model,'title'); ?>
+		<?php echo $form->labelEx($model,'appointment_date'); ?>
+		<?php echo $form->textField($model,'appointment_date',array('size'=>60,'maxlength'=>60)); ?>
+		<?php echo $form->error($model,'appointment_date'); ?>
 		</div>
 	</div>
 
+	<div class="row">
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'title'); ?>
+		<?php echo $form->textField($model,'title',array('size'=>60)); ?>
+		<?php echo $form->error($model,'title'); ?>
+		</div>
+		
+		<div class="span-10">
+		<?php echo $form->labelEx($model,'appointment_status'); ?>
+		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>Yii::t('strings','Pending'), '1'=>Yii::t('strings','Confirmed'), '-1'=>Yii::t('strings','Rejected'))); ?>
+		<?php echo $form->error($model,'appointment_status'); ?>
+		</div>
+		
+	</div>
+	
 	<div class="row">
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'content'); ?>
 		<?php echo $form->textArea($model,'content',array('rows'=>3, 'cols'=>57)); ?>
 		<?php echo $form->error($model,'content'); ?>
 		</div>
-	
-		<div class="span-10">
-		<?php echo $form->labelEx($model,'appointment_date'); ?>
-		<?php echo $form->textField($model,'appointment_date',array('size'=>60,'maxlength'=>60)); ?>
-		<?php echo $form->error($model,'appointment_date'); ?>
-		</div>
-	</div>
-	
-	<div class="row">
-		<div class="span-10">
-		<?php echo $form->labelEx($model,'appointment_status'); ?>
-		<?php echo $form->dropDownList($model,'appointment_status',array('0'=>Yii::t('strings','Pending'), '1'=>Yii::t('strings','Confirmed'), '-1'=>Yii::t('strings','Rejected'))); ?>
-		<?php echo $form->error($model,'appointment_status'); ?>
-		</div>
-
+		
 		<div class="span-10">
 		<?php echo $form->labelEx($model,'access_level_id'); ?>
 		<?php 
