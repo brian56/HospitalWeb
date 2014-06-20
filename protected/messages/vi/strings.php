@@ -149,6 +149,26 @@ return array (
 	'Event' => 'Sự kiện',
 		
 	'Remember me next time' =>'Ghi nhớ cho lần đăng nhập sau',
+		
+		
+	//kindeditor text
+	'Over php.ini allowable size.'=>'Tập tin vượt quá kích thước cho phép trong php.ini',
+	'Exceed the allowable size of the form.'=>'Tập tin vượt quá kích thước cho phép của form',
+	'Picture was only partially uploaded.' => 'Hình ảnh đã được tải lên một phần',
+	'Please select a picture.' => 'Xin hãy chọn một hình ảnh',
+	'Can not find a temporary directory.' => 'Không tìm thấy thư mục tạm',
+	'Error writing file to your hard disk.' => 'Có lỗi xảy ra trong quá trình ghi tập tin vào ổ đĩa',
+	'File upload stopped by extension.' => 'Việc tải lên bị ngừng lại bởi extension',
+	'Unknown error.' => 'Có lỗi xảy ra',
+	'Please select a file.' => 'Xin hãy chọn một file',
+	'Upload directory does not exist.' => 'Thư mục tải lên không tồn tại',
+	'Upload directory is not writable.' => 'Thư mục tải lên không thể ghi',
+	'Upload failed.' => 'Tải lên bị lỗi',
+	'Upload file size exceeds the limit.' => 'Tập tin tải lên vượt quá giới hạn kích thước',
+	'Directory name is incorrect.' => 'Tên thư mục tải lên không đúng',
+	'Upload the file extension is not allowed extension. \nOnly allow ' => 'Không hỗ trợ loại tập tin tải lên. Chỉ hỗ trợ các loại sau ',
+	'Upload file failed.' => 'Tải lên tập tin không thành công',
+	
 );
  
 ?>
