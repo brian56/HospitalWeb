@@ -258,6 +258,32 @@ class User extends CActiveRecord
 				),
 		));
 	}
+	public function getHospitalManagers(){
+		$criteria=new CDbCriteria;
+		
+		$criteria->compare('id',$this->id);
+		$criteria->compare('hospital_id',Yii::app()->user->getState('globalId'));
+		$criteria->compare('user_level_id',2);
+		$criteria->compare('is_actived',$this->is_actived);
+		$criteria->compare('email',$this->email,true);
+		$criteria->compare('password',$this->password,true);
+		$criteria->compare('user_name',$this->user_name,true);
+		$criteria->compare('contact_phone',$this->contact_phone,true);
+		$criteria->compare('register_date',$this->register_date,true);
+		$criteria->compare('device_os_id',$this->device_os_id);
+		$criteria->compare('device_id',$this->device_id,true);
+		$criteria->compare('notify',$this->notify);
+		$criteria->compare('token',$this->token,true);
+		$criteria->compare('token_expired_date',$this->token_expired_date,true);
+		if(!isset($_GET['User_sort']))
+			$criteria->order = 'register_date DESC';
+		return new CActiveDataProvider($this, array(
+				'criteria'=>$criteria,
+				'pagination' => array(
+						'pageSize' => 20,
+				),
+		));
+	}
 	public function beforeDelete() {
 // 		$criteria = new CDbCriteria();
 // 		$criteria->condition = 't.user_id=:user_id';

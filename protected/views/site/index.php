@@ -42,8 +42,8 @@ else
 	<br>
 	<br>
 	<h5><?php echo Yii::t('strings','A hospital application developed by');?></h5>
+	<a href="http://www.appromobile.com"><img alt="Appromobile" src="http://appromobile.com/wp-content/uploads/2013/06/cropped-Logo.png"></a>
 	<?php 
-	echo CHtml::image('http://appromobile.com/wp-content/uploads/2013/06/cropped-Logo.png');
 // 		echo CHtml::textField('tripTotal','',array('size'=>60,'id' => 'push'));
 // 		echo "<p></p>";
 // 		$this->widget ( 'booster.widgets.TbButton', array (
